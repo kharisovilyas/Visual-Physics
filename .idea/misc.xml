@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/bottom_sheet_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/button_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/choose_buttom.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ctr_bg.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_arrow_back_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_close_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_menu_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_pause_circle_outline_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_play_arrow_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_replay_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_replay_by_bs.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_save_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_stop_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/layout_bg.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/simple_frame.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/activity_main.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_interim.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_bottom_sheet.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_bottom_sheet_output.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_frag_inform.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_bottom_sheet_output.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_frag_inform.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l3_bottom_sheet_output.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l3_frag_inform.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l3_fragment.xml" value="0.2545289855072464" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l4_bottom_sheet_output.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l4_frag_inform.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l4_fragment.xml" value="0.2545289855072464" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_bottom_sheet.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_bottom_sheet_output.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_frag_inform.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_fragment.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

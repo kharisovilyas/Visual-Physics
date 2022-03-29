@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_baseline_save_24"
+        app:layout_anchor="@+id/linearLayout"
+        app:layout_anchorGravity="end|top">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <FrameLayout
+            android:layout_width="60dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/simple_frame">
+
+        </FrameLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title_sheet"
+            android:textSize="24sp">
+
+        </TextView>
+
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+
+                    android:id="@+id/input_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="Введите значение U [м/с]"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextColor"
+                    android:layout_weight="8"/>
+
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/input_radius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Введите значение R [м]"
+                android:inputType="number"
+
+                android:textColor="@color/black"
+                android:textColorHint="@color/editTextColor" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="270dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="@string/tint_input"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+            />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

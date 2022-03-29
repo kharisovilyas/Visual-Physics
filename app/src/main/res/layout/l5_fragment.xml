@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/unit"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        app:layout_anchor="@+id/frameLayout"
+        app:layout_anchorGravity="center">
+
+    </FrameLayout>
+
+    <com.example.visualphysics10.physics.PhysicView
+        android:id="@+id/physics_view"
+        android:layout_width="match_parent"
+        android:layout_height="359dp"
+        app:layout_anchor="@+id/unit"
+        app:layout_anchorGravity="top|center">
+
+    </com.example.visualphysics10.physics.PhysicView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/confines"
+        app:layout_anchor="@id/frameLayout"
+        app:layout_anchorGravity="bottom"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="80dp"
+        app:layout_anchor="@+id/bottom_sheet_event"
+        app:layout_anchorGravity="end|bottom"
+        android:orientation="vertical">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab1_l5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            android:visibility="invisible"
+            android:scaleType="center"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab2_l5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_baseline_replay_24"
+            android:scaleType="center"
+            android:visibility="invisible" />
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/action_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:scaleX="1.20"
+            android:scaleY="1.20"
+            app:layout_anchor="@+id/frameLayout"
+            app:layout_anchorGravity="end|bottom" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/bottom_sheet_event"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/bottom_sheet_background"
+        app:layout_anchor="@+id/frameLayout"
+        app:layout_anchorGravity="bottom|center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_sheet"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/editTextColor"
+            android:textSize="24sp">
+
+        </TextView>
+
+    </FrameLayout>
+    <TextView
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+        android:id="@+id/scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@+id/frameLayout"
+        app:layout_anchorGravity="top|center" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
