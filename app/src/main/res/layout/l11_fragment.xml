@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+    <com.example.visualphysics10.physics.PhysicView
+        android:id="@+id/physicView"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/fab_size_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.example.visualphysics10.physics.PhysicView
-            android:id="@+id/physics_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/fab_size_normal"
-            android:layout_weight="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    </com.example.visualphysics10.physics.PhysicView>
 
-        </com.example.visualphysics10.physics.PhysicView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/confines"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/physicView"
+        app:layout_constraintVertical_bias="0">
 
-        <ImageView
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/confines"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/physicView"
-            app:layout_constraintVertical_bias="0">
-
-        </ImageView>
+    </ImageView>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -42,60 +41,45 @@
         android:background="@drawable/bottom_sheet_background"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/text_for_bs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/title_sheet"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/editTextColor"
-            android:textSize="24sp">
-
-        </TextView>
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_event"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab1_l5"
+            android:id="@+id/fab1_l1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/white"
+            android:scaleType="center"
             android:src="@drawable/ic_baseline_play_arrow_24"
-            android:visibility="invisible"
-            android:scaleType="center"/>
+            android:visibility="invisible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab2_l5"
+            android:id="@+id/fab2_l1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_replay_24"
             android:scaleType="center"
+            android:src="@drawable/ic_baseline_replay_24"
             android:visibility="invisible" />
+
         <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/action_menu"
+            android:id="@+id/action_menu_l1"
             android:layout_width="wrap_content"
             android:layout_height="65dp"
             android:scaleX="1.20"
-            android:scaleY="1.20"
-            app:layout_anchor="@+id/frameLayout"
-            app:layout_anchorGravity="end|bottom" />
-
+            android:scaleY="1.20" />
 
     </LinearLayout>
 

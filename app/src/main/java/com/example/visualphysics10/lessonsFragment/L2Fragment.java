@@ -58,7 +58,7 @@ public class L2Fragment extends Fragment {
         PhysicsModel.L2 = true;
         PhysicsModel.firstDraw = true;
         PhysicsData.setThreadStop(false);
-        gameView.addModelGV(0, 0, 0, 0);
+        gameView.addModelGV();
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);
@@ -67,6 +67,11 @@ public class L2Fragment extends Fragment {
         output_scale = view.findViewById(R.id.scale);
 
         Objects.requireNonNull(initializationButton(view, 1)).setOnClickListener(v -> {
+            //TODO: не получается второй раз сделать angeV = 0; - ошибка с флагами
+            if(PhysicsModel.onStopClick){
+                PhysicsModel.onStopClick2 = true;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
+            }
             if (flagInput) {
                 Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 flagInput = false;
@@ -169,6 +174,7 @@ public class L2Fragment extends Fragment {
                 startToast = false;
                 startVisual = false;
                 flagInput = true;
+                setTextForBS(view1);
                 setVisibilityFab(view1);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -176,6 +182,10 @@ public class L2Fragment extends Fragment {
             dialog.dismiss();
         });
 
+    }
+    private void setTextForBS(View view) {
+        TextView textForBS = view.findViewById(R.id.text_for_bs);
+        textForBS.setText("Сохраненные данные и ...");
     }
 
     private void setVisibilityFab(View view) {

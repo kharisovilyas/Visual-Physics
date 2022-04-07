@@ -63,8 +63,8 @@ public class L5Fragment extends Fragment {
         PhysicsModel.L5 = true;
         PhysicsData.setThreadStop(false);
         gameView = view.findViewById(R.id.physics_view);
-        gameView.addModelGVI(30, 720, 0, 0, 0);
-        gameView.addModelGVI(800, 720, 0, 0, 1);
+        gameView.addModelGVI(0);
+        gameView.addModelGVI( 1);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);
@@ -79,6 +79,7 @@ public class L5Fragment extends Fragment {
                 PhysicsData.setElasticImpulse(lessonData.elasticImpulse);
                 PhysicsData.setSpeed(lessonData.speed);
                 PhysicsData.setSpeed2(lessonData.speed2);
+                //TODO: ошибка с checkBoard(), там моделька №1 берет крайнюю координату, что плохо..
                 gameView.updateMoving(lessonData.speed, 0, 0);
                 gameView.updateMoving(-lessonData.speed2, 0, 1);
                 db.dataDao().delete(lessonData);
@@ -201,6 +202,7 @@ public class L5Fragment extends Fragment {
                 saveData();
                 startToast = false;
                 startVisual = false;
+                setTextForBS(view1);
                 setVisibilityFab(view1);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -210,6 +212,11 @@ public class L5Fragment extends Fragment {
         });
 
 
+    }
+
+    private void setTextForBS(View view) {
+        TextView textForBS = view.findViewById(R.id.text_for_bs);
+        textForBS.setText("Сохраненные данные и ...");
     }
 
     private void setVisibilityFab(View view) {

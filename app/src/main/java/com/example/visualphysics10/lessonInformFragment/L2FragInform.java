@@ -48,11 +48,7 @@ public class L2FragInform extends Fragment {
         thread.start();
     }
     private void closeLesson() {
-        requireActivity()
-                .getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new ItemFragment())
-                .setCustomAnimations(R.anim.nav_default_pop_exit_anim, R.anim.nav_default_pop_enter_anim)
-                .commit();
+        requireActivity().onBackPressed();
     }
 
     private void closeInform() {

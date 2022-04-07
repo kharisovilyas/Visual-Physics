@@ -21,9 +21,10 @@ public class PhysicsModel extends PhysicsSprite {
     public static boolean firstDraw = true;
     public static double x0;
     public static double y0;
-    int l = 150;
-    int h = 150;
+    public static int l = 150;
+    public static int h = 150;
     int index;
+    double mokV = 0;
     double[] vectorXs = new double[2];
     double vectorX;
     double vectorY;
@@ -38,6 +39,7 @@ public class PhysicsModel extends PhysicsSprite {
     public static boolean onEarth = false;
     public static boolean onBoard = false;
     public static boolean onStopClick = false;
+    public static boolean onStopClick2 = false;
     public static boolean onRestartClick = false;
     public static boolean L1 = false;
     public static boolean L2 = false;
@@ -161,7 +163,6 @@ public class PhysicsModel extends PhysicsSprite {
         }
         if (L5) {
             if (index == 0) {
-
                 paint3.setColor(Color.argb(255, 255, 95, 55));
                 paint.setColor(Color.argb(255, 255, 180, 115));
             } else if (index == 1) {
@@ -205,7 +206,7 @@ public class PhysicsModel extends PhysicsSprite {
         vectorY = vY;
     }
 
-    public void updateAC(double radius, double anglev) {
+    public void updateAC(double radius, double angleV) {
         vectorXR = radius * Math.cos((Math.PI / 180) * angle);
         vectorYR = radius * Math.sin((Math.PI / 180) * angle);
         if (angle >= 360 * (n - 1) && angle < 90 + 360 * (n - 1)) {
@@ -224,11 +225,24 @@ public class PhysicsModel extends PhysicsSprite {
         if (angle >= 360 * n) {
             n++;
         }
-        angle += anglev;
+        if(onStopClick){
+            mokV = angleV;
+            angleV = 0;
+        }
+        if(onStopClick2){
+            angleV = mokV;
+        }
+        angle += angleV;
     }
 
 
     private void checkBoard(int width, int height) {
+        //TODO: доделать в этом моменте когда у нас L5
+        if(L5 && x < 0 && vectorX - l < 0 || (x > width - l && vectorX > 0)){
+            onBoard = true;
+            onStopClick = true;
+            vectorX = 0;
+        }
         if(L4  && y >= 1000){
             vectorY = 0;
             onStopClick = true;
@@ -236,11 +250,13 @@ public class PhysicsModel extends PhysicsSprite {
         if (x < 0 && vectorX - l < 0 || (x > width - l && vectorX > 0)) {
             onBoard = true;
             onStopClick = true;
+            x = PhysicsData.getX0() - h;
             vectorX = 0;
         }
         if (y < 0 && vectorY - h < 0 || (y > height - h && vectorY > 0)) {
             onEarth = true;
             onStopClick = true;
+            y = PhysicsData.getY0() - l;
             vectorY = 0;
         }
         if(onStopClick){
@@ -274,10 +290,12 @@ public class PhysicsModel extends PhysicsSprite {
     public void updateA(double ax, double ay) {
         if (onEarth) {
             ay = 0;
+            y = PhysicsData.getY0() - h;
             vectorY = 0;
         }
         if(onBoard){
             ax  = 0;
+            x = PhysicsData.getX0() - l;
             vectorX = 0;
         }
         if(onStopClick){

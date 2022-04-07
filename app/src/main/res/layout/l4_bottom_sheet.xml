@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_weight="8"
-                    android:hint="Введите значение градусной меры угла броска"
+                    android:hint="Введите значение градусной меры угла"
                     android:inputType="number"
                     android:textColor="@color/black"
                     android:textColorHint="@color/editTextColor" />

@@ -58,7 +58,7 @@ public class L4Fragment extends Fragment {
         PhysicsModel.L4 = true;
         PhysicsData.setThreadStop(false);
         gameView = view.findViewById(R.id.physics_view);
-        gameView.addModelGV(100, 500, 0, 0);
+        gameView.addModelGV();
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);
@@ -173,6 +173,7 @@ public class L4Fragment extends Fragment {
                 saveData();
                 startToast = false;
                 startVisual = false;
+                setTextForBS(view1);
                 setVisibilityFab(view1);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -180,6 +181,11 @@ public class L4Fragment extends Fragment {
             flagInput = true;
             dialog.dismiss();
         });
+    }
+
+    private void setTextForBS(View view) {
+        TextView textForBS = view.findViewById(R.id.text_for_bs);
+        textForBS.setText("Сохраненные данные и ...");
     }
 
     private void setVisibilityFab(View view) {

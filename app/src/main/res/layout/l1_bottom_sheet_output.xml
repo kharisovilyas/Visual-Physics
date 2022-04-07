@@ -107,9 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_start_inform"
-                android:textColor="@color/editTextColor"
-                android:backgroundTint="@color/white"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textColor="@color/color_accent"
                 />
 
         </LinearLayout>

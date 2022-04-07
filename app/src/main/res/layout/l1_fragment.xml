@@ -1,102 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/unit"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        app:layout_anchor="@+id/frameLayout"
-        app:layout_anchorGravity="center">
-
-    </FrameLayout>
-
-    <com.example.visualphysics10.physics.PhysicView
-        android:id="@+id/physics_view"
-        android:layout_width="match_parent"
-        android:layout_height="359dp"
-        app:layout_anchor="@+id/unit"
-        app:layout_anchorGravity="top|center">
-
-    </com.example.visualphysics10.physics.PhysicView>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginBottom="50dp"
-        android:src="@drawable/confines"
-        app:layout_anchor="@id/frameLayout"
-        app:layout_anchorGravity="bottom">
-
-    </ImageView>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="80dp"
-        app:layout_anchor="@+id/bottom_sheet_event"
-        app:layout_anchorGravity="end|bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab1_l1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_play_arrow_24"
-            android:visibility="invisible"
-            android:scaleType="center"/>
+        <com.example.visualphysics10.physics.PhysicView
+            android:id="@+id/physics_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/fab_size_normal"
+            android:layout_weight="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab2_l1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_replay_24"
-            android:scaleType="center"
-            android:visibility="invisible" />
+        </com.example.visualphysics10.physics.PhysicView>
 
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/action_menu_l1"
-            android:layout_width="wrap_content"
-            android:layout_height="65dp"
-            android:scaleX="1.20"
-            android:scaleY="1.20"
-            app:layout_anchor="@+id/frameLayout"
-            app:layout_anchorGravity="end|bottom" />
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/confines"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/physicView"
+            app:layout_constraintVertical_bias="0">
 
+        </ImageView>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_sheet_event"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="55dp"
         android:background="@drawable/bottom_sheet_background"
-        app:layout_anchor="@+id/frameLayout"
-        app:layout_anchorGravity="bottom|center">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
+            android:id="@+id/text_for_bs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/title_sheet"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="@color/editTextColor"
@@ -106,17 +57,45 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <TextView
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center"
-        android:textSize="18sp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
-        android:id="@+id/scale"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@+id/frameLayout"
-        app:layout_anchorGravity="top|center" />
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_event"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab1_l1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="19dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            android:visibility="invisible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab2_l1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="19dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_replay_24"
+            android:visibility="invisible" />
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/action_menu_l1"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:scaleX="1.20"
+            android:scaleY="1.20" />
+
+    </LinearLayout>
 
 
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

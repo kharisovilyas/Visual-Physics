@@ -18,6 +18,16 @@ public class PhysicsData {
     public static double force;
     public static int position;
 
+    public static double getHeight() {
+        return height;
+    }
+
+    public static void setHeight(double height) {
+        PhysicsData.height = height;
+    }
+
+    public static double height;
+
     public static boolean getThreadStop() {
         return threadStop;
     }

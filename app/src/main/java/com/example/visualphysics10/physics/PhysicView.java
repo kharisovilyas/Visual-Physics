@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -44,16 +45,41 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    public void addModelGV(double x0, double y0, double vectorX, double vectorY) {
+    public void addModelGV() {
         synchronized (sprites) {
-            sprites.add(new PhysicsModel(getContext(), x0, y0, vectorX, vectorY));
+            if(PhysicsModel.L4){
+                sprites.add(new PhysicsModel(getContext(), 30, getY0() / 2, 0, 0));
+            }
+            else{
+                sprites.add(new PhysicsModel(getContext(), 0, getY0(), 0, 0));
+            }
         }
+        drawThread.interrupt();
+    }
+    private double getY0() {
+        drawThread = new MoveThread();
+        drawThread.start();
+        return PhysicsData.getY0() - PhysicsModel.l - 5;
     }
 
-    public void addModelGVI(double x0, double y0, double vectorX, double vectorY, int index) {
-        synchronized (sprites) {
-            sprites.add(new PhysicsModel(getContext(), x0, y0, vectorX, vectorY, index));
+    private double getX0() {
+        drawThread = new MoveThread();
+        drawThread.start();
+        return PhysicsData.getX0() - PhysicsModel.h;
+    }
+
+
+    public void addModelGVI(int index) {
+        if(index == 0){
+            synchronized (sprites) {
+                sprites.add(new PhysicsModel(getContext(), 50, getY0(), 0, 0, index));
+            }
+        }else{
+            synchronized (sprites) {
+                sprites.add(new PhysicsModel(getContext(), 800, getY0(), 0, 0, index));
+            }
         }
+        drawThread.interrupt();
     }
 
 
@@ -88,6 +114,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         PhysicsModel.beginning = false;
         PhysicsModel.firstDraw = false;
         PhysicsModel.onStopClick = false;
+        PhysicsModel.onStopClick2 = false;
         PhysicsModel.onRestartClick = false;
         L1Fragment.isMoving = false;
         L2Fragment.isMoving = false;
@@ -127,22 +154,16 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void updateElasticP(int index1, int index2) {
         synchronized (sprites) {
-            sprites.get(index1).updateEP(Mass(), Mass(), sprites.get(index1).getVectorX(), sprites.get(index2).getVectorX());
-            sprites.get(index2).updateEP(Mass(), Mass(), sprites.get(index2).getVectorX(), sprites.get(index1).getVectorX());
+            sprites.get(index1).updateEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index1).getVectorX(), sprites.get(index2).getVectorX());
+            sprites.get(index2).updateEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index2).getVectorX(), sprites.get(index1).getVectorX());
         }
     }
 
     public void updateNoElasticP(int index1, int index2) {
         synchronized (sprites) {
-            sprites.get(index1).updateNEP(Mass(), Mass(), sprites.get(index1).getVectorX(), sprites.get(index2).getVectorX());
-            sprites.get(index2).updateNEP(Mass(), Mass(), sprites.get(index2).getVectorX(), sprites.get(index1).getVectorX());
+            sprites.get(index1).updateNEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index1).getVectorX(), sprites.get(index2).getVectorX());
+            sprites.get(index2).updateNEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index2).getVectorX(), sprites.get(index1).getVectorX());
         }
-    }
-
-
-    public static double Mass() {
-        double m = 5;
-        return m;
     }
 
     public void updateGG(double vel, double ang, int index) {
@@ -164,8 +185,8 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
                     onDrawAsync(canvas);
                     PhysicsModel.x0 = canvas.getWidth() / 2;
                     PhysicsModel.y0 = canvas.getHeight() / 2;
-                    PhysicsData.setX0(canvas.getWidth() / 2);
-                    PhysicsData.setY0(canvas.getHeight() / 2);
+                    PhysicsData.setX0(canvas.getWidth());
+                    PhysicsData.setY0(canvas.getHeight());
                     getHolder().unlockCanvasAndPost(canvas);
                 }
             }
@@ -182,7 +203,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
                 if (L2Fragment.isMoving) {
                     PhysicsModel.firstDraw = false;
                     PhysicsModel.isL2Ended = false;
-                    updateAAC(PhysicsData.getRadius(), 5, 0);
+                    updateAAC(PhysicsData.getRadius(), PhysicsData.getSpeed(), 0);
                     Paint paint = new Paint();
                     paint.setColor(Color.BLACK);
                     paint.setStyle(Paint.Style.STROKE);
