@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.visualphysics10.InterimFragment;
@@ -30,6 +31,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class L1Fragment extends Fragment {
@@ -43,12 +45,14 @@ public class L1Fragment extends Fragment {
     public EditText input_speed;
     public EditText input_acc;
     public TextView output_speed;
+    public TextView output_speedEnd;
     public TextView output_distance;
     public TextView output_acc;
     public TextView output_scale;
     AppDataBase db = App.getInstance().getDatabase();
     LessonData lessonData = new LessonData();
     private boolean endInput = true;
+    private int countListener = 0;
 
     @SuppressLint("ResourceType")
     @Override
@@ -58,7 +62,7 @@ public class L1Fragment extends Fragment {
         gameView = view.findViewById(R.id.physics_view);
         PhysicsModel.L1 = true;
         PhysicsData.setThreadStop(false);
-        gameView.addModelGV();
+        gameView.addModelGV(0);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);
@@ -67,7 +71,8 @@ public class L1Fragment extends Fragment {
         output_scale = view.findViewById(R.id.scale);
 
         Objects.requireNonNull(initializationButton(view, 1)).setOnClickListener(v -> {
-            if (flagInput) {
+            countListener++;
+            if (flagInput && countListener % 2 != 0) {
                 Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 flagInput = false;
                 isMoving = true;
@@ -76,27 +81,23 @@ public class L1Fragment extends Fragment {
                 PhysicsData.setDistance(lessonData.distance);
                 gameView.updateMoving(lessonData.speed, 0, 0);
                 db.dataDao().delete(lessonData);
-            } else if (startToast) {
-                Toast.makeText(getContext(), "Для начала введите исходные данные", Toast.LENGTH_SHORT).show();
-            } else {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else if (countListener % 2 == 0) {
                 PhysicsModel.onStopClick = true;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else {
+                PhysicsModel.onStopClick = false;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
             }
         });
         Objects.requireNonNull(initializationButton(view, 2)).setOnClickListener(v -> {
-            if (PhysicsModel.onStopClick) {
-                PhysicsModel.onRestartClick = true;
-                startVisual = true;
-                createDialogAndRestart();
-            } else {
-                Toast.makeText(getContext(), "Дождитесь завершения или нажмите паузу", Toast.LENGTH_SHORT).show();
-            }
+            PhysicsModel.onRestartClick = true;
+            startVisual = true;
+            createDialogAndRestart();
         });
         MainActivity.isFragment = true;
         return view;
 
     }
-
     private void createDialogAndRestart() {
         if (!PhysicsData.getThreadStop()) {
             gameView.stopThread();
@@ -228,14 +229,16 @@ public class L1Fragment extends Fragment {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void toggleBottomSheetOutput() {
         View view = getLayoutInflater().inflate(R.layout.l1_bottom_sheet_output, null);
         BottomSheetDialog dialog = new BottomSheetDialog(
                 Objects.requireNonNull(getContext()), R.style.BottomSheetDialogTheme
         );
         output_speed = view.findViewById(R.id.output_speed);
-        output_speed.setText((int) lessonData.speed + " [м/с] - скорость");
+        output_speed.setText((int) lessonData.speed + " [м/с] - начальная скорость");
+        output_speedEnd = view.findViewById(R.id.output_speedEnd);
+        output_speedEnd.setText(new DecimalFormat("#0.00").format(PhysicsData.getSpeedEnd()) + " [м/с] - конечная скорость");
         output_distance = view.findViewById(R.id.output_distance);
         output_distance.setText("1000 [м] - расстояние");
         output_acc = view.findViewById(R.id.output_acc);

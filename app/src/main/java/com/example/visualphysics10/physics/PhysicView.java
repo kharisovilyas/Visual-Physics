@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -25,8 +24,6 @@ import com.example.visualphysics10.lessonsFragment.L5Fragment;
 import com.example.visualphysics10.objects.PhysicsModel;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
     private final LinkedList<PhysicsModel> sprites = new LinkedList<>();
@@ -44,42 +41,46 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         this(context, null);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if(!PhysicsModel.L2start){
+            PhysicsData.setX0(w);
+            PhysicsData.setY0(h);
+        }
+    }
 
-    public void addModelGV() {
-        synchronized (sprites) {
-            if(PhysicsModel.L4){
-                sprites.add(new PhysicsModel(getContext(), 30, getY0() / 2, 0, 0));
+    public void addModelGV(int index) {
+        if(PhysicsData.getY0()!=0){
+            synchronized (sprites) {
+                if (PhysicsModel.L4) {
+                    sprites.add(new PhysicsModel(getContext(), 0, (PhysicsData.getY0() - PhysicsModel.h - 5) / 2, 0, 0));
+                }
+                if (PhysicsModel.L5 && index == 0) {
+                    sprites.add(new PhysicsModel(getContext(), 50, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, index));
+                }
+                if (PhysicsModel.L5 && index == 1) {
+                    sprites.add(new PhysicsModel(getContext(), PhysicsData.getX0() - PhysicsModel.l - 50, PhysicsData.getY0() - PhysicsModel.h - 5, 0, 0, index));
+                } else if (!PhysicsModel.L5 && !PhysicsModel.L4) {
+                    sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0));
+                }
             }
-            else{
-                sprites.add(new PhysicsModel(getContext(), 0, getY0(), 0, 0));
+            //TODO: очень мерзкий костыль - как избавиться-
+            // 1) понять как инцилизируется height и почему при первом заходе 0
+        }else {
+            if (PhysicsModel.L4) {
+                sprites.add(new PhysicsModel(getContext(), 0, (1074 - PhysicsModel.h - 5) / 2, 0, 0));
+            }
+            if (PhysicsModel.L5 && index == 0) {
+                sprites.add(new PhysicsModel(getContext(), 50, 1074 - PhysicsModel.l - 5, 0, 0, index));
+            }
+            if (PhysicsModel.L5 && index == 1) {
+                sprites.add(new PhysicsModel(getContext(), 1080 - PhysicsModel.l - 50, 1074 - PhysicsModel.h - 5, 0, 0, index));
+            } else if (!PhysicsModel.L5 && !PhysicsModel.L4) {
+                sprites.add(new PhysicsModel(getContext(), 0, 1074 - PhysicsModel.l - 5, 0, 0));
             }
         }
-        drawThread.interrupt();
-    }
-    private double getY0() {
-        drawThread = new MoveThread();
-        drawThread.start();
-        return PhysicsData.getY0() - PhysicsModel.l - 5;
-    }
 
-    private double getX0() {
-        drawThread = new MoveThread();
-        drawThread.start();
-        return PhysicsData.getX0() - PhysicsModel.h;
-    }
-
-
-    public void addModelGVI(int index) {
-        if(index == 0){
-            synchronized (sprites) {
-                sprites.add(new PhysicsModel(getContext(), 50, getY0(), 0, 0, index));
-            }
-        }else{
-            synchronized (sprites) {
-                sprites.add(new PhysicsModel(getContext(), 800, getY0(), 0, 0, index));
-            }
-        }
-        drawThread.interrupt();
     }
 
 
@@ -91,6 +92,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         drawOk = true;
         drawThread = new MoveThread();
         drawThread.start();
+
     }
 
     @Override
@@ -106,6 +108,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         for (Sprite sprite : sprites) {
             sprite.destroy(canvas);
         }
+        PhysicsModel.L2start = false;
         PhysicsModel.onEarth = false;
         PhysicsModel.onBoard = false;
         PhysicsModel.isTouchedI = false;
@@ -130,6 +133,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         stopThread();
 
     }
+
     public void stopThread() {
         drawThread.interrupt();
     }
@@ -174,19 +178,16 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
 
     class MoveThread extends Thread {
-
         @Override
         public void run() {
             Canvas canvas;
             while (!isInterrupted()) {
-                if(drawOk){
+                if (drawOk) {
                     canvas = getHolder().lockCanvas();
                     if (canvas == null) continue;
                     onDrawAsync(canvas);
                     PhysicsModel.x0 = canvas.getWidth() / 2;
                     PhysicsModel.y0 = canvas.getHeight() / 2;
-                    PhysicsData.setX0(canvas.getWidth());
-                    PhysicsData.setY0(canvas.getHeight());
                     getHolder().unlockCanvasAndPost(canvas);
                 }
             }
@@ -218,7 +219,6 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
                         updateGG(PhysicsData.getSpeed(), PhysicsData.getAngle(), 0);
                         PhysicsModel.beginning = false;
                     }
-
                     updateAA(0, 1, 0);
                 }
                 if (L5Fragment.isMoving) {
@@ -238,6 +238,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
                         for (Sprite collision : sprites) {
                             if (collision instanceof PhysicsSprite
                                     && sprite != collision) {
+                                //TODO: обрати вмнимание на этот метод
                                 ((PhysicsSprite) collision).checkCollation(rect, velocity);
                             }
                         }

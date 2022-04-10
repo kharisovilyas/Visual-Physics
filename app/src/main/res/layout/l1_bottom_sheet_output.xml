@@ -69,6 +69,17 @@
             </TextView>
 
             <TextView
+                android:id="@+id/output_speedEnd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:textSize="21sp"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1">
+            </TextView>
+
+            <TextView
                 android:id="@+id/output_distance"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

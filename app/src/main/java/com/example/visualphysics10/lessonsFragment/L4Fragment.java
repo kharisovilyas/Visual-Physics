@@ -51,6 +51,7 @@ public class L4Fragment extends Fragment {
     AppDataBase db = App.getInstance().getDatabase();
     LessonData lessonData = new LessonData();
     private boolean endInput = true;
+    private int countListener = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,14 +59,15 @@ public class L4Fragment extends Fragment {
         PhysicsModel.L4 = true;
         PhysicsData.setThreadStop(false);
         gameView = view.findViewById(R.id.physics_view);
-        gameView.addModelGV();
+        gameView.addModelGV(0);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);
         });
         output_scale = view.findViewById(R.id.scale);
         Objects.requireNonNull(initializationButton(view, 1)).setOnClickListener(v -> {
-            if (flagInput) {
+            countListener++;
+            if (flagInput && countListener % 2 != 0) {
                 Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 flagInput = false;
                 isMoving = true;
@@ -77,13 +79,13 @@ public class L4Fragment extends Fragment {
                 gameView.updateMoving(lessonData.speed, 0, 0);
                 db.dataDao().delete(lessonData);
 
-            } else if (startToast) {
-                Toast.makeText(getContext(), "Для начала введите исходные данные", Toast.LENGTH_SHORT).show();
-            } else {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else if (countListener % 2 == 0) {
                 PhysicsModel.onStopClick = true;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else {
+                PhysicsModel.onStopClick = false;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
             }
-
         });
         Objects.requireNonNull(initializationButton(view, 2)).setOnClickListener(v -> {
             if (PhysicsModel.onStopClick) {

@@ -56,9 +56,10 @@ public class L2Fragment extends Fragment {
         View view = inflater.inflate(R.layout.l2_fragment, container, false);
         gameView = view.findViewById(R.id.physics_view);
         PhysicsModel.L2 = true;
+        PhysicsModel.L2start = true;
         PhysicsModel.firstDraw = true;
         PhysicsData.setThreadStop(false);
-        gameView.addModelGV();
+        gameView.addModelGV(0);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);

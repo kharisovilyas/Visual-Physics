@@ -3,6 +3,7 @@ package com.example.visualphysics10.database;
 public class PhysicsData {
     public static double radius;
     public static double speed;
+    public static double speedEnd;
     public static double speed2;
     public static double distance;
     public static double acc;
@@ -17,6 +18,14 @@ public class PhysicsData {
     public static double angle;
     public static double force;
     public static int position;
+
+    public static double getSpeedEnd() {
+        return speedEnd;
+    }
+
+    public static void setSpeedEnd(double speedEnd) {
+        PhysicsData.speedEnd = speedEnd;
+    }
 
     public static double getHeight() {
         return height;

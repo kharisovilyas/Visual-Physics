@@ -29,6 +29,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class L3Fragment extends Fragment {
@@ -42,11 +43,13 @@ public class L3Fragment extends Fragment {
     public EditText input_force;
     public EditText input_acc;
     public TextView output_speed;
+    public TextView output_speedEnd;
     public TextView output_force;
     public TextView output_distance;
     public TextView output_acc;
-    public TextView output_time;
+    public TextView output_mass;
     private TextView output_scale;
+    private int countListener = 0;
 
     public static double l3acc = 0;
     private FloatingActionButton saveInput;
@@ -59,16 +62,18 @@ public class L3Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.l3_fragment, container, false);
         PhysicsModel.L3 = true;
+        PhysicsModel.onStopClick = false;
         PhysicsData.setThreadStop(false);
         gameView = view.findViewById(R.id.physics_view);
-        gameView.addModelGV();
+        gameView.addModelGV(0);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);
         });
         output_scale = view.findViewById(R.id.scale);
         Objects.requireNonNull(initializationButton(view, 1)).setOnClickListener(v -> {
-            if (flagInput) {
+            countListener++;
+            if (flagInput && countListener % 2 != 0) {
                 Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 flagInput = false;
                 isMoving = true;
@@ -79,13 +84,13 @@ public class L3Fragment extends Fragment {
                 PhysicsData.setForce(lessonData.strength);
                 gameView.updateMoving(lessonData.speed, 0, 0);
                 db.dataDao().delete(lessonData);
-            } else if (startToast) {
-                Toast.makeText(getContext(), "Для начала введите исходные данные", Toast.LENGTH_SHORT).show();
-            } else {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else if (countListener % 2 == 0) {
                 PhysicsModel.onStopClick = true;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else {
+                PhysicsModel.onStopClick = false;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
             }
-
         });
         Objects.requireNonNull(initializationButton(view, 2)).setOnClickListener(v -> {
             if (PhysicsModel.onStopClick) {
@@ -102,7 +107,7 @@ public class L3Fragment extends Fragment {
     }
 
     private void createDialogAndRestart() {
-        if(!PhysicsData.getThreadStop()){
+        if (!PhysicsData.getThreadStop()) {
             gameView.stopThread();
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -124,7 +129,7 @@ public class L3Fragment extends Fragment {
                 if (endInput) {
                     fab1.setVisibility(View.VISIBLE);
                     fab2.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     fab1.setVisibility(View.GONE);
                     fab2.setVisibility(View.GONE);
                 }
@@ -203,24 +208,25 @@ public class L3Fragment extends Fragment {
         rightInput(lessonData.speed, lessonData.acc);
         db.dataDao().insert(lessonData);
     }
+
     private void rightInput(double speed, double acc) {
-        if (speed > 50 && acc > 50 && speed < 100 && acc < 100){
+        if (speed > 50 && acc > 50 && speed < 100 && acc < 100) {
             lessonData.speed = speed / 5;
             lessonData.acc = acc / 5;
-            if(output_scale!=null){
+            if (output_scale != null) {
                 output_scale.setText("Маштаб времени составляет 1 к 5");
             }
         }
-        if (speed > 100 && acc > 100){
+        if (speed > 100 && acc > 100) {
             lessonData.speed = speed / 10;
             lessonData.acc = acc / 10;
-            if(output_scale!=null){
+            if (output_scale != null) {
                 output_scale.setText("Маштаб времени составляет 1 к 10");
             }
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void toggleBottomSheetOutput() {
         View view = getLayoutInflater().inflate(R.layout.l3_bottom_sheet_output, null);
         BottomSheetDialog dialog = new BottomSheetDialog(
@@ -228,13 +234,17 @@ public class L3Fragment extends Fragment {
         );
         restartInput = view.findViewById(R.id.restart);
         output_speed = view.findViewById(R.id.output_speed);
-        output_speed.setText((int) lessonData.speed + " [м/с] - скорость");
+        output_speed.setText((int) lessonData.speed + " [м/с] - начальная скорость");
+        output_speedEnd = view.findViewById(R.id.output_speedEnd);
+        output_speedEnd.setText(new DecimalFormat("#0.00").format(PhysicsData.getSpeedEnd()) + " [м/с] - конечная скорость");
         output_distance = view.findViewById(R.id.output_distance);
         output_distance.setText("1000 [м] - расстояние");
         output_force = view.findViewById(R.id.output_force);
         output_force.setText((int) lessonData.strength + " [Н] - сила");
         output_acc = view.findViewById(R.id.output_acc);
         output_acc.setText((int) lessonData.acc + " [м/с^2] - ускорение");
+        output_mass = view.findViewById(R.id.output_mass);
+        output_mass.setText(String.format("%.2f", (int) lessonData.strength / lessonData.acc) + " [кг] - предполагаемая масса");
         restartInput.setOnClickListener(v -> {
             startVisual = true;
             PhysicsData.setThreadStop(false);

@@ -56,6 +56,7 @@ public class L5Fragment extends Fragment {
     private boolean elasticImpulse;
     AppDataBase db = App.getInstance().getDatabase();
     LessonData lessonData = new LessonData();
+    private int countListener = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,15 +64,16 @@ public class L5Fragment extends Fragment {
         PhysicsModel.L5 = true;
         PhysicsData.setThreadStop(false);
         gameView = view.findViewById(R.id.physics_view);
-        gameView.addModelGVI(0);
-        gameView.addModelGVI( 1);
+        gameView.addModelGV(0);
+        gameView.addModelGV(1);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
             switchBottomSheetFragment(startVisual, view);
         });
         output_scale = view.findViewById(R.id.scale);
         Objects.requireNonNull(initializationButton(view, 1)).setOnClickListener(v -> {
-            if (flagInput) {
+            countListener++;
+            if (flagInput && countListener % 2 != 0) {
                 Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 flagInput = false;
                 isMoving = true;
@@ -79,16 +81,18 @@ public class L5Fragment extends Fragment {
                 PhysicsData.setElasticImpulse(lessonData.elasticImpulse);
                 PhysicsData.setSpeed(lessonData.speed);
                 PhysicsData.setSpeed2(lessonData.speed2);
-                //TODO: ошибка с checkBoard(), там моделька №1 берет крайнюю координату, что плохо..
+                PhysicsData.setMass1(lessonData.mass1);
+                PhysicsData.setMass2(lessonData.mass2);
                 gameView.updateMoving(lessonData.speed, 0, 0);
                 gameView.updateMoving(-lessonData.speed2, 0, 1);
                 db.dataDao().delete(lessonData);
 
-            } else if (startToast) {
-                Toast.makeText(getContext(), "Для начала введите исходные данные", Toast.LENGTH_SHORT).show();
-            } else {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else if (countListener % 2 == 0) {
                 PhysicsModel.onStopClick = true;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            } else {
+                PhysicsModel.onStopClick = false;
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
             }
         });
         Objects.requireNonNull(initializationButton(view, 2)).setOnClickListener(v -> {
@@ -202,7 +206,6 @@ public class L5Fragment extends Fragment {
                 saveData();
                 startToast = false;
                 startVisual = false;
-                setTextForBS(view1);
                 setVisibilityFab(view1);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -212,11 +215,6 @@ public class L5Fragment extends Fragment {
         });
 
 
-    }
-
-    private void setTextForBS(View view) {
-        TextView textForBS = view.findViewById(R.id.text_for_bs);
-        textForBS.setText("Сохраненные данные и ...");
     }
 
     private void setVisibilityFab(View view) {
