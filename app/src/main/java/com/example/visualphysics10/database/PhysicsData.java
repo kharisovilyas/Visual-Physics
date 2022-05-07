@@ -1,6 +1,6 @@
 package com.example.visualphysics10.database;
 
-public class PhysicsData {
+public abstract class PhysicsData {
     public static double radius;
     public static double speed;
     public static double speedEnd;
@@ -17,7 +17,7 @@ public class PhysicsData {
     public static double turns;
     public static double angle;
     public static double force;
-    public static int position;
+
 
     public static double getSpeedEnd() {
         return speedEnd;
@@ -37,23 +37,6 @@ public class PhysicsData {
 
     public static double height;
 
-    public static boolean getThreadStop() {
-        return threadStop;
-    }
-
-    public static void setThreadStop(boolean threadStop) {
-        PhysicsData.threadStop = threadStop;
-    }
-
-    public static boolean threadStop;
-
-    public static int getPosition() {
-        return position;
-    }
-
-    public static void setPosition(int position) {
-        PhysicsData.position = position;
-    }
 
     public static double getTime() {
         return time;

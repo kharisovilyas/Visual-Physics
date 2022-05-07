@@ -25,6 +25,7 @@ import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.lessonInformFragment.L3FragInform;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
+import com.example.visualphysics10.ui.MainFlag;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -63,8 +64,8 @@ public class L3Fragment extends Fragment {
         View view = inflater.inflate(R.layout.l3_fragment, container, false);
         PhysicsModel.L3 = true;
         PhysicsModel.onStopClick = false;
-        PhysicsData.setThreadStop(false);
-        gameView = view.findViewById(R.id.physics_view);
+        MainFlag.setThreadStop(false);
+        gameView = view.findViewById(R.id.physicsView);
         gameView.addModelGV(0);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
@@ -74,7 +75,7 @@ public class L3Fragment extends Fragment {
         Objects.requireNonNull(initializationButton(view, 1)).setOnClickListener(v -> {
             countListener++;
             if (flagInput && countListener % 2 != 0) {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.pause_circle);
                 flagInput = false;
                 isMoving = true;
                 db.dataDao().getAllLiveData();
@@ -86,10 +87,10 @@ public class L3Fragment extends Fragment {
                 db.dataDao().delete(lessonData);
             } else if (countListener % 2 == 0) {
                 PhysicsModel.onStopClick = true;
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.play_arrow);
             } else {
                 PhysicsModel.onStopClick = false;
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.pause_circle);
             }
         });
         Objects.requireNonNull(initializationButton(view, 2)).setOnClickListener(v -> {
@@ -107,7 +108,7 @@ public class L3Fragment extends Fragment {
     }
 
     private void createDialogAndRestart() {
-        if (!PhysicsData.getThreadStop()) {
+        if(!MainFlag.getThreadStop()){
             gameView.stopThread();
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -115,7 +116,7 @@ public class L3Fragment extends Fragment {
                     .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
                     .addToBackStack(null)
                     .commit();
-            PhysicsData.setThreadStop(true);
+            MainFlag.setThreadStop(true);
         }
     }
 
@@ -247,14 +248,14 @@ public class L3Fragment extends Fragment {
         output_mass.setText(String.format("%.2f", (int) lessonData.strength / lessonData.acc) + " [кг] - предполагаемая масса");
         restartInput.setOnClickListener(v -> {
             startVisual = true;
-            PhysicsData.setThreadStop(false);
+            MainFlag.setThreadStop(false);
             db.dataDao().delete(lessonData);
             dialog.dismiss();
         });
         Button toNextFrag = view.findViewById(R.id.toNextFrag);
         toNextFrag.setOnClickListener(v -> {
             gameView.stopThread();
-            PhysicsData.setThreadStop(true);
+            MainFlag.setThreadStop(true);
             dialog.dismiss();
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()

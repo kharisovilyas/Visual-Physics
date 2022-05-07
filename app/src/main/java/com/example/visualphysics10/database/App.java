@@ -6,7 +6,6 @@ import androidx.room.Room;
 
 public class App extends Application {
 
-
     private AppDataBase database;
     private DataDao dataDao;
     private static App instance;

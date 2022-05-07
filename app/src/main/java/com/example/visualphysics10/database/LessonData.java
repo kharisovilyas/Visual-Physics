@@ -10,6 +10,11 @@ import java.util.Objects;
 public class LessonData {
     @PrimaryKey(autoGenerate = true)
     public long id;
+
+    public double getSpeed() {
+        return speed;
+    }
+
     @ColumnInfo(name = "speed")
     public double speed;
     @ColumnInfo(name = "speed2")

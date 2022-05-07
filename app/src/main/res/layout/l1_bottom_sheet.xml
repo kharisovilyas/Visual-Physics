@@ -15,7 +15,7 @@
         android:layout_marginEnd="14dp"
         android:backgroundTint="@color/white"
         android:scaleType="center"
-        android:src="@drawable/ic_baseline_save_24"
+        android:src="@drawable/save"
         app:layout_anchor="@+id/linearLayout"
         app:layout_anchorGravity="end|top">
 
@@ -62,7 +62,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/input_speed"
+                    android:id="@+id/inputSpeed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -73,7 +73,7 @@
                     android:textColorHint="@color/editTextColor" />
 
                 <EditText
-                    android:id="@+id/input_acc"
+                    android:id="@+id/inputAcc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

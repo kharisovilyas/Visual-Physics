@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name">VisualPhysics</string>
-    <string name="title_sheet">Исходные данные</string>
+    <string name="title_sheet">Ввод данных</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="afterSaveData">Найденные данные</string>
     <string name="output_time">Прошедшее время</string>
     <string name="button_start_inform">Хочу узнать больше</string>
     <string name="tint_input">После ввода не забудьте нажать кнопку сохранить</string>
+    <string name="titleL1">Ускорение</string>
+    <string name="titleL2">По окружности</string>
+    <string name="titleL3">II Закон Ньютона</string>
+    <string name="titleL4">Под углом к горизонту</string>
+    <string name="titleL5">Законы Сохранения Импульса</string>
+    <string name="titleL6">Сила Трения</string>
+    <string name="titleL7">Колебания</string>
+    <string name="titleL8">Приломление света</string>
     <string name="lesson1_inform">
             Скорость при различных неравномерных движениях изменяется с течением времени по-разному.
             Движение, при котором скорость тела за любые равные промежутки времени увеличивается (или уменьшается) на одно и то же значение, называют равноускоренным.
@@ -44,4 +52,15 @@
         Так, например, система тел на поверхности Земли не может считаться замкнутой из-за силы тяжести, действующей на все тела,
         однако сумма проекций импульсов на горизонтальное направление может оставаться неизменной (при отсутствии трения), т. к. в этом направлении сила тяжести не действует.
     </string>
+    <string name="title_activity_test">testActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#B1C2C5"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/Toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintVertical_bias="0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Введите скорость"
+                android:textSize="24sp"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        <EditText
+            android:background="#C7E0E8"
+            android:id="@+id/inputSpeed"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Введите значение U [м/с]"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/editTextColor"
+            />
+
+        </LinearLayout>
+
+        <EditText
+            android:background="#C7E0E8"
+            android:id="@+id/inputAcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Введите значение a [м/с^2]"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/editTextColor" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/save"
+        app:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.util.Log;
 
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 
@@ -266,6 +265,7 @@ public class PhysicsModel extends PhysicsSprite {
         if(!L5){
             if ((x < 0 && vectorX - l < 0) || (x > width - l && vectorX > 0)) {
                 onBoard = true;
+                PhysicsModel.onRestartClick = true;
                 PhysicsData.setSpeedEnd(vectorX);
                 x = PhysicsData.getX0() - h;
                 vectorX = 0;
@@ -273,6 +273,7 @@ public class PhysicsModel extends PhysicsSprite {
             }
             if ((y < 0 && vectorY - h < 0) || (y > height - h && vectorY > 0)) {
                 onEarth = true;
+                PhysicsModel.onRestartClick = true;
                 y = PhysicsData.getY0() - l;
                 vectorX = 0;
                 vectorY = 0;
@@ -315,11 +316,13 @@ public class PhysicsModel extends PhysicsSprite {
             if (onEarth) {
                 ay = 0;
                 y = PhysicsData.getY0() - h;
+                PhysicsModel.onRestartClick = true;
                 vectorY = 0;
             }
             if (onBoard) {
                 ax = 0;
                 x = PhysicsData.getX0() - l;
+                PhysicsModel.onRestartClick = true;
                 vectorX = 0;
             }
             if (onStopClick) {

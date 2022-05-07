@@ -3,6 +3,7 @@ package com.example.visualphysics10.placeholder;
 import androidx.annotation.NonNull;
 
 import com.example.visualphysics10.R;
+import com.example.visualphysics10.database.PhysicsData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class PlaceholderContent {
 
     public static final Map<String, PlaceHolderItem> ITEM_MAP = new HashMap<String, PlaceHolderItem>();
 
-    private static final int COUNT = 5;
+    private static final int COUNT = 8;
 
     static {
         for (int i = 1; i <= COUNT; i++) {
@@ -29,10 +30,24 @@ public class PlaceholderContent {
     }
 
     private static PlaceHolderItem createPlaceholderItem(int position) {
-        return new PlaceHolderItem(String.valueOf(position), switchLesson(position), switchDetails(position), switchImageView(position));
+        return new PlaceHolderItem(String.valueOf(position), switchLesson(position), switchProgress(position), switchDetails(position), switchImageView(position));
     }
 
-
+    private static String switchProgress(int position) {
+        switch (position){
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                return "Прогресс: " + PhysicsData.getSpeed();
+            default:
+                return "";
+        }
+    }
 
 
     private static String switchLesson(int position) {
@@ -45,9 +60,14 @@ public class PlaceholderContent {
                 return "II Закон Ньютона";
             case 4:
                 return "Движение под углом к горизонту";
-
             case 5:
                 return "Законы Сохранения Импульса";
+            case 6:
+                return "Сила Трения";
+            case 7:
+                return "Колебания";
+            case 8:
+                return "Приломление света";
             default: return "";
         }
     }
@@ -55,15 +75,14 @@ public class PlaceholderContent {
     private static String switchDetails(int position) {
         switch (position){
             case 1:
-                return "Определение ускорения тела движущегося прямолинейно";
             case 2:
-                return "Определение центр  -  стремительного ускорения тела";
             case 3:
-                return "Определение зависимости массы от ускорения тела";
             case 4:
-                return "Определение проекции скорости тела при движение под углом";
             case 5:
-                return "Определение импульса тел";
+            case 6:
+            case 7:
+            case 8:
+                return "Решено задач: " + PhysicsData.getSpeed();
 
             default: return "";
         }
@@ -77,6 +96,9 @@ public class PlaceholderContent {
             case 3: return R.drawable.lesson_3;
             case 4: return R.drawable.lesson_4;
             case 5: return R.drawable.lesson_5;
+            case 6: return R.drawable.lesson_6;
+            case 7: return R.drawable.lesson_7;
+            case 8: return R.drawable.lesson_8;
             default: return 0;
         }
     }
@@ -84,14 +106,16 @@ public class PlaceholderContent {
     public static class PlaceHolderItem {
         public final String id;
         public final String title;
-        public final String details;
+        public final String task;
+        public final String progress;
         public final int imageView;
 
 
-        public PlaceHolderItem(String id, String content, String details, int imageView) {
+        public PlaceHolderItem(String id, String content, String task, String progress, int imageView) {
             this.id = id;
             this.title = content;
-            this.details = details;
+            this.task = task;
+            this.progress = progress;
             this.imageView = imageView;
         }
 

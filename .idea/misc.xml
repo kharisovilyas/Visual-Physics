@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/arrow_back.xml" value="0.36875" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/bottom_sheet_background.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/button_background.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/choose_buttom.xml" value="0.3828125" />
@@ -18,16 +19,45 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_baseline_stop_24.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/layout_bg.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/menu.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/pause_circle.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/play_arrow.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/replay.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/save.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/simple_frame.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/stop.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/add.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/close.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/error.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.36875" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/ic_baseline_maps_ugc_24.xml" value="0.36875" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/ic_menu_camera.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/icon_test.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/info.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/maps_add.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/side_nav_bar.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/activity_main.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/activity_test.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/app_bar_test.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/content_test.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_gallery.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_interim.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list.xml" value="0.25" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list_dialog_list_dialog_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_slideshow.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fullscreen_dialog.xml" value="0.23981481481481481" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l11_fragment.xml" value="0.22" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_bottom_sheet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_bottom_sheet_output.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_frag_inform.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_bottom_sheet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_bottom_sheet_output.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_frag_inform.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_fragment.xml" value="0.36666666666666664" />
@@ -42,6 +72,15 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_bottom_sheet_output.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_frag_inform.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l6_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l7_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l8_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/nav_header_test.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/nav_headler.xml" value="0.2916666666666667" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/output_l1.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/recycler.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/menu/menu.xml" value="0.33611111111111114" />
       </map>
     </option>
   </component>

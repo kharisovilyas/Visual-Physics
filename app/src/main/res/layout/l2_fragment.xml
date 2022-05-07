@@ -25,7 +25,7 @@
     </FrameLayout>
 
     <com.example.visualphysics10.physics.PhysicView
-        android:id="@+id/physics_view"
+        android:id="@+id/physicsView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_anchor="@+id/unit"
@@ -48,7 +48,7 @@
             android:layout_marginStart="9dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_play_arrow_24"
+            android:src="@drawable/play_arrow"
             android:visibility="invisible"
             android:scaleType="center"/>
 
@@ -59,7 +59,7 @@
             android:layout_marginStart="9dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_replay_24"
+            android:src="@drawable/replay"
             android:scaleType="center"
             android:visibility="invisible" />
         <com.getbase.floatingactionbutton.FloatingActionsMenu

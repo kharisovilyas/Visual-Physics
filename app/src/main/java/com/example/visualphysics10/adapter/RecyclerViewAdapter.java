@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.FragmentItemBinding;
 import com.example.visualphysics10.placeholder.PlaceholderContent;
+import com.example.visualphysics10.ui.MainFlag;
 
 import java.util.List;
 
@@ -38,7 +38,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).title);
-        holder.mContentView.setText(mValues.get(position).details);
+        holder.task.setText(mValues.get(position).task);
+        holder.progress.setText(mValues.get(position).progress);
         holder.imageView.setImageResource(mValues.get(position).imageView);
     }
 
@@ -54,7 +55,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView task;
+        public final TextView progress;
         public PlaceholderContent.PlaceHolderItem mItem;
         public int position;
         OnLessonListener onLessonListener;
@@ -62,7 +64,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(FragmentItemBinding binding, OnLessonListener onLessonListener) {
             super(binding.getRoot());
             mIdView = binding.title;
-            mContentView = binding.description;
+            task = binding.task;
+            progress = binding.progress;
             this.onLessonListener = onLessonListener;
             imageView = binding.imageOfLessons;
             itemView.setOnClickListener(this);
@@ -71,14 +74,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @NonNull
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + task.getText() + "'";
         }
 
         @Override
         public void onClick(View v) {
             position = getLayoutPosition();
             onLessonListener.onLessonClick(getLayoutPosition());
-            PhysicsData.setPosition(getLayoutPosition());
+            MainFlag.setPosition(getLayoutPosition());
         }
     }
     public interface OnLessonListener{

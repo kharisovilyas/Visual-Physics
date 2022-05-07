@@ -2,76 +2,89 @@ package com.example.visualphysics10;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.visualphysics10.adapter.ItemFragment;
-import com.example.visualphysics10.database.PhysicsData;
-import com.example.visualphysics10.lessonsFragment.L1Fragment;
+import com.example.visualphysics10.databinding.ActivityMainBinding;
 import com.example.visualphysics10.physics.PhysicView;
+import com.example.visualphysics10.ui.MainFlag;
+import com.example.visualphysics10.ui.MainHelper;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainHelper {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     ItemFragment itemFragment = new ItemFragment();
     public static boolean isFragment;
     private PhysicView gameView;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(LayoutInflater.from(this));
+        setContentView(binding.getRoot());
         if (itemFragment != null) {
             fragmentTransaction.add(R.id.container, itemFragment).commit();
         }
-        addActionBar(false);
     }
 
-
-    public void addActionBar(boolean isFragment) {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        toolbar.setNavigationOnClickListener(v -> {
-            onBackPressed();
-        });
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        binding = null;
     }
 
     @Override
     public void onBackPressed() {
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        gameView = findViewById(R.id.physics_view);
-        if (!PhysicsData.getThreadStop()){
+        gameView = findViewById(R.id.physicsView);
+        if (!MainFlag.getThreadStop()) {
             gameView.stopThread();
-            PhysicsData.setThreadStop(true);
+            MainFlag.setThreadStop(true);
         }
-        if (isFragment) {
-            new AlertDialog.Builder(this)
+
+        if(MainActivity.isFragment){
+            onBackPressedFragment();
+        }else{
+            new MaterialAlertDialogBuilder(this)
                     .setTitle("Выход")
-                    .setMessage("Вы уверены что хотите завершить урок ?")
+                    .setMessage("Вы уверены что хотите выйти из приложения ?")
                     .setCancelable(false)
-                    .setPositiveButton("Завершить", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Выйти", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            if (itemFragment != null) {
-                                ft.replace(R.id.container, itemFragment)
-                                        .setCustomAnimations(R.anim.nav_default_pop_exit_anim, R.anim.nav_default_pop_enter_anim)
-                                        .commit();
-                            }
+                            MainActivity.this.finish();
                         }
                     })
-                    .setNegativeButton("Отмена", null)
+                    .setNegativeButton("Назад", null)
                     .show();
-        }else {
-            MainActivity.this.finish();
         }
+    }
+    @Override
+    public void onBackPressedFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        if (!MainFlag.getThreadStop()) {
+            gameView.stopThread();
+            MainFlag.setThreadStop(true);
+        }
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Выход")
+                .setMessage("Вы уверены что хотите завершить урок ?")
+                .setCancelable(false)
+                .setPositiveButton("Завершить", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        new ItemFragment();
+                        ft.replace(R.id.container, new ItemFragment())
+                                .setCustomAnimations(R.anim.nav_default_pop_exit_anim, R.anim.nav_default_pop_enter_anim)
+                                .commit();
+                    }
+                })
+                .setNegativeButton("Отмена", null)
+                .show();
     }
 }

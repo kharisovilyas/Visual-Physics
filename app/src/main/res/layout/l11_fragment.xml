@@ -6,49 +6,57 @@
     android:layout_height="match_parent">
 
 
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <com.example.visualphysics10.physics.PhysicView
-        android:id="@+id/physicView"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/fab_size_normal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.example.visualphysics10.physics.PhysicView>
+        <com.example.visualphysics10.physics.PhysicView
+            android:id="@+id/physicView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/fab_size_normal"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:src="@drawable/confines"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/physicView"
-        app:layout_constraintVertical_bias="0">
+        </com.example.visualphysics10.physics.PhysicView>
 
-    </ImageView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/confines"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/physicView"
+            app:layout_constraintVertical_bias="0">
+
+        </ImageView>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_sheet_event"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@drawable/bottom_sheet_background"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_event"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -60,7 +68,7 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/white"
             android:scaleType="center"
-            android:src="@drawable/ic_baseline_play_arrow_24"
+            android:src="@drawable/play_arrow"
             android:visibility="invisible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -71,7 +79,7 @@
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
             android:scaleType="center"
-            android:src="@drawable/ic_baseline_replay_24"
+            android:src="@drawable/replay"
             android:visibility="invisible" />
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu

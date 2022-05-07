@@ -9,16 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
 
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.adapter.ItemFragment;
-import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.lessonsFragment.L1Fragment;
 import com.example.visualphysics10.lessonsFragment.L2Fragment;
 import com.example.visualphysics10.lessonsFragment.L3Fragment;
 import com.example.visualphysics10.lessonsFragment.L4Fragment;
 import com.example.visualphysics10.lessonsFragment.L5Fragment;
+import com.example.visualphysics10.ui.MainFlag;
 
 public class L1FragInform extends Fragment {
     TextView inform;
@@ -56,7 +54,7 @@ public class L1FragInform extends Fragment {
     private void closeInform() {
         requireActivity()
                 .getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, switchPosition(PhysicsData.getPosition()))
+                .replace(R.id.container, switchPosition(MainFlag.getPosition()))
                 .setCustomAnimations(R.anim.nav_default_pop_exit_anim, R.anim.nav_default_pop_enter_anim)
                 .commit();
     }

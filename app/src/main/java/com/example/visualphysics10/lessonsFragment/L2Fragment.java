@@ -2,7 +2,6 @@ package com.example.visualphysics10.lessonsFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.lessonInformFragment.L2FragInform;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
+import com.example.visualphysics10.ui.MainFlag;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,11 +54,11 @@ public class L2Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.l2_fragment, container, false);
-        gameView = view.findViewById(R.id.physics_view);
+        gameView = view.findViewById(R.id.physicsView);
         PhysicsModel.L2 = true;
         PhysicsModel.L2start = true;
         PhysicsModel.firstDraw = true;
-        PhysicsData.setThreadStop(false);
+        MainFlag.setThreadStop(false);
         gameView.addModelGV(0);
         initializationButton(view, switchFab);
         view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
@@ -71,10 +71,10 @@ public class L2Fragment extends Fragment {
             //TODO: не получается второй раз сделать angeV = 0; - ошибка с флагами
             if(PhysicsModel.onStopClick){
                 PhysicsModel.onStopClick2 = true;
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.pause_circle);
             }
             if (flagInput) {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.pause_circle);
                 flagInput = false;
                 isMoving = true;
                 db.dataDao().getAllLiveData();
@@ -85,7 +85,7 @@ public class L2Fragment extends Fragment {
             } else if (startToast) {
                 Toast.makeText(getContext(), "Для начала введите исходные данные", Toast.LENGTH_SHORT).show();
             } else {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.ic_baseline_play_arrow_24);
+                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.play_arrow);
                 PhysicsModel.onStopClick = true;
             }
 
@@ -104,7 +104,7 @@ public class L2Fragment extends Fragment {
 
     }
     private void createDialogAndRestart() {
-        if(!PhysicsData.getThreadStop()){
+        if(!MainFlag.getThreadStop()){
             gameView.stopThread();
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -112,7 +112,7 @@ public class L2Fragment extends Fragment {
                     .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
                     .addToBackStack(null)
                     .commit();
-            PhysicsData.setThreadStop(true);
+            MainFlag.setThreadStop(true);
         }
     }
 
@@ -238,7 +238,7 @@ public class L2Fragment extends Fragment {
         toNextFrag.setOnClickListener(v -> {
             dialog.dismiss();
             gameView.stopThread();
-            PhysicsData.setThreadStop(true);
+            MainFlag.setThreadStop(true);
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
