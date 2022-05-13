@@ -33,13 +33,6 @@ public class MainActivity extends AppCompatActivity implements MainHelper {
         }
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
-
     @Override
     public void onBackPressed() {
         gameView = findViewById(R.id.physicsView);
@@ -50,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainHelper {
 
         if(MainActivity.isFragment){
             onBackPressedFragment();
+
         }else{
             new MaterialAlertDialogBuilder(this)
                     .setTitle("Выход")
@@ -78,13 +72,19 @@ public class MainActivity extends AppCompatActivity implements MainHelper {
                 .setCancelable(false)
                 .setPositiveButton("Завершить", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        new ItemFragment();
                         ft.replace(R.id.container, new ItemFragment())
-                                .setCustomAnimations(R.anim.nav_default_pop_exit_anim, R.anim.nav_default_pop_enter_anim)
+                                .setCustomAnimations(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                                 .commit();
+                        dialog.dismiss();
                     }
                 })
                 .setNegativeButton("Отмена", null)
                 .show();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }

@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,14 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
 import com.example.visualphysics10.databinding.FragmentItemListBinding;
+import com.example.visualphysics10.itemUi.TaskListFragment;
 import com.example.visualphysics10.lessonsFragment.L1Fragment;
 import com.example.visualphysics10.lessonsFragment.L2Fragment;
 import com.example.visualphysics10.lessonsFragment.L3Fragment;
 import com.example.visualphysics10.lessonsFragment.L4Fragment;
 import com.example.visualphysics10.lessonsFragment.L5Fragment;
-import com.example.visualphysics10.lessonsFragment.L6Fragment;
-import com.example.visualphysics10.lessonsFragment.L7Fragment;
-import com.example.visualphysics10.lessonsFragment.L8Fragment;
 import com.example.visualphysics10.placeholder.PlaceholderContent;
 
 import java.util.ArrayList;
@@ -80,6 +79,14 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
         }
         recyclerView.setAdapter(new RecyclerViewAdapter(PlaceholderContent.ITEMS, this));
         addToolbar();
+        binding.forOurTest.setOnClickListener(v->{
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                    .replace(R.id.container, new TaskListFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     private void addToolbar() {
@@ -102,9 +109,10 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
 
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right)
                 .replace(R.id.container, Objects.requireNonNull(switchFragment(position)))
                 .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 
@@ -115,9 +123,6 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
             case 2: return new L3Fragment();
             case 3: return new L4Fragment();
             case 4: return new L5Fragment();
-            case 5: return new L6Fragment();
-            case 6: return new L7Fragment();
-            case 7: return new L8Fragment();
             default:
                 return new Fragment();
         }

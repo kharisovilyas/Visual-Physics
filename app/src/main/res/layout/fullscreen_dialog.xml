@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#B1C2C5"
+    android:background="@drawable/background"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -33,31 +33,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
-        app:layout_constraintVertical_bias="0">
+        app:layout_constraintVertical_bias="0.3">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:padding="4dp"
-            android:orientation="horizontal">
-            <TextView
-                android:text="Введите скорость"
-                android:textSize="24sp"
-                android:layout_gravity="center"
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content">
 
-            </TextView>
-
-        <EditText
-            android:background="#C7E0E8"
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputSpeed"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:maxLines="1"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
             android:hint="Введите значение U [м/с]"
             android:inputType="numberDecimal"
             android:minHeight="48dp"
@@ -65,11 +51,11 @@
             android:textColorHint="@color/editTextColor"
             />
 
-        </LinearLayout>
-
-        <EditText
-            android:background="#C7E0E8"
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputAcc"
+            android:maxLines="1"
+            android:gravity="center"
+            android:backgroundTint="@color/primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -93,4 +79,18 @@
         app:layout_constraintEnd_toEndOf="parent">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tint_input"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="0.1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

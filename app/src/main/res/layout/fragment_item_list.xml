@@ -31,13 +31,24 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".adapter.ItemFragment"
             tools:listitem="@layout/fragment_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:src="@drawable/check_24"
+            android:id="@+id/forOurTest"
+            android:layout_gravity="bottom|end"
+            android:padding="20dp"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
+        app:itemTextColor="#000000"
         android:layout_width="wrap_content"
         android:id="@+id/navigationView"
         android:layout_gravity="start"
-        android:background="#5A96F3"
+        android:background="@color/editTextColor"
         app:menu="@menu/menu"
         android:layout_height="match_parent">
         <include

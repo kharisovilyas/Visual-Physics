@@ -16,7 +16,7 @@ public class PlaceholderContent {
 
     public static final Map<String, PlaceHolderItem> ITEM_MAP = new HashMap<String, PlaceHolderItem>();
 
-    private static final int COUNT = 8;
+    private static final int COUNT = 5;
 
     static {
         for (int i = 1; i <= COUNT; i++) {
@@ -40,9 +40,6 @@ public class PlaceholderContent {
             case 3:
             case 4:
             case 5:
-            case 6:
-            case 7:
-            case 8:
                 return "Прогресс: " + PhysicsData.getSpeed();
             default:
                 return "";
@@ -62,12 +59,6 @@ public class PlaceholderContent {
                 return "Движение под углом к горизонту";
             case 5:
                 return "Законы Сохранения Импульса";
-            case 6:
-                return "Сила Трения";
-            case 7:
-                return "Колебания";
-            case 8:
-                return "Приломление света";
             default: return "";
         }
     }
@@ -79,9 +70,6 @@ public class PlaceholderContent {
             case 3:
             case 4:
             case 5:
-            case 6:
-            case 7:
-            case 8:
                 return "Решено задач: " + PhysicsData.getSpeed();
 
             default: return "";
@@ -96,9 +84,6 @@ public class PlaceholderContent {
             case 3: return R.drawable.lesson_3;
             case 4: return R.drawable.lesson_4;
             case 5: return R.drawable.lesson_5;
-            case 6: return R.drawable.lesson_6;
-            case 7: return R.drawable.lesson_7;
-            case 8: return R.drawable.lesson_8;
             default: return 0;
         }
     }

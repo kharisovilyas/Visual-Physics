@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "652027410996",
+    "firebase_url": "https://visualphysics-59f0c-default-rtdb.firebaseio.com",
+    "project_id": "visualphysics-59f0c",
+    "storage_bucket": "visualphysics-59f0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652027410996:android:9309d061e198167a92e861",
+        "android_client_info": {
+          "package_name": "com.example.visualphysics10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652027410996-5qlfdofgs083pdrho8v7ld4cpek3jpsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ7wf43OAi5qkrhnPquH5E8b87Q9JzIII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652027410996-5qlfdofgs083pdrho8v7ld4cpek3jpsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

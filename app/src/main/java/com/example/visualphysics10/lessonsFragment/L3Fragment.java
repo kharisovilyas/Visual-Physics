@@ -15,14 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.visualphysics10.InterimFragment;
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
 import com.example.visualphysics10.database.App;
 import com.example.visualphysics10.database.AppDataBase;
 import com.example.visualphysics10.database.LessonData;
 import com.example.visualphysics10.database.PhysicsData;
-import com.example.visualphysics10.lessonInformFragment.L3FragInform;
+import com.example.visualphysics10.inform.InterimFragment;
+import com.example.visualphysics10.lessonInformFragment.L1FragInform;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
 import com.example.visualphysics10.ui.MainFlag;
@@ -55,8 +55,9 @@ public class L3Fragment extends Fragment {
     public static double l3acc = 0;
     private FloatingActionButton saveInput;
     private FloatingActionButton restartInput;
+    //TODO:помни специально удалил
     AppDataBase db = App.getInstance().getDatabase();
-    LessonData lessonData = new LessonData();
+    LessonData lessonData;
     private boolean endInput = true;
 
     @Override
@@ -260,7 +261,7 @@ public class L3Fragment extends Fragment {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
-                    .replace(R.id.container, new L3FragInform())
+                    .replace(R.id.container, new L1FragInform())
                     .addToBackStack(null)
                     .commit();
         });

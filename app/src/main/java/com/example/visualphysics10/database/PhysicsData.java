@@ -1,6 +1,8 @@
 package com.example.visualphysics10.database;
 
-public abstract class PhysicsData {
+import java.io.Serializable;
+
+public class PhysicsData implements Serializable {
     public static double radius;
     public static double speed;
     public static double speedEnd;
@@ -17,7 +19,26 @@ public abstract class PhysicsData {
     public static double turns;
     public static double angle;
     public static double force;
+    public static double height;
+    public static double time;
 
+    public PhysicsData(double speed, double speed2, double distance, double time,
+                      double acc, double radius, double mass1, double mass2, double x, double y,
+                      double strength, double angle, boolean elasticImpulse) {
+        PhysicsData.speed = speed;
+        PhysicsData.speed2 = speed2;
+        PhysicsData.distance = distance;
+        PhysicsData.time = time;
+        PhysicsData.acc = acc;
+        PhysicsData.radius = radius;
+        PhysicsData.mass1 = mass1;
+        PhysicsData.mass2 = mass2;
+        x0 = x;
+        y0 = y;
+        force= strength;
+        PhysicsData.angle = angle;
+        PhysicsData.elasticImpulse = elasticImpulse;
+    }
 
     public static double getSpeedEnd() {
         return speedEnd;
@@ -35,8 +56,6 @@ public abstract class PhysicsData {
         PhysicsData.height = height;
     }
 
-    public static double height;
-
 
     public static double getTime() {
         return time;
@@ -46,7 +65,6 @@ public abstract class PhysicsData {
         PhysicsData.time = time;
     }
 
-    public static double time;
 
     public static double getAngle() {
         return angle;
@@ -96,8 +114,6 @@ public abstract class PhysicsData {
     public static void setSpeed2(double speed2) {
         PhysicsData.speed2 = speed2;
     }
-
-
 
     public boolean isImpact() {
         return impact;

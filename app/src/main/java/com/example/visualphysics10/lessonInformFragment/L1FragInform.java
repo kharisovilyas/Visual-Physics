@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -27,14 +26,7 @@ public class L1FragInform extends Fragment {
         View view = inflater.inflate(R.layout.l1_frag_inform, container, false);
         inform = view.findViewById(R.id.textView_1);
         setText(inform);
-        Button closeInform = view.findViewById(R.id.closeInform);
-        Button closeLesson = view.findViewById(R.id.closeLesson);
-        closeInform.setOnClickListener(v->{
-            closeInform();
-        });
-        closeLesson.setOnClickListener(v->{
-            closeLesson();
-        });
+
         return view;
     }
     private void setText(TextView text) {

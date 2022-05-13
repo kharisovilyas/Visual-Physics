@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/title_sheet"
+            android:text="@string/title_input"
             android:textSize="24sp">
 
         </TextView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient android:angle="360"
+        android:endColor="#20B6DD"
+        android:startColor="#00BFFF">
+
+    </gradient>
+    <corners
+        android:topLeftRadius="85dp"
+        android:topRightRadius="85dp"
+        android:bottomRightRadius="85dp"
+        android:bottomLeftRadius="85dp" tools:ignore="StateListReachable" />
+</selector>

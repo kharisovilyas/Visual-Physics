@@ -4,6 +4,7 @@ public abstract class MainFlag {
     public static boolean visibleInfo;
     public static boolean threadStop;
     public static int position;
+    public static boolean onRestartClick;
 
     public boolean isVisibleInfo() {
         return visibleInfo;
@@ -28,4 +29,5 @@ public abstract class MainFlag {
     public static void setPosition(int position) {
         MainFlag.position = position;
     }
+
 }

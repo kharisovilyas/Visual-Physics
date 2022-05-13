@@ -45,7 +45,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="@string/title_sheet"
+            android:text="@string/title_input"
             android:textSize="24sp">
 
         </TextView>
