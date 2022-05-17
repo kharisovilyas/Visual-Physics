@@ -45,15 +45,19 @@
 
     <com.google.android.material.navigation.NavigationView
         app:itemTextColor="#000000"
+        android:background="@color/white"
         android:layout_width="wrap_content"
         android:id="@+id/navigationView"
         android:layout_gravity="start"
-        android:background="@color/editTextColor"
+        app:itemIconTint="@color/icon_color"
+        app:itemIconSize="35dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        app:itemHorizontalPadding="20dp"
+        app:itemVerticalPadding="20dp"
         app:menu="@menu/menu"
-        android:layout_height="match_parent">
-        <include
-            layout="@layout/nav_headler">
-        </include>
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/nav_headler">
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

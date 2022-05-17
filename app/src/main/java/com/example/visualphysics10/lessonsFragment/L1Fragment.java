@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +38,8 @@ import com.example.visualphysics10.ui.MainFlag;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
@@ -48,14 +55,11 @@ public class L1Fragment extends Fragment {
     private EditText input_acc;
     private FloatingActionButton info;
     private FloatingActionButton play;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation;
     AppDataBase db = App.getInstance().getDatabase();
-
-    //TODO:
-    //        ПЕРЕДЕЛАТЬ ЭТО МЕСТО, пока написан костыль...
     LessonData lessonData = FullScreenDialog.getInstance();
-    //TODO:
-    private boolean endInput = true;
-    private int countListener = 0;
+    private int count = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,21 +75,16 @@ public class L1Fragment extends Fragment {
         MainActivity.isFragment = true;
         PhysicsModel.L1 = true;
         MainFlag.setThreadStop(false);
-        gameView.addModelGV(0);
-        FloatingActionButton play = binding.play;
+        gameView.addModelGV();
+        play = binding.play;
         FloatingActionButton restart = binding.restart;
         FloatingActionButton startInput = binding.startInput;
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
         play.setOnClickListener(v -> {
-            play.setImageResource(R.drawable.pause_circle);
-            flagInput = false;
-            isMoving = true;
-            db.dataDao().getAllLiveData();
-            info.setVisibility(View.VISIBLE);
-            PhysicsData.setAcc(lessonData.acc);
-            PhysicsData.setDistance(lessonData.distance);
-            gameView.updateMoving(lessonData.speed, 0, 0);
+            if (count % 2 == 0) playClick();
+            else pauseClick();
+            count++;
         });
         restart.setOnClickListener(v -> {
             startVisual = true;
@@ -96,7 +95,7 @@ public class L1Fragment extends Fragment {
             createdFullScreenDialog();
         });
 
-        startTest.setOnClickListener(v->{
+        startTest.setOnClickListener(v -> {
             startTesting();
         });
 
@@ -104,6 +103,49 @@ public class L1Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
+        outputData();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void outputData() {
+        drawerLayout = binding.drawerLayout;
+        navigation = binding.navigationView;
+        addToolbarNav();
+        MaterialTextView outputSpeed = binding.outputSpeed;
+        MaterialTextView outputAcc = binding.outputAcc;
+        MaterialTextView outputSpeedEnd = binding.outputSpeedEnd;
+        db.dataDao().getAllLiveData();
+        String string = "Вы ввели значение скорости тела - " + lessonData.speed + "[м/с]";
+        String string2 = "Вы ввели значение ускорения тела - " + lessonData.acc + "[м/с^2]";
+        String string3 = "Значение скорости перед остановкой - " + PhysicsData.getSpeedEnd() + "[м/с]";
+        outputSpeed.setText(string);
+        outputAcc.setText(string2);
+        outputSpeedEnd.setText(string3);
+        //work
+    }
+
+    private void addToolbarNav() {
+        Toolbar toolbar = binding.toolbarNavView;
+        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        toolbar.setTitle("Введенные данные");
+    }
+
+    private void pauseClick() {
+        play.setImageResource(R.drawable.play_arrow);
+        gameView.stopDraw(0);
+
+    }
+
+    private void playClick() {
+        play.setImageResource(R.drawable.pause_circle);
+        flagInput = false;
+        isMoving = true;
+        db.dataDao().getAllLiveData();
+        info.setVisibility(View.VISIBLE);
+        PhysicsData.setAcc(lessonData.acc);
+        PhysicsData.setSpeed(lessonData.speed);
+        gameView.updateMoving(lessonData.speed, 0, 0);
+        outputData();
     }
 
 
@@ -128,30 +170,38 @@ public class L1Fragment extends Fragment {
 
     @SuppressLint("ResourceType")
     private void createDialog() {
+        play.setImageResource(R.drawable.play_arrow);
+        count += count % 2;
         new MaterialAlertDialogBuilder(Objects.requireNonNull(getContext()))
                 .setTitle("Перезапуск")
                 .setMessage("Сохранить введенные данные?")
                 .setCancelable(false)
                 .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        restartAll();
+                        gameView.restartClick(0);
                     }
                 })
-                .setNegativeButton("Записать новые", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Ввести новые", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        restartAll();
-                        db.dataDao().delete(lessonData);
+                        gameView.restartClick(0);
+                        lessonData = new LessonData();
                     }
                 })
                 .show();
     }
 
     private void restartAll() {
-
+        gameView.restartClick(0);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.icon_toolbar, menu);
+    }
 
+    @SuppressLint("RestrictedApi")
     private void addToolbar() {
         Toolbar toolbar = binding.toolbar;
         ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
@@ -160,14 +210,25 @@ public class L1Fragment extends Fragment {
         toolbar.setNavigationOnClickListener(v -> {
             getActivity().onBackPressed();
         });
+        toolbar.inflateMenu(R.menu.icon_toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                createDrawer();
+                return true;
+            }
+        });
     }
 
 
+    private void createDrawer() {
+        DrawerLayout drawerLayout = binding.drawerLayout;
+        drawerLayout.openDrawer(GravityCompat.END);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     public void toggleBottomSheetInput() {

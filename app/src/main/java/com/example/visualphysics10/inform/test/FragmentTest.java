@@ -1,6 +1,7 @@
 package com.example.visualphysics10.inform.test;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.visualphysics10.net.InternetConnection;
 import com.example.visualphysics10.net.TestingList;
 import com.example.visualphysics10.net.Testings;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class FragmentTest extends Fragment {
     private FragmentTestBinding binding;
     private ArrayList<Testings> taskList;
     private MaterialTextView taskTextView;
+    private boolean right;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,28 @@ public class FragmentTest extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         addToolbar();
         getDataFromNetwork();
+        binding.saveAnswer.setOnClickListener(v->{
+            setAnswer();
+        });
     }
+
+    private void outputMark() {
+        if (right){
+            binding.containerAnswer.setBackgroundResource(R.color.blue);
+        }
+        Log.d("aaa", right+"");
+    }
+
+    private void setAnswer() {
+        TextInputEditText answer = binding.answer;
+        try{
+            right = RightAnswer.task1FromL1(Double.parseDouble(Objects.requireNonNull(answer.getText()).toString()));
+            outputMark();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     private void getDataFromNetwork() {
         if(InternetConnection.checkConnection(Objects.requireNonNull(getContext()))){
@@ -81,7 +105,7 @@ public class FragmentTest extends Fragment {
         toolbar.setNavigationIcon(R.drawable.arrow_back);
         toolbar.setTitle(R.string.test);
         toolbar.setNavigationOnClickListener(v -> {
-            //TODO: выходит из приложения
+            requireActivity().onBackPressed();
         });
     }
 }

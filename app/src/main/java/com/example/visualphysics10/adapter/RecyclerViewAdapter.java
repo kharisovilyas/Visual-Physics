@@ -89,15 +89,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageView = binding.imageOfLessons;
             itemView.setOnClickListener(this);
         }
-        public ViewHolder(FragmentItemBinding binding, OnLessonListener onLessonListener, String tag) {
-            super(binding.getRoot());
-            mIdView = binding.title;
-            description = binding.discription;
-            progress = binding.progress;
-            this.onLessonListener = onLessonListener;
-            imageView = binding.imageOfLessons;
-            itemView.setOnClickListener(this);
-        }
 
         @NonNull
         @Override

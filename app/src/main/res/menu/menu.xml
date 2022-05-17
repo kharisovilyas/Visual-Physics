@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:title="">
-    </item>
-    <item
-        android:title=""/>
-    <item
-        android:title="">
-    </item>
-    <item
-        android:title="">
-    </item>
-    <item
-        android:icon="@drawable/account_circle_24"
-        android:title="@string/menu_1"
-        >
-    </item>
-    <item
-        android:icon="@drawable/check_24"
-        android:title="@string/menu_2">
-    </item>
-    <item
-        android:icon="@drawable/settings"
-        android:title="@string/menu_3">
-    </item>
-    <item
-        android:id="@+id/exit"
-        android:icon="@drawable/ogin_24"
-        android:title="@string/menu_4">
-
-    </item>
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:icon="@drawable/account_circle_24"
+            android:iconTint="@color/black"
+            android:title="First" />
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:icon="@drawable/check_24"
+            android:iconTint="@color/color_accent"
+            android:title="Second" />
+        <item
+            android:id="@+id/nav_third_fragment"
+            android:iconTintMode="multiply"
+            android:icon="@drawable/save"
+            android:title="Third" />
+    </group>
 </menu>

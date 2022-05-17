@@ -1,4 +1,4 @@
-package com.example.visualphysics10.inform.output;
+package com.example.visualphysics10.itemUi;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -12,18 +12,16 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.databinding.FullscreenInfoBinding;
+import com.example.visualphysics10.databinding.FragmentLectureBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.Objects;
 
-public class FullScreenInfo extends DialogFragment {
-    public static DialogFragment newInstance() {
-        return new FullScreenInfo();
+public class FragmentLecture extends DialogFragment {
+    private FragmentLectureBinding binding;
+    public static FragmentLecture newInstance() {
+        return new FragmentLecture();
     }
-
-    private FullscreenInfoBinding binding;
-
     @Override
     public void onStart()
     {
@@ -41,23 +39,17 @@ public class FullScreenInfo extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogTheme);
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentLectureBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addToolbar();
-        createYoutubePlayer();
-    }
-
-    private void createYoutubePlayer() {
-        //TODO:может сделать..
-    }
-
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FullscreenInfoBinding.inflate(inflater, container, false);
-        return binding.getRoot();
     }
 
     private void addToolbar() {
@@ -73,6 +65,5 @@ public class FullScreenInfo extends DialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        binding = null;
     }
 }

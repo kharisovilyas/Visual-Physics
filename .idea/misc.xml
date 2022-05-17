@@ -36,6 +36,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/simple_frame.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable-v24/stop.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/add.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/angle_like.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/back_dialog.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/background_dialog.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/close.xml" value="0.3828125" />
@@ -49,7 +50,9 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/icon_test.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/info.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/maps_add.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/output.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/side_nav_bar.xml" value="0.3828125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/drawable/speed_et.xml" value="0.3828125" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout-v28/fragment_info.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout-v28/l1_frag_inform.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
@@ -68,22 +71,24 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list.xml" value="0.25" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_item_list_dialog_list_dialog_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_lecture.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_login.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_slideshow.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_task_list.xml" value="0.15" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_test.xml" value="0.33" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fragment_youtube.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fullscreen_dialog.xml" value="0.23981481481481481" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fullscreen_dialog.xml" value="0.25" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/fullscreen_info.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l11_fragment.xml" value="0.22" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_bottom_sheet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_bottom_sheet_output.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_frag_inform.xml" value="0.33" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l1_fragment.xml" value="0.14" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_bottom_sheet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_bottom_sheet_output.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_frag_inform.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l2_fragment.xml" value="0.16" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l3_bottom_sheet_output.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l3_frag_inform.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l3_fragment.xml" value="0.2545289855072464" />
@@ -94,7 +99,8 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_bottom_sheet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_bottom_sheet_output.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_frag_inform.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_fragment.xml" value="0.33238636363636365" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l5_fullscreen_dialog.xml" value="0.33" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l6_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l7_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/l8_fragment.xml" value="0.36666666666666664" />
@@ -103,7 +109,10 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/nav_headler.xml" value="0.1" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/output_l1.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/layout/recycler.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/menu-v26/icon_toolbar.xml" value="0.15833333333333333" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/menu-v26/menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/menu/icon_toolbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/menu/menu.xml" value="0.33611111111111114" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/VP/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3828125" />
       </map>

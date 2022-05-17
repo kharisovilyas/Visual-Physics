@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
 import com.example.visualphysics10.databinding.FragmentItemListBinding;
+import com.example.visualphysics10.itemUi.FragmentLecture;
+import com.example.visualphysics10.itemUi.SettingsFragment;
 import com.example.visualphysics10.itemUi.TaskListFragment;
 import com.example.visualphysics10.lessonsFragment.L1Fragment;
 import com.example.visualphysics10.lessonsFragment.L2Fragment;
@@ -28,30 +31,17 @@ import com.example.visualphysics10.lessonsFragment.L3Fragment;
 import com.example.visualphysics10.lessonsFragment.L4Fragment;
 import com.example.visualphysics10.lessonsFragment.L5Fragment;
 import com.example.visualphysics10.placeholder.PlaceholderContent;
+import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLessonListener {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
-    public static int getPosition() {
-        return position;
-    }
-    public static void setPosition(int position) {
-        ItemFragment.position = position;
-    }
-    public static int position;
-    PlaceholderContent mLesson;
-    ArrayList<PlaceholderContent> mValues = new ArrayList<>();
     private FragmentItemListBinding binding;
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +68,6 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
         recyclerView.setAdapter(new RecyclerViewAdapter(PlaceholderContent.ITEMS, this));
-        addToolbar();
         binding.forOurTest.setOnClickListener(v->{
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -87,6 +76,47 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
                     .addToBackStack(null)
                     .commit();
         });
+        addToolbar();
+        listenerNav();
+    }
+
+    private void listenerNav() {
+        drawerLayout = binding.drawerLayout;
+        navigation = binding.navigationView;
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menu) {
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right)
+                        .replace(R.id.container, selectDrawerItem(menu))
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .commit();
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private Fragment selectDrawerItem(MenuItem menu) {
+        Fragment fragment;
+        switch(menu.getItemId()) {
+            case R.id.nav_first_fragment:
+                fragment = new SettingsFragment();
+                break;
+            case R.id.nav_second_fragment:
+                fragment = new TaskListFragment();
+                break;
+            case R.id.nav_third_fragment:
+                fragment = new FragmentLecture();
+                break;
+            default:
+                fragment = null;
+        }
+        menu.setChecked(true);
+        drawerLayout.closeDrawers();
+        return fragment;
     }
 
     private void addToolbar() {
@@ -97,6 +127,8 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
         toolbar.setNavigationOnClickListener(v -> {
             createDrawer();
         });
+        NavigationView navigationView = binding.navigationView;
+        navigationView.setItemIconTintList(null);
     }
 
     private void createDrawer() {
@@ -106,17 +138,16 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
 
     @Override
     public void onLessonClick(int position) {
-
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right)
-                .replace(R.id.container, Objects.requireNonNull(switchFragment(position)))
+                .replace(R.id.container, Objects.requireNonNull(selectFragment(position)))
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 
-    private Fragment switchFragment(int position) {
+    private Fragment selectFragment(int position) {
         switch (position){
             case 0: return new L1Fragment();
             case 1: return new L2Fragment();

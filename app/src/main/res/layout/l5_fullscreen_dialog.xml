@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/Toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintVertical_bias="0.1">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputSpeed1Layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:hint="Скорость первого тела"
+            android:padding="6dp"
+            android:textColorHint="@color/primary"
+            app:boxStrokeColor="@color/primary"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:counterTextColor="@color/black"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/icon_color"
+            app:helperText="@string/input_speed"
+            app:helperTextTextColor="@color/color_accent"
+            app:hintTextColor="@color/primary"
+            app:placeholderTextColor="@color/primary"
+            app:startIconDrawable="@drawable/speed_et"
+            app:startIconTint="@color/icon_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputSpeed1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputMass1Layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:hint="Масса первого тела"
+            android:padding="6dp"
+            android:textColorHint="@color/primary"
+            app:boxStrokeColor="@color/primary"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:counterTextColor="@color/black"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/icon_color"
+            app:helperText="@string/input_acc"
+            app:helperTextTextColor="@color/color_accent"
+            app:hintTextColor="@color/primary"
+            app:placeholderTextColor="@color/primary"
+            app:startIconDrawable="@drawable/weight"
+            app:startIconTint="@color/icon_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputMass1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="6dp"
+            android:background="@color/toolbar_color">
+        </FrameLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:hint="Скорость второго тела"
+            android:padding="6dp"
+            android:textColorHint="@color/primary"
+            app:boxStrokeColor="@color/primary"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:counterTextColor="@color/black"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/icon_color"
+            app:helperText="@string/input_speed"
+            app:helperTextTextColor="@color/color_accent"
+            app:hintTextColor="@color/primary"
+            app:placeholderTextColor="@color/primary"
+            app:startIconDrawable="@drawable/speed_et"
+            app:startIconTint="@color/icon_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputSpeed2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputMass2Layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:hint="Масса второго тела"
+            android:padding="6dp"
+            android:textColorHint="@color/primary"
+            app:boxStrokeColor="@color/primary"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:counterTextColor="@color/black"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/icon_color"
+            app:helperText="@string/input_acc"
+            app:helperTextTextColor="@color/color_accent"
+            app:hintTextColor="@color/primary"
+            app:placeholderTextColor="@color/primary"
+            app:startIconDrawable="@drawable/flash_on"
+            app:startIconTint="@color/icon_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputMass2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="Выберете тип соударения:"
+            android:textSize="20sp">
+
+        </TextView>
+
+        <RadioGroup
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:padding="10dp"
+                android:id="@+id/elastic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Упругое"
+                android:textSize="18sp"/>
+            <RadioButton
+                android:layout_marginStart="50dp"
+                android:padding="10dp"
+                android:id="@+id/noElastic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Неупругое"
+                android:textSize="18sp" />
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/save"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:useCompatPadding="true">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tint_input"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="0.1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

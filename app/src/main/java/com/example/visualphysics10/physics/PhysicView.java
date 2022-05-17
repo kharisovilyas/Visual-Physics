@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -49,22 +50,28 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void addModelGV(int index) {
+    public void addModelGV() {
         synchronized (sprites) {
-            if (PhysicsModel.L4) {
-                sprites.add(new PhysicsModel(getContext(), 0, (PhysicsData.getY0() - PhysicsModel.h - 5) / 2, 0, 0));
-            }
-            if (PhysicsModel.L5 && index == 0) {
-                sprites.add(new PhysicsModel(getContext(), 50, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, index));
-            }
-            if (PhysicsModel.L5 && index == 1) {
-                sprites.add(new PhysicsModel(getContext(), PhysicsData.getX0() - PhysicsModel.l - 50, PhysicsData.getY0() - PhysicsModel.h - 5, 0, 0, index));
-            } else if (!PhysicsModel.L5 && !PhysicsModel.L4) {
-                //TODO: на физ телефоне работает нормально, могут возникнуть проблемы getY0 - не инцилизируется
-                sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0));
-            }
+            sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, 0));
+        }
+        Log.d("height", "   " + (PhysicsData.getY0() - PhysicsModel.l - 5));
+    }
+
+    public void addModelGV4(double y){
+        synchronized (sprites){
+            sprites.add(new PhysicsModel(getContext(), 0, y, 0, 0, 0));
         }
     }
+
+    public void addModelGV5(int index){
+        synchronized (sprites){
+            if (index == 0)
+                sprites.add(new PhysicsModel(getContext(), 50, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, index));
+            else
+                sprites.add(new PhysicsModel(getContext(), PhysicsData.getX0() - PhysicsModel.l - 50, PhysicsData.getY0() - PhysicsModel.h - 5, 0, 0, index));
+        }
+    }
+
 
 
     private void initSprites() {
@@ -125,14 +132,6 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void restartClick(boolean onRestartClick, int index){
-        synchronized (sprites){
-            if(onRestartClick){
-                addModelGV(0);
-            }
-        }
-    }
-
     public void updateAA(double aX, double aY, int index) {
         synchronized (sprites) {
             sprites.get(index).updateA(aX, aY);
@@ -165,6 +164,28 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    public void stopDraw(int index) {
+        synchronized (sprites){
+            sprites.get(index).onStopClick();
+        }
+        stopThreadFlags();
+    }
+
+    private void stopThreadFlags() {
+        L1Fragment.isMoving = false;
+        L2Fragment.isMoving = false;
+        L3Fragment.isMoving = false;
+        L4Fragment.isMoving = false;
+        L5Fragment.isMoving = false;
+    }
+
+    public void restartClick(int index) {
+        synchronized (sprites){
+            sprites.get(index).onRestartClick();
+        }
+        stopThreadFlags();
+    }
+
 
     class MoveThread extends Thread {
         @Override
@@ -189,6 +210,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
             synchronized (sprites) {
                 if (L1Fragment.isMoving) {
                     updateAA(PhysicsData.getAcc(), 0, 0);
+                    Log.d("doesnt work why", " " + PhysicsData.getAcc());
                 }
                 if (L2Fragment.isMoving) {
                     PhysicsModel.firstDraw = false;
@@ -233,10 +255,6 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 }
             }
-
         }
-
     }
-
-
 }

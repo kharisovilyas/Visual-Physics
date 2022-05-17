@@ -15,6 +15,18 @@
         </item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="EditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="endIconTint">@color/icon_color</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="hintTextColor">@color/primary</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="startIconTint">@color/icon_color</item>
+        <item name="android:textColorHint">@color/primary</item>
+        <item name="counterTextColor">@color/black</item>
+        <item name="counterEnabled">true</item>
+        <item name="counterMaxLength">4</item>
+    </style>
     <style
         name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
@@ -23,13 +35,9 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-    </style>
-
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="Toolbar">

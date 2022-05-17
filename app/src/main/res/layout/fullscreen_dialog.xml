@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -27,54 +25,208 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="20dp"
         android:orientation="vertical"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
         app:layout_constraintVertical_bias="0.3">
 
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputSpeed"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:maxLines="1"
+            android:padding="20dp"
+            android:id="@+id/textInputLayout"
+            app:startIconDrawable="@drawable/speed_et"
+            android:hint="@string/input_speed_title"
+            app:endIconMode="clear_text"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary"
+            app:placeholderTextColor="@color/primary"
             android:backgroundTint="@color/primary"
-            android:gravity="center"
-            android:hint="Введите значение U [м/с]"
-            android:inputType="numberDecimal"
-            android:minHeight="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/editTextColor"
-            />
+            app:endIconTint="@color/icon_color"
+            app:startIconTint="@color/icon_color"
+            android:textColorHint="@color/primary"
+            app:counterTextColor="@color/black"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:helperText="@string/input_speed"
+            app:helperTextTextColor="@color/color_accent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:id="@+id/inputSpeed"
+                android:maxLength="5"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputAcc"
-            android:maxLines="1"
-            android:gravity="center"
-            android:backgroundTint="@color/primary"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
+            android:padding="20dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Введите значение a [м/с^2]"
-            android:inputType="numberDecimal"
-            android:minHeight="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/editTextColor" />
+            android:id="@+id/inputAccLayout"
+            app:startIconDrawable="@drawable/flash_on"
+            android:hint="@string/titleL1"
+            app:endIconMode="clear_text"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary"
+            app:placeholderTextColor="@color/primary"
+            android:backgroundTint="@color/primary"
+            app:endIconTint="@color/icon_color"
+            app:startIconTint="@color/icon_color"
+            android:textColorHint="@color/primary"
+            app:counterTextColor="@color/black"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:helperText="@string/input_acc"
+            app:helperTextTextColor="@color/color_accent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:id="@+id/inputAcc"
+                android:textColor="@color/black"
+                android:maxLength="5"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/inputRadLay"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/speed_et"
+            android:hint="@string/input_radius_title"
+            app:endIconMode="clear_text"
+            android:visibility="gone"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary"
+            app:placeholderTextColor="@color/primary"
+            android:backgroundTint="@color/primary"
+            app:endIconTint="@color/icon_color"
+            app:startIconTint="@color/icon_color"
+            android:textColorHint="@color/primary"
+            app:counterTextColor="@color/black"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:helperText="@string/input_rad"
+            app:helperTextTextColor="@color/color_accent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:id="@+id/inputRad"
+                android:textColor="@color/black"
+                android:maxLength="5"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/inputForceLay"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/north_east"
+            android:hint="@string/input_force_title"
+            app:endIconMode="clear_text"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary"
+            android:visibility="gone"
+            app:placeholderTextColor="@color/primary"
+            android:backgroundTint="@color/primary"
+            app:endIconTint="@color/icon_color"
+            app:startIconTint="@color/icon_color"
+            android:textColorHint="@color/primary"
+            app:counterTextColor="@color/black"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:helperText="@string/input_force"
+            app:helperTextTextColor="@color/color_accent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:id="@+id/inputForce"
+                android:textColor="@color/black"
+                android:maxLength="5"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/inputMassLay"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/weight"
+            android:hint="@string/input_mass_title"
+            app:endIconMode="clear_text"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary"
+            android:visibility="gone"
+            app:placeholderTextColor="@color/primary"
+            android:backgroundTint="@color/primary"
+            app:endIconTint="@color/icon_color"
+            app:startIconTint="@color/icon_color"
+            android:textColorHint="@color/primary"
+            app:counterTextColor="@color/black"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:helperText="@string/input_mass"
+            app:helperTextTextColor="@color/color_accent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:id="@+id/inputMass"
+                android:textColor="@color/black"
+                android:maxLength="5"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/inputAngleLay"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/angle_like"
+            android:hint="@string/input_angle_title"
+            app:endIconMode="clear_text"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary"
+            android:visibility="gone"
+            app:placeholderTextColor="@color/primary"
+            android:backgroundTint="@color/primary"
+            app:endIconTint="@color/icon_color"
+            app:startIconTint="@color/icon_color"
+            android:textColorHint="@color/primary"
+            app:counterTextColor="@color/black"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:helperText="@string/input_angle"
+            app:helperTextTextColor="@color/color_accent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:id="@+id/inputAngle"
+                android:textColor="@color/black"
+                android:maxLength="5"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/save"
+        app:useCompatPadding="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
         android:src="@drawable/save"
-        app:backgroundTint="@color/primary"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

@@ -23,7 +23,10 @@
             Ускорение, как и скорость, имеет направление. Иначе говоря, ускорение — векторная физическая величина.
             Зная ускорение, можно вычислить скорость равноускоренно движущегося тела в любой момент времени. a = ( U1 - U0 ) / t
     </string>
-    <string name="task1">Моторная лодка проходит по реке расстояние между двумя пунктами (в обе стороны) за 14 часов. Чему равно это расстояние, если скорость лодки в стоячей воде 35 км/ ч, а скорость течения реки – 5 км/ч?</string>
+    <string name="task1">
+        В момент t = 0 частица вышла из начала координат в положительном направлении оси х. Скорость частицы 10 [м/с] и ее ускорение 2 [м/с^2]
+        Найти момент времени, когда скорость частицы будет равна 100 [м/с];
+    </string>
     <string name="lesson2_inform">Скорость точки направлена по касательной к окружности в каждый момент времени. Ее называют линейной скоростью.
         При таком движении скорость точки меняется по направлению, а по модулю остается неизменной. Равномерное движение точки по окружности является движением с ускорением
         Ускорение всегда направлено к центру окружности и называется центростремительным, или нормальным. Часто его будут обозначать
@@ -86,4 +89,19 @@
     <string name="menu_2"><font size="18">Прогресс</font></string>
     <string name="menu_3"><font size="18">Настройки</font></string>
     <string name="menu_4"><font color='red' size="18">Выйти</font></string>
+    <string name="input_speed_title">Скорость</string>
+    <string name="input_radius_title">Радиус</string>
+    <string name="input_force_title">Сила</string>
+    <string name="input_mass_title">Масса</string>
+    <string name="input_angle_title">Угол падения</string>
+    <string name="input_height_title">Высота падения</string>
+    <string name="input_speed">Введите значение в [м/с]</string>
+    <string name="input_acc">Введите значение в [м/с^2]</string>
+    <string name="input_rad">Введите значение в [м]</string>
+    <string name="input_force">Введите значение в [Н]</string>
+    <string name="input_mass">Введите значение в [кг]</string>
+    <string name="input_angle">Введите значение в [°]</string>
+    <string name="input_height">Введите значение в [м]</string>
+    <string name="answer">Ответ</string>
+    <string name="answerHelper">Введите ответ в [c]</string>
 </resources>

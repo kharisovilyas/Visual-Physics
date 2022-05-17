@@ -2,15 +2,15 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/collapsing_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:background="@color/ic_launcher_background">
-
+        android:layout_height="wrap_content"
+        android:background="@drawable/collapsing_toolbar_back">
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -45,7 +45,6 @@
             android:name="com.example.visualphysics10.ItemFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background"
             app:layoutManager="LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".adapter.ItemFragment"

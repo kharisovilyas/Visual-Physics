@@ -29,6 +29,8 @@ public class PhysicsModel extends PhysicsSprite {
     double[] vectorXs = new double[2];
     double vectorX;
     double vectorY;
+    double ax;
+    double ay;
     double vectorI;
     double p;
     double m;
@@ -62,29 +64,6 @@ public class PhysicsModel extends PhysicsSprite {
     private double mokAx;
 
 
-    public PhysicsModel(Context context, double x, double y, double vectorX, double vectorY) {
-        super(context);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.argb(100, 250, 50, 50));
-        paint.setStrokeWidth(15);
-        paint3.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint3.setStrokeWidth(15);
-        paint3.setColor(Color.argb(100, 250, 50, 250));
-        paint2.setColor(Color.BLACK);
-        paint4.setColor(Color.WHITE);
-        paint2.setStyle(Paint.Style.STROKE);
-        paint4.setStyle(Paint.Style.STROKE);
-        paint2.setStrokeWidth(10);
-        paint4.setStrokeWidth(15);
-        this.x = x;
-        this.y = y;
-        x0 = x;
-        y0 = y;
-        this.vectorX = vectorX;
-        this.vectorY = vectorY;
-
-    }
-
     public PhysicsModel(Context context, double x, double y, double vectorX, double vectorY, int index) {
         super(context);
         paint.setStyle(Paint.Style.STROKE);
@@ -103,7 +82,6 @@ public class PhysicsModel extends PhysicsSprite {
         this.vectorX = vectorX;
         this.vectorY = vectorY;
         this.index = index;
-
     }
     private DrawerArrowDrawable getResources() {
         return null;
@@ -182,7 +160,7 @@ public class PhysicsModel extends PhysicsSprite {
             y = y + vectorY;
             rect = new Rect((int) x, (int) y, (int) x + l, (int) y + h);
             checkBoard(canvas.getWidth(), canvas.getHeight());
-        } else if (L5) {
+        }else if (L5) {
             x = x + vectorX;
             y = y + vectorY;
             rect = new Rect((int) x, (int) y, (int) x + l, (int) y + h);
@@ -205,13 +183,6 @@ public class PhysicsModel extends PhysicsSprite {
         } else {
             canvas.drawRect(rect, paint3);
             canvas.drawRect(rect, paint);
-        }
-    }
-
-    public void restartClick(boolean onRestartClick) {
-        if (onRestartClick){
-            x = 0;
-            y = PhysicsData.getY0();
         }
     }
 
@@ -271,7 +242,6 @@ public class PhysicsModel extends PhysicsSprite {
         if(!L5){
             if ((x < 0 && vectorX - l < 0) || (x > width - l && vectorX > 0)) {
                 onBoard = true;
-                //PhysicsModel.onRestartClick = true;
                 PhysicsData.setSpeedEnd(vectorX);
                 x = PhysicsData.getX0() - h;
                 vectorX = 0;
@@ -279,25 +249,17 @@ public class PhysicsModel extends PhysicsSprite {
             }
             if ((y < 0 && vectorY - h < 0) || (y > height - h && vectorY > 0)) {
                 onEarth = true;
-                //PhysicsModel.onRestartClick = true;
                 y = PhysicsData.getY0() - l;
                 vectorX = 0;
                 vectorY = 0;
             }
-            if (onStopClick) {
-                PhysicsData.setSpeedEnd(vectorX);
-                mokVector = vectorX;
-                mVector = vectorY;
-                vectorX = 0;
-                vectorY = 0;
-            }
-
         }
     }
 
     public void updateGravity(double vel, double ang) {
         vectorX = vel * Math.cos((Math.PI / 180) * ang);
         vectorY = -vel * Math.sin((Math.PI / 180) * ang);
+        Log.d("yas", "yes");
     }
 
     public double getVectorX() {
@@ -322,20 +284,12 @@ public class PhysicsModel extends PhysicsSprite {
             if (onEarth) {
                 ay = 0;
                 y = PhysicsData.getY0() - h;
-                //PhysicsModel.onRestartClick = true;
                 vectorY = 0;
             }
             if (onBoard) {
                 ax = 0;
                 x = PhysicsData.getX0() - l;
-                //PhysicsModel.onRestartClick = true;
                 vectorX = 0;
-            }
-            if (onStopClick) {
-                ax = 0;
-                ay = 0;
-                vectorX = 0;
-                vectorY = 0;
             }
         }
         vectorX += ax;
@@ -345,7 +299,24 @@ public class PhysicsModel extends PhysicsSprite {
     @Override
     public void destroy(Canvas canvas) {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        Log.d("tag NUMBER2", "action work");
     }
 
+    public void onStopClick() {
+        updateVector(0,0);
+        onBoard = false;
+        onEarth = false;
+        updateAC(PhysicsData.getRadius(), 0);
+        updateA(0, 0);
+    }
+
+    public void onRestartClick(){
+        x = 0;
+        if (L4) y = ( PhysicsData.getY0() - h ) / 2;
+        else y = PhysicsData.getY0() - h;
+        onBoard = false;
+        onEarth = false;
+        vectorX = 0;
+        updateAC(PhysicsData.getRadius(), 0);
+        updateVector(0, 0);
+    }
 }

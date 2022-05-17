@@ -2,19 +2,19 @@ package com.example.visualphysics10.lessonsFragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.visualphysics10.MainActivity;
@@ -23,13 +23,13 @@ import com.example.visualphysics10.database.App;
 import com.example.visualphysics10.database.AppDataBase;
 import com.example.visualphysics10.database.LessonData;
 import com.example.visualphysics10.database.PhysicsData;
-import com.example.visualphysics10.inform.InterimFragment;
-import com.example.visualphysics10.lessonInformFragment.L1FragInform;
+import com.example.visualphysics10.databinding.L5FragmentBinding;
+import com.example.visualphysics10.inform.input.FullScreenDialog5;
+import com.example.visualphysics10.inform.output.FullScreenInfo;
+import com.example.visualphysics10.inform.test.FragmentTest;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
-import com.example.visualphysics10.ui.MainFlag;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
@@ -38,140 +38,149 @@ public class L5Fragment extends Fragment {
     private PhysicView gameView;
     public static boolean isMoving = false;
     public static boolean flagInput = false;
-    private boolean startToast = true;
     private boolean startVisual = true;
-    private boolean endInput = true;
-    public int switchFab = 0;
-    private EditText input_speed;
-    private EditText input_speed2;
-    private EditText input_mass1;
-    private EditText input_mass2;
-    private TextView output_speed;
-    private TextView output_speed2;
-    private TextView output_mass1;
-    private TextView output_mass2;
-    private TextView elastic;
-    private TextView output_scale;
-    private FloatingActionButton saveInput;
-    private FloatingActionButton restartInput;
     private boolean elasticImpulse;
+    private FloatingActionButton info;
+    private FloatingActionButton play;
     AppDataBase db = App.getInstance().getDatabase();
-    LessonData lessonData;
-    private int countListener = 0;
+    LessonData lessonData = FullScreenDialog5.getInstance();
+    private int count = 0;
+    private L5FragmentBinding binding;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.l5_fragment, container, false);
-        PhysicsModel.L5 = true;
-        MainFlag.setThreadStop(false);
-        gameView = view.findViewById(R.id.physicsView);
-        gameView.addModelGV(0);
-        gameView.addModelGV(1);
-        initializationButton(view, switchFab);
-        view.findViewById(R.id.bottom_sheet_event).setOnClickListener(v -> {
-            switchBottomSheetFragment(startVisual, view);
-        });
-        output_scale = view.findViewById(R.id.scale);
-        Objects.requireNonNull(initializationButton(view, 1)).setOnClickListener(v -> {
-            countListener++;
-            if (flagInput && countListener % 2 != 0) {
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.pause_circle);
-                flagInput = false;
-                isMoving = true;
-                db.dataDao().getAllLiveData();
-                PhysicsData.setElasticImpulse(lessonData.elasticImpulse);
-                PhysicsData.setSpeed(lessonData.speed);
-                PhysicsData.setSpeed2(lessonData.speed2);
-                PhysicsData.setMass1(lessonData.mass1);
-                PhysicsData.setMass2(lessonData.mass2);
-                gameView.updateMoving(lessonData.speed, 0, 0);
-                gameView.updateMoving(-lessonData.speed2, 0, 1);
-                db.dataDao().delete(lessonData);
-
-            } else if (countListener % 2 == 0) {
-                PhysicsModel.onStopClick = true;
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.play_arrow);
-            } else {
-                PhysicsModel.onStopClick = false;
-                Objects.requireNonNull(initializationButton(view, 1)).setImageResource(R.drawable.pause_circle);
-            }
-        });
-        Objects.requireNonNull(initializationButton(view, 2)).setOnClickListener(v -> {
-            if (PhysicsModel.onStopClick) {
-                PhysicsModel.onRestartClick = true;
-                startVisual = true;
-                createDialogAndRestart();
-            } else {
-                Toast.makeText(getContext(), "Дождитесь завершения или нажмите паузу", Toast.LENGTH_SHORT).show();
-            }
-        });
-        MainActivity.isFragment = true;
-        return view;
-
+        binding = L5FragmentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
-
-    private void createDialogAndRestart() {
-        if(!MainFlag.getThreadStop()){
-            gameView.stopThread();
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, new InterimFragment())
-                    .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
-                    .addToBackStack(null)
-                    .commit();
-            MainFlag.setThreadStop(true);
-        }
-    }
-
-    private void switchBottomSheetFragment(boolean startVisual, View view) {
-        if (startVisual) {
-            toggleBottomSheetInput(view);
-            Log.d("input", "true");
-        } else {
-            toggleBottomSheetOutput();
-            Log.d("output", "true");
-        }
-    }
-
-
-    private FloatingActionButton initializationButton(View view, int indexOfFab) {
-        FloatingActionsMenu floatingActionsMenu = view.findViewById(R.id.action_menu);
-        FloatingActionButton fab1 = view.findViewById(R.id.fab1_l5);
-        FloatingActionButton fab2 = view.findViewById(R.id.fab2_l5);
-        floatingActionsMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
-            @Override
-            public void onMenuExpanded() {
-                if (endInput) {
-                    fab1.setVisibility(View.VISIBLE);
-                    fab2.setVisibility(View.VISIBLE);
-                }else{
-                    fab1.setVisibility(View.GONE);
-                    fab2.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onMenuCollapsed() {
-                fab1.setVisibility(View.GONE);
-                fab2.setVisibility(View.GONE);
-                endInput = true;
-            }
-        });
-
-        switch (indexOfFab) {
-            case 1:
-                return fab1;
-            case 2:
-                return fab2;
-            default:
-                return null;
-        }
-    }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        PhysicsModel.L5 = true;
+        gameView = binding.physicsView;
+        gameView.addModelGV5(0);
+        gameView.addModelGV5(1);
+        addToolbar();
+        play = binding.play;
+        FloatingActionButton restart = binding.restart;
+        FloatingActionButton startInput = binding.startInput;
+        FloatingActionButton startTest = binding.startTest;
+        info = binding.info;
+        play.setOnClickListener(v -> {
+            if (count % 2 == 0) playClick();
+            else pauseClick();
+            count++;
+        });
+        restart.setOnClickListener(v -> {
+            startVisual = true;
+            createDialog();
+        });
+        startInput.setOnClickListener(v -> {
+            createdFullScreenDialog();
+        });
+
+        startTest.setOnClickListener(v -> {
+            startTesting();
+        });
+
+        info.setOnClickListener(v -> {
+            gameView.stopThread();
+            createdFullScreenInfo();
+        });
+        outputData();
+    }
+
+    private void outputData() {
+
+    }
+
+    private void pauseClick() {
+        play.setImageResource(R.drawable.play_arrow);
+        gameView.stopDraw(0);
+
+    }
+
+    private void playClick() {
+        play.setImageResource(R.drawable.pause_circle);
+        flagInput = false;
+        isMoving = true;
+        db.dataDao().getAllLiveData();
+        PhysicsData.setElasticImpulse(lessonData.elasticImpulse);
+        PhysicsData.setSpeed(lessonData.speed);
+        PhysicsData.setSpeed2(lessonData.speed2);
+        PhysicsData.setMass1(lessonData.mass1);
+        PhysicsData.setMass2(lessonData.mass2);
+        gameView.updateMoving(lessonData.speed, 0, 0);
+        gameView.updateMoving(-lessonData.speed2, 0, 1);
+        gameView.updateMoving(lessonData.speed, 0, 0);
+        db.dataDao().delete(lessonData);
+    }
+
+
+    private void startTesting() {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                .replace(R.id.container, new FragmentTest())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void createdFullScreenInfo() {
+        DialogFragment dialogInfoFragment = FullScreenInfo.newInstance();
+        dialogInfoFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "info");
+    }
+
+    private void createdFullScreenDialog() {
+        DialogFragment dialogFragment = FullScreenDialog5.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "input");
+    }
+
+    @SuppressLint("ResourceType")
+    private void createDialog() {
+        play.setImageResource(R.drawable.play_arrow);
+        count += count % 2;
+        new MaterialAlertDialogBuilder(Objects.requireNonNull(getContext()))
+                .setTitle("Перезапуск")
+                .setMessage("Сохранить введенные данные?")
+                .setCancelable(false)
+                .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        gameView.restartClick(0);
+                    }
+                })
+                .setNegativeButton("Ввести новые", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        gameView.restartClick(0);
+                        lessonData = new LessonData();
+                    }
+                })
+                .show();
+    }
+
+    private void addToolbar() {
+        Toolbar toolbar = binding.toolbar;
+        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.arrow_back);
+        toolbar.setTitle(R.string.titleL5);
+        toolbar.setNavigationOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
+        toolbar.inflateMenu(R.menu.icon_toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                createDrawer();
+                return true;
+            }
+        });
+    }
+
+    private void createDrawer() {
+        DrawerLayout drawerLayout = binding.drawerLayout;
+        drawerLayout.openDrawer(GravityCompat.END);
     }
 
     @Override
@@ -180,124 +189,9 @@ public class L5Fragment extends Fragment {
 
     }
 
-    public void toggleBottomSheetInput(View view1) {
-        @SuppressLint("InflateParams")
-        View view = getLayoutInflater().inflate(R.layout.l5_bottom_sheet, null);
-        BottomSheetDialog dialog = new BottomSheetDialog(
-                requireContext(), R.style.BottomSheetDialogTheme
-        );
-        dialog.setContentView(view);
-        dialog.show();
-        input_speed = view.findViewById(R.id.input_speed1);
-        input_speed2 = view.findViewById(R.id.input_speed2);
-        input_mass1 = view.findViewById(R.id.input_mass1);
-        input_mass2 = view.findViewById(R.id.input_mass2);
-        saveInput = view.findViewById(R.id.save);
-        RadioButton elastic = view.findViewById(R.id.elastic);
-        RadioButton noElastic = view.findViewById(R.id.noElastic);
-        elastic.setOnClickListener(v -> {
-            elasticImpulse = true;
-        });
-        noElastic.setOnClickListener(v -> {
-            elasticImpulse = false;
-        });
-
-        saveInput.setOnClickListener(v -> {
-            try {
-                saveData();
-                startToast = false;
-                startVisual = false;
-                setVisibilityFab(view1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            flagInput = true;
-            dialog.dismiss();
-        });
-
-
-    }
-
-    private void setVisibilityFab(View view) {
-        endInput = false;
-        Objects.requireNonNull(initializationButton(view, 1)).setVisibility(View.VISIBLE);
-        Objects.requireNonNull(initializationButton(view, 2)).setVisibility(View.VISIBLE);
-    }
-
-    private void saveData() {
-        lessonData.speed = Double.parseDouble(input_speed.getText().toString());
-        lessonData.speed2 = Double.parseDouble(input_speed2.getText().toString());
-        lessonData.mass1 = Double.parseDouble(input_mass1.getText().toString());
-        lessonData.mass2 = Double.parseDouble(input_mass2.getText().toString());
-        lessonData.elasticImpulse = elasticImpulse;
-        rightInput(lessonData.speed, lessonData.speed2, lessonData.mass1, lessonData.mass2);
-        db.dataDao().insert(lessonData);
-    }
-
-    private void rightInput(double speed, double speed2, double mass1, double mass2) {
-        if (speed > 100 && speed2 > 100){
-            lessonData.speed = speed / 10;
-            lessonData.speed2 = speed2 / 10;
-            if(output_scale!=null){
-                output_scale.setText("Маштаб времени составляет 1 к 10");
-            }
-        }
-        if (mass1 > 100 && mass2 > 100){
-            lessonData.mass1 = mass1 / 10;
-            lessonData.mass2 = mass2 / 10;
-            if(output_scale!=null){
-                output_scale.setText("Маштаб времени составляет 1 к 10");
-            }
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void toggleBottomSheetOutput() {
-        View view = getLayoutInflater().inflate(R.layout.l5_bottom_sheet_output, null);
-        BottomSheetDialog dialog = new BottomSheetDialog(
-                requireContext(), R.style.BottomSheetDialogTheme
-        );
-        restartInput = view.findViewById(R.id.restart);
-
-        output_speed = view.findViewById(R.id.output_speed);
-        output_speed.setText((int) lessonData.speed + " [м/с] - скорость");
-
-        output_mass1 = view.findViewById(R.id.output_mass1);
-        output_mass1.setText((int) lessonData.mass1 + " [кг] - масса");
-
-        output_speed2 = view.findViewById(R.id.output_speed2);
-        output_speed2.setText((int) lessonData.speed2 + " [м/с] - скорость");
-
-        output_mass2 = view.findViewById(R.id.output_mass2);
-        output_mass2.setText((int) lessonData.mass2 + " [кг] - масса");
-
-        elastic = view.findViewById(R.id.output_elastic);
-
-        if (PhysicsData.getElasticImpulse()) {
-            elastic.setText("Упругое");
-        } else {
-            elastic.setText("Неупругое");
-        }
-
-        restartInput.setOnClickListener(v -> {
-            startVisual = true;
-            MainFlag.setThreadStop(false);
-            db.dataDao().delete(lessonData);
-            dialog.dismiss();
-        });
-        Button toNextFrag = view.findViewById(R.id.toNextFrag);
-        toNextFrag.setOnClickListener(v -> {
-            gameView.stopThread();
-            MainFlag.setThreadStop(true);
-            dialog.dismiss();
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
-                    .replace(R.id.container, new L1FragInform())
-                    .addToBackStack(null)
-                    .commit();
-        });
-        dialog.setContentView(view);
-        dialog.show();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }
