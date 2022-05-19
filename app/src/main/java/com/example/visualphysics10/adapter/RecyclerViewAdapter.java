@@ -23,6 +23,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private boolean mainList;
     private final OnLessonListener onLessonListener;
 
+    //TODO: Our Recycler adapter for Placeholder and for PlaceHolder2, created with navigation library
+
     public RecyclerViewAdapter(List<PlaceholderContent.PlaceHolderItem> items, OnLessonListener onLessonListener) {
         mValues = items;
         mainList = true;
@@ -43,6 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
+    //insert fields of the ViewHolder class into the recycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if (mainList) {
@@ -60,6 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
+    //how amount item (lesson) in Recycler
     @Override
     public int getItemCount() {
         if (mainList) return mValues.size();
@@ -80,6 +84,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public int position;
         OnLessonListener onLessonListener;
         public final ImageView imageView;
+
+        //fields initialization
         public ViewHolder(FragmentItemBinding binding, OnLessonListener onLessonListener) {
             super(binding.getRoot());
             mIdView = binding.title;
@@ -96,6 +102,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             return super.toString() + " '" + description.getText() + "'";
         }
 
+        //position initialization using custom interface and transmits to abstractClass for work with FragmentInfo and FragmentTest
         @Override
         public void onClick(View v) {
             position = getLayoutPosition();
@@ -103,6 +110,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             MainFlag.setPosition(getLayoutPosition());
         }
     }
+
+    //interface transition from the list to the desired fragment
     public interface OnLessonListener{
         void onLessonClick(int position);
     }

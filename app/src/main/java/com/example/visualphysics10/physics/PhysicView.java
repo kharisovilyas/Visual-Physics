@@ -6,11 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.engine.PhysicsSprite;
@@ -37,6 +37,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         initSprites();
     }
 
+
     public PhysicView(Context context) {
         this(context, null);
     }
@@ -54,7 +55,6 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         synchronized (sprites) {
             sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, 0));
         }
-        Log.d("height", "   " + (PhysicsData.getY0() - PhysicsModel.l - 5));
     }
 
     public void addModelGV4(double y){
@@ -112,13 +112,20 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         L3Fragment.isMoving = false;
         L4Fragment.isMoving = false;
         L5Fragment.isMoving = false;
+        //TODO: проблема в этих флагах!!!
         PhysicsModel.L1 = false;
         PhysicsModel.L2 = false;
         PhysicsModel.L3 = false;
         PhysicsModel.L4 = false;
         PhysicsModel.L5 = false;
+        //TODO: проблема в этих флагах!!!
         drawOk = false;
         stopThread();
+        startItemFragment();
+    }
+
+    private void startItemFragment() {
+        FragmentManager fragmentManager;
     }
 
     public void stopThread() {
@@ -210,7 +217,6 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
             synchronized (sprites) {
                 if (L1Fragment.isMoving) {
                     updateAA(PhysicsData.getAcc(), 0, 0);
-                    Log.d("doesnt work why", " " + PhysicsData.getAcc());
                 }
                 if (L2Fragment.isMoving) {
                     PhysicsModel.firstDraw = false;

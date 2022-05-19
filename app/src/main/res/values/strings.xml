@@ -2,6 +2,10 @@
     <string name="app_name">Visual Physics</string>
     <string name="title_input">Ввод данных</string>
     <string name="title_info_1">Немного об ускорении</string>
+    <string name="title_info_2">Движение по окружности</string>
+    <string name="title_info_3">Немного о силе</string>
+    <string name="title_info_4">О свободном падении</string>
+    <string name="title_info_5">Немного об импульсе</string>
     <string name="test">Задачи</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="afterSaveData">Найденные данные</string>
@@ -12,21 +16,77 @@
     <string name="titleL2">По окружности</string>
     <string name="titleL3">II Закон Ньютона</string>
     <string name="titleL4">Под углом к горизонту</string>
-    <string name="titleL5">Законы Сохранения Импульса</string>
+    <string name="titleL5">Импульс тел</string>
     <string name="titleL6">Сила Трения</string>
     <string name="titleL7">Колебания</string>
     <string name="titleL8">Приломление света</string>
     <string name="buttonLogin">Зарегистрироваться</string>
+    <string name="title_activity_test">testActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="menu_1"><font size="18">Лекции</font></string>
+    <string name="menu_2"><font size="18">Задачи</font></string>
+    <string name="menu_3"><font size="18">Настройки</font></string>
+    <string name="menu_4"><font color='red' size="18">Выйти</font></string>
+    <string name="input_speed_title">Скорость</string>
+    <string name="input_radius_title">Радиус</string>
+    <string name="input_force_title">Сила</string>
+    <string name="input_mass_title">Масса</string>
+    <string name="input_angle_title">Угол падения</string>
+    <string name="input_height_title">Высота падения</string>
+    <string name="input_speed">Введите значение в [м/с]</string>
+    <string name="input_acc">Введите значение в [м/с^2]</string>
+    <string name="input_rad">Введите значение в [м]</string>
+    <string name="input_force">Введите значение в [Н]</string>
+    <string name="input_mass">Введите значение в [кг]</string>
+    <string name="input_angle">Введите значение в [°]</string>
+    <string name="input_height">Введите значение в [м]</string>
+    <string name="answer">Ответ</string>
+    <string name="answerHelper">Введите ответ в [c]</string>
+    <!-- -->
+    <!-- String res for FragmentTest - task -->
+    <!-- -->
     <string name="lesson1_inform">
             Скорость при различных неравномерных движениях изменяется с течением времени по-разному.
             Движение, при котором скорость тела за любые равные промежутки времени увеличивается (или уменьшается) на одно и то же значение, называют равноускоренным.
             Ускорение, как и скорость, имеет направление. Иначе говоря, ускорение — векторная физическая величина.
             Зная ускорение, можно вычислить скорость равноускоренно движущегося тела в любой момент времени. a = ( U1 - U0 ) / t
     </string>
-    <string name="task1">
+    <string name="l1task1">
         В момент t = 0 частица вышла из начала координат в положительном направлении оси х. Скорость частицы 10 [м/с] и ее ускорение 2 [м/с^2]
         Найти момент времени, когда скорость частицы будет равна 100 [м/с];
     </string>
+    <string name="l1task2">
+        Автомобиль, стоявший на месте начал разгоняться с ускорением 2 [м/с^2]. Найдите пройденный им путь за 10 [с] движения.
+    </string>
+    <string name="l2task1">
+        Гоночная машина движется по круговой трассе радиусом 100 метров. Найдите время затраченное им на один круг, если центро стремительное ускорение равно 5 м/с^2.
+    </string>
+    <!-- -->
+    <!-- String res for FragmentInfo - task -->
+    <!-- -->
     <string name="lesson2_inform">Скорость точки направлена по касательной к окружности в каждый момент времени. Ее называют линейной скоростью.
         При таком движении скорость точки меняется по направлению, а по модулю остается неизменной. Равномерное движение точки по окружности является движением с ускорением
         Ускорение всегда направлено к центру окружности и называется центростремительным, или нормальным. Часто его будут обозначать
@@ -59,49 +119,7 @@
         Так, например, система тел на поверхности Земли не может считаться замкнутой из-за силы тяжести, действующей на все тела,
         однако сумма проекций импульсов на горизонтальное направление может оставаться неизменной (при отсутствии трения), т. к. в этом направлении сила тяжести не действует.
     </string>
-    <string name="title_activity_test">testActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="menu_1"><font size="18">Изменить профиль</font></string>
-    <string name="menu_2"><font size="18">Прогресс</font></string>
-    <string name="menu_3"><font size="18">Настройки</font></string>
-    <string name="menu_4"><font color='red' size="18">Выйти</font></string>
-    <string name="input_speed_title">Скорость</string>
-    <string name="input_radius_title">Радиус</string>
-    <string name="input_force_title">Сила</string>
-    <string name="input_mass_title">Масса</string>
-    <string name="input_angle_title">Угол падения</string>
-    <string name="input_height_title">Высота падения</string>
-    <string name="input_speed">Введите значение в [м/с]</string>
-    <string name="input_acc">Введите значение в [м/с^2]</string>
-    <string name="input_rad">Введите значение в [м]</string>
-    <string name="input_force">Введите значение в [Н]</string>
-    <string name="input_mass">Введите значение в [кг]</string>
-    <string name="input_angle">Введите значение в [°]</string>
-    <string name="input_height">Введите значение в [м]</string>
-    <string name="answer">Ответ</string>
-    <string name="answerHelper">Введите ответ в [c]</string>
+    <string name="elastic">Упругое</string>
+    <string name="noElastic">Неупругое</string>
+    <string name="selectFlag">Тип соударения</string>
 </resources>

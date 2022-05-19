@@ -9,18 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.database.App;
-import com.example.visualphysics10.database.AppDataBase;
 import com.example.visualphysics10.database.LessonData;
+import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L5FullscreenDialogBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.List;
 import java.util.Objects;
 
 public class FullScreenDialog5 extends DialogFragment {
@@ -29,16 +32,16 @@ public class FullScreenDialog5 extends DialogFragment {
     private TextInputEditText input_mass1;
     private TextInputEditText input_speed2;
     private TextInputEditText input_mass2;
-    AppDataBase db = App.getInstance().getDatabase();
-    public static LessonData lessonData = new LessonData();
+    private SwitchMaterial typeImpulse;
+    public static LessonData lessonDataList = new LessonData();
+    private LessonViewModel viewModel;
 
-    public static LessonData getInstance() {
-        return lessonData;
-    }
 
     public static FullScreenDialog5 newInstance() {
         return new FullScreenDialog5();
     }
+
+    //TODO: in order not to overload the FullScreenDialog, we call it only for lesson 5. functionality and methods are identical..
 
     @Override
     public void onStart() {
@@ -75,6 +78,7 @@ public class FullScreenDialog5 extends DialogFragment {
         input_mass1 = binding.inputMass1;
         input_speed2 = binding.inputSpeed2;
         input_mass2 = binding.inputMass2;
+        typeImpulse = binding.typeImpulse;
         FloatingActionButton saveInput = binding.save;
         saveInput.setOnClickListener(v -> {
             try {
@@ -92,11 +96,24 @@ public class FullScreenDialog5 extends DialogFragment {
     }
 
     private void saveData() {
-        lessonData.speed = toDouble(input_speed1);
-        lessonData.mass1 = toDouble(input_mass1);
-        lessonData.speed2 = toDouble(input_speed2);
-        lessonData.mass2 = toDouble(input_mass2);
-        db.dataDao().insert(lessonData);
+        viewModel = ViewModelProviders.of(requireActivity()).get(LessonViewModel.class);
+        viewModel.getLessonLiveData().observe(this, new Observer<List<LessonData>>() {
+            @Override
+            public void onChanged(List<LessonData> lessonData) {
+                inputData();
+                lessonData.set(0, lessonDataList);
+            }
+        });
+    }
+
+    private void inputData() {
+        lessonDataList.speed = toDouble(input_speed1);
+        lessonDataList.mass1 = toDouble(input_mass1);
+        lessonDataList.speed2 = toDouble(input_speed2);
+        lessonDataList.mass2 = toDouble(input_mass2);
+        typeImpulse.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            lessonDataList.elasticImpulse = isChecked;
+        });
     }
 
     private double toDouble(TextInputEditText input) {

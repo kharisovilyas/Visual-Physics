@@ -2,9 +2,10 @@ package com.example.visualphysics10.lessonsFragment;
 
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,36 +17,35 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.database.App;
-import com.example.visualphysics10.database.AppDataBase;
 import com.example.visualphysics10.database.LessonData;
+import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L5FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog5;
-import com.example.visualphysics10.inform.output.FullScreenInfo;
+import com.example.visualphysics10.inform.output.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
 import java.util.Objects;
 
 public class L5Fragment extends Fragment {
     private PhysicView gameView;
     public static boolean isMoving = false;
-    public static boolean flagInput = false;
-    private boolean startVisual = true;
-    private boolean elasticImpulse;
     private FloatingActionButton info;
     private FloatingActionButton play;
-    AppDataBase db = App.getInstance().getDatabase();
-    LessonData lessonData = FullScreenDialog5.getInstance();
+    //AppDataBase db = AppRepository.getInstance().getDatabase();
     private int count = 0;
     private L5FragmentBinding binding;
+    private LessonViewModel viewModel;
 
 
     @Override
@@ -62,6 +62,7 @@ public class L5Fragment extends Fragment {
         gameView.addModelGV5(0);
         gameView.addModelGV5(1);
         addToolbar();
+        count = 0;
         play = binding.play;
         FloatingActionButton restart = binding.restart;
         FloatingActionButton startInput = binding.startInput;
@@ -73,7 +74,6 @@ public class L5Fragment extends Fragment {
             count++;
         });
         restart.setOnClickListener(v -> {
-            startVisual = true;
             createDialog();
         });
         startInput.setOnClickListener(v -> {
@@ -103,18 +103,21 @@ public class L5Fragment extends Fragment {
 
     private void playClick() {
         play.setImageResource(R.drawable.pause_circle);
-        flagInput = false;
         isMoving = true;
-        db.dataDao().getAllLiveData();
-        PhysicsData.setElasticImpulse(lessonData.elasticImpulse);
-        PhysicsData.setSpeed(lessonData.speed);
-        PhysicsData.setSpeed2(lessonData.speed2);
-        PhysicsData.setMass1(lessonData.mass1);
-        PhysicsData.setMass2(lessonData.mass2);
-        gameView.updateMoving(lessonData.speed, 0, 0);
-        gameView.updateMoving(-lessonData.speed2, 0, 1);
-        gameView.updateMoving(lessonData.speed, 0, 0);
-        db.dataDao().delete(lessonData);
+        info.setVisibility(View.VISIBLE);
+        viewModel = ViewModelProviders.of(requireActivity()).get(LessonViewModel.class);
+        viewModel.getLessonLiveData().observe(this, new Observer<List<LessonData>>() {
+            @Override
+            public void onChanged(List<LessonData> lessonData) {
+                PhysicsData.setSpeed(lessonData.get(0).speed);
+                PhysicsData.setMass1(lessonData.get(0).mass1);
+                PhysicsData.setSpeed2(lessonData.get(0).speed2);
+                PhysicsData.setMass2(lessonData.get(0).mass2);
+                PhysicsData.setElasticImpulse(lessonData.get(0).elasticImpulse);
+            }
+        });
+        gameView.updateMoving(PhysicsData.getSpeed(), 0, 0);
+        gameView.updateMoving(-PhysicsData.getSpeed2(), 0, 1);
     }
 
 
@@ -128,8 +131,13 @@ public class L5Fragment extends Fragment {
     }
 
     private void createdFullScreenInfo() {
-        DialogFragment dialogInfoFragment = FullScreenInfo.newInstance();
-        dialogInfoFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "info");
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right)
+                .replace(R.id.container, new FragmentInfo())
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                .commit();
     }
 
     private void createdFullScreenDialog() {
@@ -141,25 +149,16 @@ public class L5Fragment extends Fragment {
     private void createDialog() {
         play.setImageResource(R.drawable.play_arrow);
         count += count % 2;
-        new MaterialAlertDialogBuilder(Objects.requireNonNull(getContext()))
-                .setTitle("Перезапуск")
-                .setMessage("Сохранить введенные данные?")
-                .setCancelable(false)
-                .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        gameView.restartClick(0);
-                    }
-                })
-                .setNegativeButton("Ввести новые", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        gameView.restartClick(0);
-                        lessonData = new LessonData();
-                    }
-                })
-                .show();
+        gameView.restartClick(0);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.icon_toolbar, menu);
+    }
+
+    @SuppressLint("RestrictedApi")
     private void addToolbar() {
         Toolbar toolbar = binding.toolbar;
         ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);

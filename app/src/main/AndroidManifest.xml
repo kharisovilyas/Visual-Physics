@@ -14,8 +14,8 @@
     </queries>
 
     <application
-        android:name=".net.AppForNet"
         android:allowBackup="true"
+        android:name=".net.AppForNet"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,13 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VisualPhysics10">
-        <activity-alias
-            android:name=".database.App"
-            android:targetActivity=".MainActivity">
-        </activity-alias>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.VisualPhysics10"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -2,7 +2,9 @@ package com.example.visualphysics10.database;
 
 import java.io.Serializable;
 
-public class PhysicsData implements Serializable {
+public abstract class PhysicsData implements Serializable {
+    //TODO: Helper class for database contains only fields and getters setters
+    // its use helps us not to get confused in the logic of our physics engine and ect
     public static double radius;
     public static double speed;
     public static double speedEnd;
@@ -21,24 +23,6 @@ public class PhysicsData implements Serializable {
     public static double force;
     public static double height;
     public static double time;
-
-    public PhysicsData(double speed, double speed2, double distance, double time,
-                      double acc, double radius, double mass1, double mass2, double x, double y,
-                      double strength, double angle, boolean elasticImpulse) {
-        PhysicsData.speed = speed;
-        PhysicsData.speed2 = speed2;
-        PhysicsData.distance = distance;
-        PhysicsData.time = time;
-        PhysicsData.acc = acc;
-        PhysicsData.radius = radius;
-        PhysicsData.mass1 = mass1;
-        PhysicsData.mass2 = mass2;
-        x0 = x;
-        y0 = y;
-        force= strength;
-        PhysicsData.angle = angle;
-        PhysicsData.elasticImpulse = elasticImpulse;
-    }
 
     public static double getSpeedEnd() {
         return speedEnd;

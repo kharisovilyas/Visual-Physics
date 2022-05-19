@@ -27,9 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentTest extends Fragment {
-    public static FragmentTest newInstance(String param1, String param2) {
-        return new FragmentTest();
+public class FragmentTest3 extends Fragment {
+    public static FragmentTest3 newInstance(String param1, String param2) {
+        return new FragmentTest3();
     }
 
     //TODO: tasks for all lessons
@@ -128,5 +128,11 @@ public class FragmentTest extends Fragment {
         toolbar.setNavigationOnClickListener(v -> {
             requireActivity().onBackPressed();
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }

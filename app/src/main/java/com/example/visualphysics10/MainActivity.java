@@ -1,6 +1,7 @@
 package com.example.visualphysics10;
 
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -10,7 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.visualphysics10.adapter.ItemFragment;
 import com.example.visualphysics10.databinding.ActivityMainBinding;
-import com.example.visualphysics10.physics.PhysicView;
+import com.example.visualphysics10.objects.PhysicsModel;
+import com.example.visualphysics10.ui.MainFlag;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity{
@@ -18,8 +20,12 @@ public class MainActivity extends AppCompatActivity{
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     ItemFragment itemFragment = new ItemFragment();
     public static boolean isFragment;
-    private PhysicView gameView;
     private ActivityMainBinding binding;
+    private int count;
+    private MediaPlayer collision;
+    private MediaPlayer end;
+    private MediaPlayer landing;
+    private MediaPlayer rotation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,37 +35,34 @@ public class MainActivity extends AppCompatActivity{
         if (itemFragment != null) {
             fragmentTransaction.add(R.id.container, itemFragment).commit();
         }
-        createdSplash();
+        addMediaPlayer();
     }
 
-    private void createdSplash() {
-        Thread thread = new Thread();
-        thread.start();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        thread.interrupt();
+    private void addMediaPlayer() {
+        end = MediaPlayer.create(this, R.raw.end);
+        rotation = MediaPlayer.create(this, R.raw.rotation);
+        landing = MediaPlayer.create(this, R.raw.end);
+        collision = MediaPlayer.create(this, R.raw.end);
+        PhysicsModel.addSound(end, rotation, landing, collision);
     }
-
 
     @Override
     public void onBackPressed() {
 
-        int count = fragmentManager.getBackStackEntryCount();
+        count = fragmentManager.getBackStackEntryCount();
 
         if (count == 0) {
             exitApp();
         } else {
             exitFragment();
-            getFragmentManager().popBackStack();
+            MainFlag.setNotLesson(false);
         }
 
     }
 
     private void exitFragment() {
-        new MaterialAlertDialogBuilder(this)
+        if (count > 1 || MainFlag.isNotLesson()) fragmentManager.popBackStack();
+        else new MaterialAlertDialogBuilder(this)
                 .setTitle("Выход")
                 .setMessage("Вы уверены что хотите завершить урок ?")
                 .setCancelable(false)

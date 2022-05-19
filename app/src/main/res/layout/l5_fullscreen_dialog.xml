@@ -97,11 +97,10 @@
 
         <FrameLayout
             android:layout_width="match_parent"
+            android:layout_height="6dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_height="6dp"
-            android:background="@color/toolbar_color">
-        </FrameLayout>
+            android:background="@color/toolbar_color"></FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
@@ -166,51 +165,21 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
-            android:padding="10dp"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/typeImpulse"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:text="@string/selectFlag"
+            android:textOn="@string/noElastic"
             android:textColor="@color/black"
-            android:text="Выберете тип соударения:"
-            android:textSize="20sp">
-
-        </TextView>
-
-        <RadioGroup
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton
-                android:padding="10dp"
-                android:id="@+id/elastic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Упругое"
-                android:textSize="18sp"/>
-            <RadioButton
-                android:layout_marginStart="50dp"
-                android:padding="10dp"
-                android:id="@+id/noElastic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Неупругое"
-                android:textSize="18sp" />
-
-        </RadioGroup>
-
-
+            app:showText="true"
+            android:buttonTint="@color/black"
+            android:textOff="@string/elastic"
+            android:layout_gravity="center"
+            android:gravity="center"
+            app:thumbTint="@color/primary"
+            app:trackTint="#245D8A" />
     </LinearLayout>
 
 

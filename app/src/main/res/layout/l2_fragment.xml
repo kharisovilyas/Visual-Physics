@@ -93,6 +93,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/info"
+            android:src="@drawable/lectures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -101,7 +102,6 @@
             app:useCompatPadding="true"
             android:padding="20dp"
             android:scaleType="center"
-            android:src="@drawable/info"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />

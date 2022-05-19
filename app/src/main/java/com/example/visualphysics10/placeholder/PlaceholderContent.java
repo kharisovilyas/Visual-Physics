@@ -30,10 +30,10 @@ public class PlaceholderContent {
     }
 
     private static PlaceHolderItem createPlaceholderItem(int position) {
-        return new PlaceHolderItem(String.valueOf(position), switchLesson(position), switchProgress(position), switchDetails(position), switchImageView(position));
+        return new PlaceHolderItem(String.valueOf(position), switchLesson(position), selectDescription(position), switchDetails(position), switchImageView(position));
     }
 
-    private static String switchProgress(int position) {
+    private static String selectDescription(int position) {
         switch (position){
             case 1:
             case 2:

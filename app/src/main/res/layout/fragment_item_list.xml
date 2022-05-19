@@ -32,15 +32,6 @@
             tools:context=".adapter.ItemFragment"
             tools:listitem="@layout/fragment_item" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:src="@drawable/check_24"
-            android:id="@+id/forOurTest"
-            android:layout_gravity="bottom|end"
-            android:padding="20dp"
-            android:layout_height="wrap_content">
-
-        </com.google.android.material.floatingactionbutton.FloatingActionButton>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView

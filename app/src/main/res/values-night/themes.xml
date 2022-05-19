@@ -10,11 +10,11 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor"
-            tools:targetApi="l">?attr/colorPrimaryVariant
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant
         </item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="EditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="endIconTint">@color/icon_color</item>
         <item name="endIconMode">clear_text</item>
@@ -27,17 +27,13 @@
         <item name="counterEnabled">true</item>
         <item name="counterMaxLength">4</item>
     </style>
-    <style
-        name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+
+    <style name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
+
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_bg</item>
-        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="Toolbar">
@@ -45,5 +41,11 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:background">@color/primary</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 </resources>

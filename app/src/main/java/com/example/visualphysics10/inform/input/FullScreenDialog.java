@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.database.App;
-import com.example.visualphysics10.database.AppDataBase;
 import com.example.visualphysics10.database.LessonData;
+import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.FullscreenDialogBinding;
 import com.example.visualphysics10.ui.MainFlag;
@@ -25,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
 import java.util.Objects;
 
 public class FullScreenDialog extends DialogFragment {
@@ -35,9 +37,10 @@ public class FullScreenDialog extends DialogFragment {
     private TextInputEditText input_force;
     private TextInputEditText input_mass;
     private TextInputEditText input_angle;
-    AppDataBase db = App.getInstance().getDatabase();
     public static LessonData lessonData = new LessonData();
     public static SharedPreferences sp;
+    private LessonViewModel viewModel;
+    private LessonData lessonDataList = new LessonData();
 
     public static LessonData getInstance() {
         return lessonData;
@@ -51,6 +54,7 @@ public class FullScreenDialog extends DialogFragment {
         return new FullScreenDialog();
     }
 
+    //TODO: entering values for 1-4 lessons (fragments)
 
     //dialogFragment customization
     @Override
@@ -135,23 +139,37 @@ public class FullScreenDialog extends DialogFragment {
     }
 
 
-    //save to db data from EditText
+
     private void saveData() {
+        viewModel = ViewModelProviders.of(requireActivity()).get(LessonViewModel.class);
+        viewModel.getLessonLiveData().observe(this, new Observer<List<LessonData>>() {
+            @Override
+            public void onChanged(List<LessonData> lessonData) {
+                inputData();
+                lessonData.set(0, lessonDataList);
+            }
+        });
+    }
+
+    //save to db data from EditText
+    private void inputData() {
         Log.d("", "" + MainFlag.getPosition());
-        lessonData.speed = toDouble(input_speed);
+        lessonDataList.speed = toDouble(input_speed);
         switch (MainFlag.getPosition()) {
             case 0:
-                lessonData.acc = toDouble(input_acc);
+                lessonDataList.acc = toDouble(input_acc);
                 break;
             case 1:
-                lessonData.radius = toDouble(input_radius);
+                lessonDataList.radius = toDouble(input_radius);
+                break;
             case 2:
-                lessonData.strength = toDouble(input_force);
-                lessonData.mass1 = toDouble(input_mass);
+                lessonDataList.strength = toDouble(input_force);
+                lessonDataList.mass1 = toDouble(input_mass);
+                break;
             case 3:
-                lessonData.angle = toDouble(input_angle);
+                lessonDataList.angle = toDouble(input_angle);
+                break;
         }
-        db.dataDao().insert(lessonData);
     }
 
     private double toDouble(TextInputEditText input) {

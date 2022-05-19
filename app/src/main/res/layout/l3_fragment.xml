@@ -119,7 +119,7 @@
             android:backgroundTint="@color/white"
             android:padding="20dp"
             android:scaleType="center"
-            android:src="@drawable/info"
+            android:src="@drawable/lectures"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
