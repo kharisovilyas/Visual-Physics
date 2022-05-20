@@ -22,6 +22,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public List<PlaceHolderContent2.PlaceHolderItem2> valForTask;
     private boolean mainList;
     private final OnLessonListener onLessonListener;
+    View view;
 
     //TODO: Our Recycler adapter for Placeholder and for PlaceHolder2, created with navigation library
 
@@ -51,14 +52,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if (mainList) {
             holder.mItem = mValues.get(position);
             holder.mIdView.setText(mValues.get(position).title);
-            holder.description.setText(mValues.get(position).task);
-            holder.progress.setText(mValues.get(position).progress);
             holder.imageView.setImageResource(mValues.get(position).imageView);
         }else{
             holder.taskItem = valForTask.get(position);
             holder.mIdView.setText(valForTask.get(position).title);
-            holder.description.setText(valForTask.get(position).task);
-            holder.progress.setText(valForTask.get(position).progress);
             holder.imageView.setImageResource(valForTask.get(position).imageView);
         }
     }
@@ -77,8 +74,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView mIdView;
-        public final TextView description;
-        public final TextView progress;
         public PlaceholderContent.PlaceHolderItem mItem;
         public PlaceHolderContent2.PlaceHolderItem2 taskItem;
         public int position;
@@ -89,17 +84,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(FragmentItemBinding binding, OnLessonListener onLessonListener) {
             super(binding.getRoot());
             mIdView = binding.title;
-            description = binding.discription;
-            progress = binding.progress;
             this.onLessonListener = onLessonListener;
             imageView = binding.imageOfLessons;
             itemView.setOnClickListener(this);
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return super.toString() + " '" + description.getText() + "'";
         }
 
         //position initialization using custom interface and transmits to abstractClass for work with FragmentInfo and FragmentTest

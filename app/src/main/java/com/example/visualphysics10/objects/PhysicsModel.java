@@ -226,10 +226,11 @@ public class PhysicsModel extends PhysicsSprite {
     }
 
     private void checkBoardForL5(int width, int height) {
-        if (x < 0 && vectorX - l < 0 || (x > width - l && vectorX > 0)) {
+        if ((x < 0 && vectorX - l < 0) || (x > width - l && vectorX > 0)) {
             onBoard = true;
             vectorX = 0;
-            end.start();
+            if (x < 0 && vectorX - l < 0)
+                end.start();
         }
         if (y < 0 && vectorY - h < 0 || (y > height - h && vectorY > 0)) {
             onEarth = true;
@@ -241,17 +242,21 @@ public class PhysicsModel extends PhysicsSprite {
         if ((x < 0 && vectorX - l < 0) || (x > width - l && vectorX > 0)) {
             onBoard = true;
             PhysicsData.setSpeedEnd(vectorX);
+            if (x > width - l && vectorX > 0)
+                end.start();
             x = PhysicsData.getX0() - h;
             vectorX = 0;
             vectorY = 0;
-            end.start();
+
         }
-        if ((y < 0 && vectorY - h < 0) || (y > height - h && vectorY > 0)) {
+        if ((y > height - h && vectorY > 0)) {
             onEarth = true;
+            if (y > height - h && vectorY > 0)
+                landing.start();
             y = PhysicsData.getY0() - l;
             vectorX = 0;
             vectorY = 0;
-            landing.start();
+
         }
     }
 
@@ -302,12 +307,13 @@ public class PhysicsModel extends PhysicsSprite {
     public void onStopClick() {
         updateVector(0, 0);
         onBoard = false;
+        PhysicsData.setSpeedEnd(vectorX);
         onEarth = false;
         end.stop();
         landing.stop();
         rotation.stop();
         collision.stop();
-        if(L2)updateAC(PhysicsData.getRadius(), 0);
+        if(L2) updateAC(PhysicsData.getRadius(), 0);
         else updateA(0, 0);
     }
 

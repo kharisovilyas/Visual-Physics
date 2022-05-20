@@ -17,7 +17,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -28,11 +27,13 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L5FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog5;
-import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.output.FullScreenInfo;
 import com.example.visualphysics10.inform.test.FragmentTest;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,6 +47,8 @@ public class L5Fragment extends Fragment {
     private int count = 0;
     private L5FragmentBinding binding;
     private LessonViewModel viewModel;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation;
 
 
     @Override
@@ -69,9 +72,7 @@ public class L5Fragment extends Fragment {
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
         play.setOnClickListener(v -> {
-            if (count % 2 == 0) playClick();
-            else pauseClick();
-            count++;
+            playClick();
         });
         restart.setOnClickListener(v -> {
             createDialog();
@@ -88,12 +89,34 @@ public class L5Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
-        outputData();
     }
 
-    private void outputData() {
-
+    public void outputData() {
+        drawerLayout = binding.drawerLayout;
+        navigation = binding.navigationView;
+        addToolbarNav();
+        MaterialTextView outputSpeed = binding.outputSpeed;
+        MaterialTextView outputMass1 = binding.outputMass1;
+        MaterialTextView outputSpeed2 = binding.outputSpeed2;
+        MaterialTextView outputMass2 = binding.outputMass2;
+        MaterialTextView outputImpulse1 = binding.outputImpulse1;
+        MaterialTextView outputImpulse2 = binding.outputImpulse2;
+        String string = getString(R.string.outputSpeed) + PhysicsData.getSpeed() + "[м/с]";
+        String string2 = getString(R.string.outputAcc) + PhysicsData.getAcc() + "[м/с^2]";
+        String string3 = getString(R.string.outputAngle) + PhysicsData.getAngle() + "[°]";
+        String string4 = getString(R.string.outputSpeed);
+        outputSpeed.setText(string);
+        outputMass1.setText(string2);
+        outputSpeed2.setText(string3);
+        outputMass2.setText(string4);
     }
+
+    private void addToolbarNav() {
+        Toolbar toolbar = binding.toolbarNavView;
+        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        toolbar.setTitle("Введенные данные");
+    }
+
 
     private void pauseClick() {
         play.setImageResource(R.drawable.play_arrow);
@@ -131,13 +154,8 @@ public class L5Fragment extends Fragment {
     }
 
     private void createdFullScreenInfo() {
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right)
-                .replace(R.id.container, new FragmentInfo())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .commit();
+        DialogFragment dialogFragment = FullScreenInfo.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
     }
 
     private void createdFullScreenDialog() {
@@ -191,6 +209,7 @@ public class L5Fragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        PhysicsModel.L5 = false;
         binding = null;
     }
 }

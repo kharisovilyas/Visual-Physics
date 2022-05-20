@@ -41,7 +41,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
     public PhysicView(Context context) {
         this(context, null);
     }
-
+    //размер surfaceView
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -50,19 +50,19 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
             PhysicsData.setY0(h);
         }
     }
-
+    //создание сущности модели
     public void addModelGV() {
         synchronized (sprites) {
             sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, 0));
         }
     }
-
+    //создание сущности модели в четвертом уроке
     public void addModelGV4(double y){
         synchronized (sprites){
             sprites.add(new PhysicsModel(getContext(), 0, y, 0, 0, 0));
         }
     }
-
+    //создание сущности модели в пятом уроке
     public void addModelGV5(int index){
         synchronized (sprites){
             if (index == 0)
@@ -76,7 +76,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
     private void initSprites() {
     }
-
+    //начало потока
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         drawOk = true;
@@ -89,7 +89,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-
+    //уничтожение surfaceView
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
         Canvas canvas = new Canvas();
@@ -104,21 +104,11 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         PhysicsModel.isTouchedNEP = false;
         PhysicsModel.beginning = false;
         PhysicsModel.firstDraw = false;
-        PhysicsModel.onStopClick = false;
-        PhysicsModel.onStopClick2 = false;
-        PhysicsModel.onRestartClick = false;
         L1Fragment.isMoving = false;
         L2Fragment.isMoving = false;
         L3Fragment.isMoving = false;
         L4Fragment.isMoving = false;
         L5Fragment.isMoving = false;
-        //TODO: проблема в этих флагах!!!
-        PhysicsModel.L1 = false;
-        PhysicsModel.L2 = false;
-        PhysicsModel.L3 = false;
-        PhysicsModel.L4 = false;
-        PhysicsModel.L5 = false;
-        //TODO: проблема в этих флагах!!!
         drawOk = false;
         stopThread();
         startItemFragment();
@@ -132,39 +122,39 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         drawThread.interrupt();
     }
 
-
+    //движение
     public void updateMoving(double vectorX, double vectorY, int index) {
         synchronized (sprites) {
             sprites.get(index).updateVector(vectorX, vectorY);
         }
     }
-
+    //1 и 3 уроки
     public void updateAA(double aX, double aY, int index) {
         synchronized (sprites) {
             sprites.get(index).updateA(aX, aY);
         }
     }
-
+    //2 урок
     public void updateAAC(double radius, double angleV, int index) {
         synchronized (sprites) {
             sprites.get(index).updateAC(radius, angleV);
         }
     }
-
+    //5 урок
     public void updateElasticP(int index1, int index2) {
         synchronized (sprites) {
             sprites.get(index1).updateEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index1).getVectorX(), sprites.get(index2).getVectorX());
             sprites.get(index2).updateEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index2).getVectorX(), sprites.get(index1).getVectorX());
         }
     }
-
+    // 5 урок
     public void updateNoElasticP(int index1, int index2) {
         synchronized (sprites) {
             sprites.get(index1).updateNEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index1).getVectorX(), sprites.get(index2).getVectorX());
             sprites.get(index2).updateNEP(PhysicsData.getMass1(), PhysicsData.getMass2(), sprites.get(index2).getVectorX(), sprites.get(index1).getVectorX());
         }
     }
-
+    //4урок
     public void updateGG(double vel, double ang, int index) {
         synchronized (sprites) {
             sprites.get(index).updateGravity(vel, ang);
@@ -193,7 +183,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         stopThreadFlags();
     }
 
-
+    //поток
     class MoveThread extends Thread {
         @Override
         public void run() {
@@ -210,7 +200,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
 
-
+        //рисование
         private void onDrawAsync(Canvas canvas) {
 
             canvas.drawColor(Color.WHITE);
@@ -247,6 +237,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
                         updateNoElasticP(0, 1);
                     }
                 }
+                //проверка каждой модели
                 for (Sprite sprite : sprites) {
                     sprite.update(canvas);
                     if (sprite instanceof PhysicsSprite) {

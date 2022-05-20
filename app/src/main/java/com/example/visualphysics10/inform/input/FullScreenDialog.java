@@ -3,7 +3,6 @@ package com.example.visualphysics10.inform.input;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,11 @@ import com.example.visualphysics10.database.LessonData;
 import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.FullscreenDialogBinding;
+import com.example.visualphysics10.lessonsFragment.L1Fragment;
+import com.example.visualphysics10.lessonsFragment.L2Fragment;
+import com.example.visualphysics10.lessonsFragment.L3Fragment;
+import com.example.visualphysics10.lessonsFragment.L4Fragment;
+import com.example.visualphysics10.lessonsFragment.L5Fragment;
 import com.example.visualphysics10.ui.MainFlag;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,7 +49,9 @@ public class FullScreenDialog extends DialogFragment {
     public static LessonData getInstance() {
         return lessonData;
     }
-
+    public static boolean getStep(){
+        return true;
+    }
     public static SharedPreferences getSp() {
         return sp;
     }
@@ -151,9 +157,21 @@ public class FullScreenDialog extends DialogFragment {
         });
     }
 
+    private void outputData() {
+        L1Fragment l1Fragment = new L1Fragment();
+        L2Fragment l2Fragment = new L2Fragment();
+        L3Fragment l3Fragment = new L3Fragment();
+        L4Fragment l4Fragment = new L4Fragment();
+        L5Fragment l5Fragment = new L5Fragment();
+        l1Fragment.outputData();
+        l2Fragment.outputData();
+        l3Fragment.outputData();
+        l4Fragment.outputData();
+        l5Fragment.outputData();
+    }
+
     //save to db data from EditText
     private void inputData() {
-        Log.d("", "" + MainFlag.getPosition());
         lessonDataList.speed = toDouble(input_speed);
         switch (MainFlag.getPosition()) {
             case 0:

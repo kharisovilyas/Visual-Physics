@@ -74,4 +74,5 @@ public class TaskListFragment extends Fragment implements RecyclerViewAdapter.On
                 .addToBackStack(null)
                 .commit();
     }
+
 }

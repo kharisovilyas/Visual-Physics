@@ -160,7 +160,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/outputRad"
+                android:id="@+id/outputMass1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
@@ -171,7 +171,40 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/outputFrequency"
+                android:id="@+id/outputSpeed2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:lineSpacingExtra="10sp"
+                android:maxEms="12"
+                android:padding="32dp"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/outputMass2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:lineSpacingExtra="10sp"
+                android:maxEms="12"
+                android:padding="32dp"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/outputImpulse1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:lineSpacingExtra="10sp"
+                android:maxEms="12"
+                android:padding="32dp"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/outputImpulse2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"

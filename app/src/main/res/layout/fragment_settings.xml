@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -58,6 +58,7 @@
                     android:enabled="false"
                     app:counterEnabled="true"
                     app:counterMaxLength="11"
+                    app:endIconMode="clear_text"
                     app:errorEnabled="true"
                     app:helperText="Всего символов"
                     app:helperTextEnabled="true"
@@ -91,221 +92,40 @@
 
         </LinearLayout>
 
-        <LinearLayout
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchSound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/icon_color">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
+            android:layout_gravity="start"
+            android:checked="true"
+            android:drawableStart="@drawable/sound"
+            android:drawableTint="@color/primary"
+            android:gravity="center"
+            android:padding="18dp"
+            android:text="Отключить звук"
+            android:textColor="@color/primary"
+            android:textOff="ОТКЛ"
+            android:textOn="ВКЛ"
+            android:textSize="24sp"
+            app:showText="true"
+            app:thumbTint="@color/primary"
+            app:trackTint="#245D8A" />
 
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Звук в уроках"
-                                android:textColor="@color/black"
-                                android:textSize="26sp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Нажмите для изменения"
-                                android:textColor="@color/icon_color"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="right"
-                            android:orientation="horizontal">
-
-                            <FrameLayout
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:background="@color/icon_color">
-
-                                <FrameLayout
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_marginLeft="1dp"
-                                    android:background="@color/white">
-
-                                    <com.google.android.material.switchmaterial.SwitchMaterial
-                                        android:layout_width="60dp"
-                                        android:layout_height="60dp"
-                                        app:thumbTint="@color/primary"
-                                        app:trackTint="#245D8A" />
-                                </FrameLayout>
-                            </FrameLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </FrameLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/icon_color">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
+        <Button
+            android:id="@+id/startAboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="24dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="О нас"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="О приложении"
-                                android:textColor="@color/black"
-                                android:textSize="26sp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Информация о приложении"
-                                android:textColor="@color/icon_color"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="right"
-                            android:orientation="horizontal">
-
-                            <FrameLayout
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:background="@color/icon_color">
-
-                                <FrameLayout
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_marginLeft="1dp"
-                                    android:background="@color/white">
-
-                                    <ImageButton
-                                        android:backgroundTint="@color/white"
-                                        android:layout_width="60dp"
-                                        android:layout_height="60dp"
-                                        android:padding="8dp"
-                                        android:src="@drawable/info"
-                                        app:tint="@color/primary" />
-                                </FrameLayout>
-                            </FrameLayout>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </FrameLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Выйти из профиля"
-                                android:textColor="@color/red"
-                                android:textSize="26sp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Полное удаление данных"
-                                android:textColor="@color/color_accent"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="right"
-                            android:orientation="horizontal">
-
-                            <FrameLayout
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:background="@color/icon_color">
-
-                                <FrameLayout
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_marginLeft="1dp"
-                                    android:background="@color/white">
-
-                                    <ImageButton
-                                        android:backgroundTint="@color/white"
-                                        android:layout_width="60dp"
-                                        android:layout_height="60dp"
-                                        android:padding="8dp"
-                                        android:src="@drawable/output"
-                                        app:tint="@color/red" />
-                                </FrameLayout>
-                            </FrameLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </FrameLayout>
-            </FrameLayout>
-        </LinearLayout>
     </LinearLayout>
 
 

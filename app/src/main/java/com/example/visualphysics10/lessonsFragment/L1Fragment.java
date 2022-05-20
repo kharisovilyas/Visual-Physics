@@ -1,7 +1,12 @@
 package com.example.visualphysics10.lessonsFragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +21,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -27,11 +31,14 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L1FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.output.FullScreenInfo;
 import com.example.visualphysics10.inform.test.FragmentTest;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
+import com.example.visualphysics10.ui.EndEducationDialog;
 import com.example.visualphysics10.ui.MainFlag;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
@@ -48,8 +55,16 @@ public class L1Fragment extends Fragment {
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
     private LessonViewModel viewModel;
-
+    private boolean step1 = true;
+    private boolean step2 = false;
+    private boolean step3 = false;
+    private boolean step4 = FullScreenDialog.getStep();
     private int count = 0;
+    private LessonData lessonDataList;
+    SharedPreferences education;
+    private String EDUCATION_PREFERENCES = "educationEnd";
+    private boolean educationEnd;
+    private int targetCount = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,26 +108,142 @@ public class L1Fragment extends Fragment {
             createdFullScreenInfo();
         });
         outputData();
+        education = getContext().getSharedPreferences(EDUCATION_PREFERENCES, Context.MODE_PRIVATE);
+        if (education.contains(EDUCATION_PREFERENCES)) {
+            educationEnd = education.getBoolean(EDUCATION_PREFERENCES, false);
+        }
+        if (!educationEnd) {
+            startEducation();
+        }
+    }
+
+    private void startEducation() {
+        new TapTargetSequence((Activity) getContext()).targets(
+                TapTarget.forView(binding.startInput,
+                        "Введите исходные данные здесь", "Не забудьте сохранить данные и закройте окно")
+                        .outerCircleColor(R.color.primary)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(24)
+                        .descriptionTextSize(18)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextColor(R.color.black)
+                        .textTypeface(Typeface.SANS_SERIF)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(100),
+                TapTarget.forView(binding.play,
+                        "Нажмите старт", "Чтобы начать визуализацию")
+                        .outerCircleColor(R.color.primary)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(24)
+                        .descriptionTextSize(18)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextColor(R.color.black)
+                        .textTypeface(Typeface.SANS_SERIF)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(100),
+                TapTarget.forView(binding.info,
+                        "Нажмите инфо", "Чтобы получить больше информации, прослушать лекцию")
+                        .outerCircleColor(R.color.primary)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(24)
+                        .descriptionTextSize(18)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextColor(R.color.black)
+                        .textTypeface(Typeface.SANS_SERIF)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(10),
+                TapTarget.forView(binding.toolbar,
+                        "Нажмите или свайпните", "Чтобы посмотреть введеные и найденные данные")
+                        .outerCircleColor(R.color.primary)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(24)
+                        .descriptionTextSize(18)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextColor(R.color.black)
+                        .textTypeface(Typeface.SANS_SERIF)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(100),
+                TapTarget.forView(binding.startTest,
+                        "Нажмите и пройдите тест", "Чтобы закрепить усвоенный материал")
+                        .outerCircleColor(R.color.primary)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(24)
+                        .descriptionTextSize(18)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextColor(R.color.black)
+                        .textTypeface(Typeface.SANS_SERIF)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(100)).listener(new TapTargetSequence.Listener() {
+            @Override
+            public void onSequenceFinish() {
+
+            }
+
+            @Override
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                targetCount++;
+                if (targetCount == 5) {
+                    createEndEducationDialog();
+                    educationEnd();
+                }
+            }
+
+            @Override
+            public void onSequenceCanceled(TapTarget lastTarget) {
+
+            }
+        }).start();
+    }
+
+    private void createEndEducationDialog() {
+        DialogFragment dialogFragment = EndEducationDialog.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "congratulations!");
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    private void educationEnd() {
+        SharedPreferences.Editor editor = education.edit();
+        editor.putBoolean(EDUCATION_PREFERENCES, true);
+        editor.apply();
     }
 
 
-
     @SuppressLint("SetTextI18n")
-    private void outputData() {
+    public void outputData() {
         drawerLayout = binding.drawerLayout;
         navigation = binding.navigationView;
         addToolbarNav();
         MaterialTextView outputSpeed = binding.outputSpeed;
         MaterialTextView outputAcc = binding.outputAcc;
-        MaterialTextView outputSpeedEnd = binding.outputSpeedEnd;
         String string = "Вы ввели значение скорости тела - " + PhysicsData.getSpeed() + "[м/с]";
         String string2 = "Вы ввели значение ускорения тела - " + PhysicsData.getAcc() + "[м/с^2]";
-        //работает со второго раза запуска
-        String string3 = "Значение скорости перед остановкой - " + PhysicsData.getSpeedEnd() + "[м/с]";
         outputSpeed.setText(string);
         outputAcc.setText(string2);
-        outputSpeedEnd.setText(string3);
-        //work
     }
 
     private void addToolbarNav() {
@@ -137,10 +268,10 @@ public class L1Fragment extends Fragment {
             public void onChanged(List<LessonData> lessonData) {
                 PhysicsData.setSpeed(lessonData.get(0).speed);
                 PhysicsData.setAcc(lessonData.get(0).acc);
+                Log.d(" ", " " + lessonData.get(lessonData.size() - 1).sound);
             }
         });
         gameView.updateMoving(PhysicsData.getSpeed(), 0, 0);
-        outputData();
     }
 
 
@@ -154,12 +285,8 @@ public class L1Fragment extends Fragment {
     }
 
     private void createdFullScreenInfo() {
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new FragmentInfo())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .commit();
+        DialogFragment dialogFragment = FullScreenInfo.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
     }
 
     private void createdFullScreenDialog() {
@@ -201,6 +328,12 @@ public class L1Fragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        PhysicsModel.L1 = false;
+        binding = null;
+    }
 
     private void createDrawer() {
         DrawerLayout drawerLayout = binding.drawerLayout;

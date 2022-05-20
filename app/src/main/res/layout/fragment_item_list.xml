@@ -32,6 +32,13 @@
             tools:context=".adapter.ItemFragment"
             tools:listitem="@layout/fragment_item" />
 
+        <FrameLayout
+            android:id="@+id/forEducation"
+            android:layout_width="250dp"
+            android:layout_gravity="end"
+            android:layout_height="300dp">
+        </FrameLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView

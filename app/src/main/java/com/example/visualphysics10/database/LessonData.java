@@ -17,6 +17,8 @@ public class LessonData {
     public double speed;
     @ColumnInfo(name = "name")
     public String name;
+    @ColumnInfo(name = "sound")
+    public boolean sound;
     @ColumnInfo(name = "education")
     public boolean education;
     @ColumnInfo(name = "speed2")

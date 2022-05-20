@@ -168,17 +168,6 @@
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/outputSpeedEnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:lineSpacingExtra="10sp"
-                android:maxEms="12"
-                android:padding="32dp"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 

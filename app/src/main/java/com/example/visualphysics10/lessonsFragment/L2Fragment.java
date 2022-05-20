@@ -8,8 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +16,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -29,12 +26,15 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L2FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.output.FullScreenInfo;
 import com.example.visualphysics10.inform.test.FragmentTest;
 import com.example.visualphysics10.objects.PhysicsModel;
+import com.example.visualphysics10.physics.MathPart;
 import com.example.visualphysics10.physics.PhysicView;
 import com.example.visualphysics10.ui.MainFlag;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,20 +43,13 @@ public class L2Fragment extends Fragment {
     private PhysicView gameView;
     private L2FragmentBinding binding;
     public static boolean isMoving = false;
-    private boolean startVisual = true;
-    private boolean startToast = true;
-    public int switchFab = 0;
-    public EditText input_speed;
-    public EditText input_radius;
-    public TextView output_speed;
     private FloatingActionButton info;
     private FloatingActionButton play;
-    //AppDataBase db = AppRepository.getInstance().getDatabase();
     LessonData lessonData = FullScreenDialog.getInstance();
-    private boolean endInput = true;
-    private TextView output_scale;
     private int count = 0;
     private LessonViewModel viewModel;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,7 +80,6 @@ public class L2Fragment extends Fragment {
             count++;
         });
         restart.setOnClickListener(v -> {
-            startVisual = true;
             createDialog();
         });
         startInput.setOnClickListener(v -> {
@@ -102,13 +94,29 @@ public class L2Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
-        outputData();
     }
 
-    private void outputData() {
-
+    public void outputData() {
+        drawerLayout = binding.drawerLayout;
+        navigation = binding.navigationView;
+        MathPart.setFrequency((2 * Math.PI * PhysicsData.getRadius()) / PhysicsData.getSpeed());
+        addToolbarNav();
+        MaterialTextView outputSpeed = binding.outputSpeed;
+        MaterialTextView outputAcc = binding.outputRad;
+        MaterialTextView outputSpeedEnd = binding.outputFrequency;
+        String string = "Вы ввели значение скорости тела - " + PhysicsData.getSpeed() + "[м/с]";
+        String string2 = "Вы ввели значение ускорения тела - " + PhysicsData.getRadius() + "[м/с^2]";
+        String string3 = "Значение частоты вращения тела - " + MathPart.getFrequency() + "[c^-1]";
+        outputSpeed.setText(string);
+        outputAcc.setText(string2);
+        outputSpeedEnd.setText(string3);
     }
 
+    private void addToolbarNav() {
+        Toolbar toolbar = binding.toolbarNavView;
+        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        toolbar.setTitle("Введенные данные");
+    }
 
 
     @Override
@@ -164,13 +172,8 @@ public class L2Fragment extends Fragment {
     }
 
     private void createdFullScreenInfo() {
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right)
-                .replace(R.id.container, new FragmentInfo())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .commit();
+        DialogFragment dialogFragment = FullScreenInfo.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
     }
 
     private void createdFullScreenDialog() {
@@ -198,6 +201,7 @@ public class L2Fragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        PhysicsModel.L2 = false;
         binding = null;
     }
 

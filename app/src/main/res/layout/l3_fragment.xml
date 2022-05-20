@@ -160,7 +160,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/outputRad"
+                android:id="@+id/outputMass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
@@ -171,7 +171,18 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/outputFrequency"
+                android:id="@+id/outputForce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:lineSpacingExtra="10sp"
+                android:maxEms="12"
+                android:padding="32dp"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/outputAcc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"

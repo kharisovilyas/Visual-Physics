@@ -1,8 +1,12 @@
 package com.example.visualphysics10.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +31,6 @@ import com.example.visualphysics10.R;
 import com.example.visualphysics10.database.LessonData;
 import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.databinding.FragmentItemListBinding;
-import com.example.visualphysics10.itemUi.FragmentLecture;
 import com.example.visualphysics10.itemUi.SettingsFragment;
 import com.example.visualphysics10.itemUi.TaskListFragment;
 import com.example.visualphysics10.lessonsFragment.L1Fragment;
@@ -37,6 +40,8 @@ import com.example.visualphysics10.lessonsFragment.L4Fragment;
 import com.example.visualphysics10.lessonsFragment.L5Fragment;
 import com.example.visualphysics10.placeholder.PlaceholderContent;
 import com.example.visualphysics10.ui.MainFlag;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
@@ -50,9 +55,11 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
     private FragmentItemListBinding binding;
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
-    //AppDataBase db = AppRepository.getInstance().getDatabase();
     private LessonViewModel viewModel;
     SettingsFragment settingsFragment = new SettingsFragment();
+    SharedPreferences education;
+    private String EDUCATION_PREFERENCES = "educationEnd";
+    private boolean educationEnd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +92,45 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
         addToolbar();
         listenerNav();
         editProfile();
+        education = context.getSharedPreferences(EDUCATION_PREFERENCES, Context.MODE_PRIVATE);
+        if(education.contains(EDUCATION_PREFERENCES)){
+            educationEnd = education.getBoolean(EDUCATION_PREFERENCES, false);
+        }
+        if (!educationEnd) {
+            startEducation();
+        }
     }
+
+    private void startEducation() {
+        TapTargetView.showFor((Activity) requireContext(),
+                TapTarget.forView(
+                        binding.forEducation,
+                        "Выберете урок и нажмите сюда,", "Чтобы запустить урок")
+                        .outerCircleColor(R.color.primary)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(24)
+                        .descriptionTextSize(18)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextColor(R.color.black)
+                        .textTypeface(Typeface.SANS_SERIF)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(100),
+                new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        onLessonClick(0);
+                    }
+                }
+        );
+
+    }
+
 
     //created drawerLayout and NavigationView in him
     private void listenerNav() {
@@ -125,8 +170,8 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
                 if (lessonData.size() != 0) {
                     String username = lessonData.get(lessonData.size() - 1).name;
                     headerName.setText(username);
+                    Log.d("this flag is...", " " +lessonData.get(lessonData.size()-1).education);
                     settingsFragment.setStr(username);
-
                 }
             }
         });
@@ -137,9 +182,6 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
     private Fragment selectDrawerItem(MenuItem menu) {
         Fragment fragment;
         switch (menu.getItemId()) {
-            case R.id.lecture:
-                fragment = new FragmentLecture();
-                break;
             case R.id.task:
                 fragment = new TaskListFragment();
                 break;
@@ -183,6 +225,7 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
+
 
     private Fragment selectFragment(int position) {
         switch (position) {

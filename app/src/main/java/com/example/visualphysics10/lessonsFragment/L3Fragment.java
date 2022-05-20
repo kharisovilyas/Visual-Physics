@@ -16,7 +16,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -27,11 +26,13 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L3FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.output.FullScreenInfo;
 import com.example.visualphysics10.inform.test.FragmentTest3;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,6 +47,8 @@ public class L3Fragment extends Fragment {
     private L3FragmentBinding binding;
     private int count = 0;
     private LessonViewModel viewModel;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,7 +78,6 @@ public class L3Fragment extends Fragment {
             createDialog();
         });
         startInput.setOnClickListener(v -> {
-            //toggleBottomSheetInput();
             createdFullScreenDialog();
         });
 
@@ -87,11 +89,30 @@ public class L3Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
-        outputData();
     }
 
-    private void outputData() {
+    public void outputData() {
+        drawerLayout = binding.drawerLayout;
+        navigation = binding.navigationView;
+        addToolbarNav();
+        MaterialTextView outputSpeed = binding.outputSpeed;
+        MaterialTextView outputMass = binding.outputMass;
+        MaterialTextView outputForce = binding.outputForce;
+        MaterialTextView outputAcc = binding.outputForce;
+        String string = "Вы ввели значение скорости тела - " + PhysicsData.getSpeed() + "[м/с]";
+        String string2 = "Вы ввели значение массы тела - " + PhysicsData.getMass1() + "[кг]";
+        String string3 = "Вы ввели значение силы под действием которой тело движется - " + PhysicsData.getForce() + "[Н]";
+        String string4 = "Значение ускорения тела - " + PhysicsData.getAcc() + "[м/с^2]";
+        outputSpeed.setText(string);
+        outputMass.setText(string2);
+        outputForce.setText(string3);
+        outputAcc.setText(string4);
+    }
 
+    private void addToolbarNav() {
+        Toolbar toolbar = binding.toolbarNavView;
+        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        toolbar.setTitle("Введенные данные");
     }
 
     private void pauseClick() {
@@ -123,13 +144,8 @@ public class L3Fragment extends Fragment {
     }
 
     private void createdFullScreenInfo() {
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right)
-                .replace(R.id.container, new FragmentInfo())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .commit();
+        DialogFragment dialogFragment = FullScreenInfo.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
     }
 
     private void createdFullScreenDialog() {
@@ -183,6 +199,7 @@ public class L3Fragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        PhysicsModel.L3 = false;
         binding = null;
     }
 }

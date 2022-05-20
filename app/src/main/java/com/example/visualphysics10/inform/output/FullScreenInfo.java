@@ -1,5 +1,6 @@
 package com.example.visualphysics10.inform.output;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
@@ -21,14 +22,29 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 import java.util.Objects;
 
-public class FragmentInfo extends Fragment {
+public class FullScreenInfo extends DialogFragment {
     private FragmentInfoBinding binding;
     private MaterialTextView textView;
     YouTubePlayerView player;
 
+    public static DialogFragment newInstance() {
+        return new FullScreenInfo();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        assert dialog != null;
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setLayout(width, height);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogTheme);
     }
 
     @Nullable
@@ -119,7 +135,7 @@ public class FragmentInfo extends Fragment {
         toolbar.setNavigationIcon(R.drawable.close);
         toolbar.setTitle(selectTitle());
         toolbar.setNavigationOnClickListener(v -> {
-            getActivity().onBackPressed();
+            dismiss();
         });
     }
 

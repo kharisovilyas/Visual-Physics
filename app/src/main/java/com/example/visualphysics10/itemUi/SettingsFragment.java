@@ -1,5 +1,6 @@
 package com.example.visualphysics10.itemUi;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -16,6 +18,7 @@ import com.example.visualphysics10.R;
 import com.example.visualphysics10.database.LessonData;
 import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.databinding.FragmentSettingsBinding;
+import com.example.visualphysics10.ui.AboutUs;
 
 import java.util.Objects;
 
@@ -26,7 +29,9 @@ public class SettingsFragment extends Fragment {
     public static boolean isFABClicked = false;
     private LessonViewModel viewModel;
     public LessonData lessonDataList = new LessonData();
-    //AppDataBase db = AppRepository.getInstance().getDatabase();
+    SharedPreferences education;
+    private String EDUCATION_PREFERENCES = "educationEnd";
+    private boolean educationEnd;
 
     public void setStr(String hint) {
         this.nameHint = hint;
@@ -49,10 +54,25 @@ public class SettingsFragment extends Fragment {
             changeProfile();
         });
         addToolbar();
+        binding.switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            viewModel = ViewModelProviders.of(requireActivity()).get(LessonViewModel.class);
+            lessonDataList.sound = true;
+            viewModel.insert(lessonDataList);
+        });
+        binding.startAboutUs.setOnClickListener(v->{
+            startAboutUs();
+        });
+    }
+
+
+    private void startAboutUs() {
+        DialogFragment dialogFragment = AboutUs.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "read more about us!");
     }
 
     private void changeProfile() {
         if (!isFABClicked) {
+            binding.editProfileText.setText(nameHint);
             binding.editName.setEnabled(true);
             isFABClicked = true;
             binding.editProfile.setImageResource(R.drawable.check_24);
@@ -60,9 +80,9 @@ public class SettingsFragment extends Fragment {
             binding.editName.setEnabled(false);
             isFABClicked = false;
             binding.editProfile.setImageResource(R.drawable.edit_name);
-            //save input in database
             saveData();
         }
+
     }
 
     //the method inserts the User-name from the edittext into the database
@@ -88,5 +108,8 @@ public class SettingsFragment extends Fragment {
         Toolbar toolbar = binding.toolbar;
         ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_back);
+        toolbar.setNavigationOnClickListener(v->{
+            requireActivity().onBackPressed();
+        });
     }
 }

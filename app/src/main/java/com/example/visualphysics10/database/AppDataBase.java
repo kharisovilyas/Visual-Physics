@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 //TODO: Database of our application
 // the logic of its work is implemented in the entities that are in this package
 // in this class we create a database using the Room methods
-@Database(entities = {LessonData.class}, version = 6, exportSchema = false)
+@Database(entities = {LessonData.class}, version = 7, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract DataDao dataDao();
 
@@ -45,6 +45,7 @@ public abstract class AppDataBase extends RoomDatabase {
         private PopularDbAsyncTask(AppDataBase db){
             dataDao = db.dataDao();
         }
+        //thread
         @Override
         protected Void doInBackground(Void... voids) {
             dataDao.insert(new LessonData());

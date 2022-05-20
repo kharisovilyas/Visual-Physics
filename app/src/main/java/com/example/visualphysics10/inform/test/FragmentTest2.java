@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.databinding.FragmentTestBinding;
+import com.example.visualphysics10.databinding.FragmentTest2Binding;
 import com.example.visualphysics10.net.AppForNet;
 import com.example.visualphysics10.net.InternetConnection;
 import com.example.visualphysics10.net.TestingList;
@@ -33,7 +33,7 @@ public class FragmentTest2 extends Fragment {
     }
 
     //TODO: tasks for all lessons
-    private FragmentTestBinding binding;
+    private FragmentTest2Binding binding;
     private ArrayList<Testings> taskList;
     private MaterialTextView taskTextView;
     private boolean right;
@@ -46,7 +46,7 @@ public class FragmentTest2 extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentTestBinding.inflate(inflater, container, false);
+        binding = FragmentTest2Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

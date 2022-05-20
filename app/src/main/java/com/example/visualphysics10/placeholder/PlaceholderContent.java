@@ -3,7 +3,6 @@ package com.example.visualphysics10.placeholder;
 import androidx.annotation.NonNull;
 
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.database.PhysicsData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,12 +34,11 @@ public class PlaceholderContent {
 
     private static String selectDescription(int position) {
         switch (position){
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                return "Прогресс: " + PhysicsData.getSpeed();
+            case 1: return "В этом уроке вы разберете ускорение тела";
+            case 2: return "В этом уроке вы изучите движение по окружности";
+            case 3: return "В этом уроке вы пройдете тему II Закон Ньютона";
+            case 4: return "В этом уроке вы изучите движение тел под углом";
+            case 5: return "В этом уроке вы пройдете тему Импульс тел";
             default:
                 return "";
         }
@@ -64,16 +62,7 @@ public class PlaceholderContent {
     }
 
     private static String switchDetails(int position) {
-        switch (position){
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                return "Решено задач: " + PhysicsData.getSpeed();
-
-            default: return "";
-        }
+         return "";
     }
 
 
