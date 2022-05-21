@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity{
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     ItemFragment itemFragment = new ItemFragment();
-    public static boolean isFragment;
     private ActivityMainBinding binding;
     private int count;
     private MediaPlayer collision;

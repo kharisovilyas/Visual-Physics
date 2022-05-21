@@ -41,9 +41,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
-        MainActivity.isFragment = true;
         return binding.getRoot();
-
     }
 
     @Override
@@ -54,10 +52,9 @@ public class SettingsFragment extends Fragment {
             changeProfile();
         });
         addToolbar();
+        //add to SharedPreferences settings of sound
         binding.switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            viewModel = ViewModelProviders.of(requireActivity()).get(LessonViewModel.class);
-            lessonDataList.sound = true;
-            viewModel.insert(lessonDataList);
+
         });
         binding.startAboutUs.setOnClickListener(v->{
             startAboutUs();

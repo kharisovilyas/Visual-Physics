@@ -80,7 +80,6 @@ public class ItemFragment extends Fragment implements RecyclerViewAdapter.OnLess
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MainActivity.isFragment = false;
         Context context = view.getContext();
         RecyclerView recyclerView = binding.list;
         if (mColumnCount <= 1) {

@@ -2,6 +2,7 @@ package com.example.visualphysics10.lessonsFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +27,7 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L3FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FullScreenInfo;
+import com.example.visualphysics10.inform.output.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest3;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
@@ -36,7 +37,8 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Objects;
-
+//TODO: Look in L1Fragment if logic this fragment unclear
+// because the identical fragment
 public class L3Fragment extends Fragment {
     private PhysicView gameView;
     public static boolean isMoving = false;
@@ -62,7 +64,7 @@ public class L3Fragment extends Fragment {
         gameView = binding.physicsView;
         PhysicsModel.L3 = true;
         count = 0;
-        gameView.addModelGV();
+        waitingForSV();
         addToolbar();
         play = binding.play;
         FloatingActionButton restart = binding.restart;
@@ -89,6 +91,18 @@ public class L3Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
+    }
+
+    private void waitingForSV() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //call the engine constructor for first fragment to Velocity
+                gameView.addModelGV();
+            }
+            //minimal latency for users
+        }, 100);
     }
 
     public void outputData() {
@@ -144,8 +158,12 @@ public class L3Fragment extends Fragment {
     }
 
     private void createdFullScreenInfo() {
-        DialogFragment dialogFragment = FullScreenInfo.newInstance();
-        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                .replace(R.id.container, new FragmentInfo())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void createdFullScreenDialog() {

@@ -109,11 +109,15 @@ public class FragmentTest5 extends Fragment {
                 //in case of failure, parsing from R.string.task
                 @Override
                 public void onFailure(Call<TestingList> call, Throwable t) {
-                    binding.progressBar.setVisibility(View.GONE);
+                    try{
+                        binding.progressBar.setVisibility(View.GONE);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
                     if (index == 0) {
-                        taskTextView.setText(R.string.l1task1);
+                        taskTextView.setText(R.string.l5task1);
                     } else {
-                        taskTextView.setText(R.string.l1task2);
+                        taskTextView.setText(R.string.l5task2);
                     }
                 }
             });

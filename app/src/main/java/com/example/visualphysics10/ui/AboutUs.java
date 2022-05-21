@@ -13,7 +13,6 @@ import androidx.fragment.app.DialogFragment;
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
 import com.example.visualphysics10.databinding.AboutUsBinding;
-import com.example.visualphysics10.inform.output.FullScreenInfo;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.Objects;
@@ -56,7 +55,7 @@ public class AboutUs extends DialogFragment {
         MaterialToolbar toolbar = binding.toolbar;
         ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.close);
-        toolbar.setTitle(R.string.title_input);
+        toolbar.setTitle(R.string.about);
         toolbar.setNavigationOnClickListener(v -> {
             dismiss();
         });

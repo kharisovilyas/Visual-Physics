@@ -2,6 +2,7 @@ package com.example.visualphysics10.lessonsFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,8 +27,8 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L4FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FullScreenInfo;
-import com.example.visualphysics10.inform.test.FragmentTest;
+import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.test.FragmentTest4;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,7 +37,8 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Objects;
-
+//TODO: Look in L1Fragment if logic this fragment unclear
+// because the identical fragment
 public class L4Fragment extends Fragment {
     private PhysicView gameView;
     public static boolean isMoving = false;
@@ -63,7 +65,7 @@ public class L4Fragment extends Fragment {
         addToolbar();
         gameView = binding.physicsView;
         count = 0;
-        gameView.addModelGV4(512);
+        waitingForSV();
         play = binding.play;
         FloatingActionButton restart = binding.restart;
         FloatingActionButton startInput = binding.startInput;
@@ -90,9 +92,19 @@ public class L4Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
-        MainActivity.isFragment = true;
     }
 
+    private void waitingForSV() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //call the engine constructor for first fragment to Velocity
+                gameView.addModelGV4();
+            }
+            //minimal latency for users
+        }, 100);
+    }
     public void outputData() {
         drawerLayout = binding.drawerLayout;
         navigation = binding.navigationView;
@@ -145,14 +157,18 @@ public class L4Fragment extends Fragment {
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
-                .replace(R.id.container, new FragmentTest())
+                .replace(R.id.container, new FragmentTest4())
                 .addToBackStack(null)
                 .commit();
     }
 
     private void createdFullScreenInfo() {
-        DialogFragment dialogFragment = FullScreenInfo.newInstance();
-        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                .replace(R.id.container, new FragmentInfo())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void createdFullScreenDialog() {

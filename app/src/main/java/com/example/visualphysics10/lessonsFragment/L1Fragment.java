@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +31,7 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L1FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FullScreenInfo;
+import com.example.visualphysics10.inform.output.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
@@ -45,7 +45,11 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Objects;
-
+//
+//TODO: a fragment in which the main actions take place - communication with SurfaceView, output and input of data, saving them to the database
+// there are 5 such fragments in total for for each lesson
+// for example this fragment - Velocity (first in RecyclerView), this is where the logic of user interaction with the physics engine and the database takes place
+// there is no point in writing comments for the remaining 4 fragments - they are identical
 public class L1Fragment extends Fragment {
     private L1FragmentBinding binding;
     private PhysicView gameView;
@@ -55,12 +59,7 @@ public class L1Fragment extends Fragment {
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
     private LessonViewModel viewModel;
-    private boolean step1 = true;
-    private boolean step2 = false;
-    private boolean step3 = false;
-    private boolean step4 = FullScreenDialog.getStep();
     private int count = 0;
-    private LessonData lessonDataList;
     SharedPreferences education;
     private String EDUCATION_PREFERENCES = "educationEnd";
     private boolean educationEnd;
@@ -78,36 +77,43 @@ public class L1Fragment extends Fragment {
         addToolbar();
         count = 0;
         gameView = binding.physicsView;
-        MainActivity.isFragment = true;
         PhysicsModel.L1 = true;
         MainFlag.setThreadStop(false);
-        gameView.addModelGV();
+        // in this method we wait for SurfaceView until she gets her size. And let's start!
+        waitingForSV();
+        //
         play = binding.play;
         FloatingActionButton restart = binding.restart;
         FloatingActionButton startInput = binding.startInput;
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
+        //double click on this button calls another function - this way we save space in fragment
         play.setOnClickListener(v -> {
             if (count % 2 == 0) playClick();
             else pauseClick();
             count++;
         });
+        //allows the user to restart the visualization with the input data
         restart.setOnClickListener(v -> {
             createDialog();
         });
+        //create Dialog where input Data for visualization
         startInput.setOnClickListener(v -> {
             createdFullScreenDialog();
         });
 
+        //start testings
         startTest.setOnClickListener(v -> {
             startTesting();
         });
 
+        //when setVisible - we can click in info and watch YouTube Video
         info.setOnClickListener(v -> {
             gameView.stopThread();
             createdFullScreenInfo();
         });
-        outputData();
+
+        //TODO: start education, but once...
         education = getContext().getSharedPreferences(EDUCATION_PREFERENCES, Context.MODE_PRIVATE);
         if (education.contains(EDUCATION_PREFERENCES)) {
             educationEnd = education.getBoolean(EDUCATION_PREFERENCES, false);
@@ -117,6 +123,19 @@ public class L1Fragment extends Fragment {
         }
     }
 
+    private void waitingForSV() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //call the engine constructor for first fragment to Velocity
+                gameView.addModelGV();
+            }
+            //minimal latency for users
+        }, 100);
+    }
+
+    //logic TapTargetView - MaterialDesign
     private void startEducation() {
         new TapTargetSequence((Activity) getContext()).targets(
                 TapTarget.forView(binding.startInput,
@@ -153,22 +172,6 @@ public class L1Fragment extends Fragment {
                         .targetRadius(100),
                 TapTarget.forView(binding.info,
                         "Нажмите инфо", "Чтобы получить больше информации, прослушать лекцию")
-                        .outerCircleColor(R.color.primary)
-                        .outerCircleAlpha(0.96f)
-                        .targetCircleColor(R.color.white)
-                        .titleTextSize(24)
-                        .descriptionTextSize(18)
-                        .titleTextColor(R.color.white)
-                        .descriptionTextColor(R.color.black)
-                        .textTypeface(Typeface.SANS_SERIF)
-                        .dimColor(R.color.black)
-                        .drawShadow(true)
-                        .cancelable(false)
-                        .tintTarget(true)
-                        .transparentTarget(true)
-                        .targetRadius(10),
-                TapTarget.forView(binding.toolbar,
-                        "Нажмите или свайпните", "Чтобы посмотреть введеные и найденные данные")
                         .outerCircleColor(R.color.primary)
                         .outerCircleAlpha(0.96f)
                         .targetCircleColor(R.color.white)
@@ -225,6 +228,7 @@ public class L1Fragment extends Fragment {
         dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "congratulations!");
     }
 
+    //using SharedPreferences we end education
     @SuppressLint("CommitPrefEdits")
     private void educationEnd() {
         SharedPreferences.Editor editor = education.edit();
@@ -232,7 +236,7 @@ public class L1Fragment extends Fragment {
         editor.apply();
     }
 
-
+    //Output Data
     @SuppressLint("SetTextI18n")
     public void outputData() {
         drawerLayout = binding.drawerLayout;
@@ -268,7 +272,6 @@ public class L1Fragment extends Fragment {
             public void onChanged(List<LessonData> lessonData) {
                 PhysicsData.setSpeed(lessonData.get(0).speed);
                 PhysicsData.setAcc(lessonData.get(0).acc);
-                Log.d(" ", " " + lessonData.get(lessonData.size() - 1).sound);
             }
         });
         gameView.updateMoving(PhysicsData.getSpeed(), 0, 0);
@@ -285,8 +288,12 @@ public class L1Fragment extends Fragment {
     }
 
     private void createdFullScreenInfo() {
-        DialogFragment dialogFragment = FullScreenInfo.newInstance();
-        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                .replace(R.id.container, new FragmentInfo())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void createdFullScreenDialog() {

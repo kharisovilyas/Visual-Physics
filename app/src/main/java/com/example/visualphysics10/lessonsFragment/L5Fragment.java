@@ -3,6 +3,7 @@ package com.example.visualphysics10.lessonsFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,8 +28,8 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L5FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog5;
-import com.example.visualphysics10.inform.output.FullScreenInfo;
-import com.example.visualphysics10.inform.test.FragmentTest;
+import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.test.FragmentTest5;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,13 +38,13 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Objects;
-
+//TODO: Look in L1Fragment if logic this fragment unclear
+// because the identical fragment
 public class L5Fragment extends Fragment {
     private PhysicView gameView;
     public static boolean isMoving = false;
     private FloatingActionButton info;
     private FloatingActionButton play;
-    //AppDataBase db = AppRepository.getInstance().getDatabase();
     private int count = 0;
     private L5FragmentBinding binding;
     private LessonViewModel viewModel;
@@ -62,8 +63,7 @@ public class L5Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         PhysicsModel.L5 = true;
         gameView = binding.physicsView;
-        gameView.addModelGV5(0);
-        gameView.addModelGV5(1);
+        waitingForSV();
         addToolbar();
         count = 0;
         play = binding.play;
@@ -72,7 +72,9 @@ public class L5Fragment extends Fragment {
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
         play.setOnClickListener(v -> {
-            playClick();
+            if (count % 2 == 0) playClick();
+            else pauseClick();
+            count++;
         });
         restart.setOnClickListener(v -> {
             createDialog();
@@ -89,6 +91,19 @@ public class L5Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
+    }
+
+    private void waitingForSV() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //call the engine constructor for first fragment to Velocity
+                gameView.addModelGV5(0);
+                gameView.addModelGV5(1);
+            }
+            //minimal latency for users
+        }, 100);
     }
 
     public void outputData() {
@@ -121,6 +136,7 @@ public class L5Fragment extends Fragment {
     private void pauseClick() {
         play.setImageResource(R.drawable.play_arrow);
         gameView.stopDraw(0);
+        gameView.stopDraw(1);
 
     }
 
@@ -148,14 +164,18 @@ public class L5Fragment extends Fragment {
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
-                .replace(R.id.container, new FragmentTest())
+                .replace(R.id.container, new FragmentTest5())
                 .addToBackStack(null)
                 .commit();
     }
 
     private void createdFullScreenInfo() {
-        DialogFragment dialogFragment = FullScreenInfo.newInstance();
-        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "start video");
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                .replace(R.id.container, new FragmentInfo())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void createdFullScreenDialog() {
@@ -168,6 +188,7 @@ public class L5Fragment extends Fragment {
         play.setImageResource(R.drawable.play_arrow);
         count += count % 2;
         gameView.restartClick(0);
+        gameView.restartClick(1);
     }
 
     @Override

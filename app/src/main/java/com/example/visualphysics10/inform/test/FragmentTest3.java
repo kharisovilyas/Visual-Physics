@@ -112,9 +112,9 @@ public class FragmentTest3 extends Fragment {
                         e.printStackTrace();
                     }
                     if (index == 0) {
-                        taskTextView.setText(R.string.l1task1);
+                        taskTextView.setText(R.string.l3task1);
                     } else {
-                        taskTextView.setText(R.string.l1task2);
+                        taskTextView.setText(R.string.l3task2);
                     }
                 }
             });

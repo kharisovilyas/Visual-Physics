@@ -6,11 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.engine.PhysicsSprite;
@@ -40,26 +40,31 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
     public PhysicView(Context context) {
         this(context, null);
+        Log.d(" thooooo1", " " + PhysicsData.getY0());
     }
     //размер surfaceView
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        Log.d(" thooooo2", " " + PhysicsData.getY0());
         super.onSizeChanged(w, h, oldw, oldh);
         if (!PhysicsModel.L2start) {
             PhysicsData.setX0(w);
             PhysicsData.setY0(h);
         }
+        Log.d(" thooooo3", " " + PhysicsData.getY0());
     }
     //создание сущности модели
     public void addModelGV() {
+        Log.d(" ЗАПРЕЩЕНО ВЫЗЫВАТЬ 4 метод", " " + PhysicsData.getY0());
         synchronized (sprites) {
             sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, 0));
         }
+
     }
     //создание сущности модели в четвертом уроке
-    public void addModelGV4(double y){
+    public void addModelGV4(){
         synchronized (sprites){
-            sprites.add(new PhysicsModel(getContext(), 0, y, 0, 0, 0));
+            sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() / 2, 0, 0, 0));
         }
     }
     //создание сущности модели в пятом уроке
@@ -72,13 +77,13 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-
-
     private void initSprites() {
     }
     //начало потока
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        //TODO: HERE Y ЕСТЬ
+        Log.d(" thooooo6", " " + PhysicsData.getY0());
         drawOk = true;
         drawThread = new MoveThread();
         drawThread.start();
@@ -86,7 +91,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-
+        PhysicsData.setY0(height);
     }
 
     //уничтожение surfaceView
@@ -111,12 +116,8 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         L5Fragment.isMoving = false;
         drawOk = false;
         stopThread();
-        startItemFragment();
     }
 
-    private void startItemFragment() {
-        FragmentManager fragmentManager;
-    }
 
     public void stopThread() {
         drawThread.interrupt();

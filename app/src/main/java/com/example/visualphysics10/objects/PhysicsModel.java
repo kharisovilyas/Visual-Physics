@@ -66,7 +66,6 @@ public class PhysicsModel extends PhysicsSprite {
 
     public PhysicsModel(Context context, double x, double y, double vectorX, double vectorY, int index) {
         super(context);
-
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.argb(100, 250, 50, 50));
         paint.setStrokeWidth(15);
@@ -318,7 +317,8 @@ public class PhysicsModel extends PhysicsSprite {
     }
 
     public void onRestartClick() {
-        x = 0;
+        if(index == 0) x = 0;
+        else x = PhysicsData.getX0();
         if(L2) updateAC(PhysicsData.getRadius(), 0);
         else updateVector(0, 0);
         if (L4) y = (PhysicsData.getY0() - h) / 2;

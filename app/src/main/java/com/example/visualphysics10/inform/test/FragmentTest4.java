@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
-import com.example.visualphysics10.databinding.FragmentTestBinding;
+import com.example.visualphysics10.databinding.FragmentTest4Binding;
 import com.example.visualphysics10.net.AppForNet;
 import com.example.visualphysics10.net.InternetConnection;
 import com.example.visualphysics10.net.TestingList;
@@ -33,7 +33,7 @@ public class FragmentTest4 extends Fragment {
     }
 
     //TODO: tasks for all lessons
-    private FragmentTestBinding binding;
+    private FragmentTest4Binding binding;
     private ArrayList<Testings> taskList;
     private MaterialTextView taskTextView;
     private boolean right;
@@ -46,7 +46,7 @@ public class FragmentTest4 extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentTestBinding.inflate(inflater, container, false);
+        binding = FragmentTest4Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -109,11 +109,15 @@ public class FragmentTest4 extends Fragment {
                 //in case of failure, parsing from R.string.task
                 @Override
                 public void onFailure(Call<TestingList> call, Throwable t) {
-                    binding.progressBar.setVisibility(View.GONE);
+                    try{
+                        binding.progressBar.setVisibility(View.GONE);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
                     if (index == 0) {
-                        taskTextView.setText(R.string.l1task1);
+                        taskTextView.setText(R.string.l4task1);
                     } else {
-                        taskTextView.setText(R.string.l1task2);
+                        taskTextView.setText(R.string.l4task2);
                     }
                 }
             });
