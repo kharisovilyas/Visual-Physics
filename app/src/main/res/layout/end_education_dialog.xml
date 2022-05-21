@@ -39,6 +39,7 @@
             android:textColor="@color/black" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text"
             android:layout_margin="30dp"
             android:drawableTint="@color/black"
             android:drawableBottom="@drawable/menu"

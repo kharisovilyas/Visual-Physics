@@ -17,13 +17,7 @@ import com.example.visualphysics10.MainActivity;
 import com.example.visualphysics10.R;
 import com.example.visualphysics10.database.LessonData;
 import com.example.visualphysics10.database.LessonViewModel;
-import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.FullscreenDialogBinding;
-import com.example.visualphysics10.lessonsFragment.L1Fragment;
-import com.example.visualphysics10.lessonsFragment.L2Fragment;
-import com.example.visualphysics10.lessonsFragment.L3Fragment;
-import com.example.visualphysics10.lessonsFragment.L4Fragment;
-import com.example.visualphysics10.lessonsFragment.L5Fragment;
 import com.example.visualphysics10.ui.MainFlag;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -132,18 +126,12 @@ public class FullScreenDialog extends DialogFragment {
         saveInput.setOnClickListener(v -> {
             try {
                 saveData();
-                addSpParams();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             dismiss();
         });
     }
-
-    private void addSpParams() {
-        PhysicsData.setElasticImpulse(true);
-    }
-
 
 
     private void saveData() {
@@ -155,19 +143,6 @@ public class FullScreenDialog extends DialogFragment {
                 lessonData.set(0, lessonDataList);
             }
         });
-    }
-
-    private void outputData() {
-        L1Fragment l1Fragment = new L1Fragment();
-        L2Fragment l2Fragment = new L2Fragment();
-        L3Fragment l3Fragment = new L3Fragment();
-        L4Fragment l4Fragment = new L4Fragment();
-        L5Fragment l5Fragment = new L5Fragment();
-        l1Fragment.outputData();
-        l2Fragment.outputData();
-        l3Fragment.outputData();
-        l4Fragment.outputData();
-        l5Fragment.outputData();
     }
 
     //save to db data from EditText
@@ -186,6 +161,7 @@ public class FullScreenDialog extends DialogFragment {
                 break;
             case 3:
                 lessonDataList.angle = toDouble(input_angle);
+                lessonDataList.acc = toDouble(input_acc);
                 break;
         }
     }

@@ -88,12 +88,16 @@ public class L1Fragment extends Fragment {
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
         //double click on this button calls another function - this way we save space in fragment
+        getMessage();
         play.setOnClickListener(v -> {
-            if (count % 2 == 0) playClick();
+            if (count % 2 == 0) {
+                playClick();
+                outputData();
+            }
             else pauseClick();
             count++;
         });
-        //allows the user to restart the visualization with the input data
+        //allows the user to restart the visualization with the input data if if you want to change the data - restart and input
         restart.setOnClickListener(v -> {
             createDialog();
         });
@@ -236,6 +240,14 @@ public class L1Fragment extends Fragment {
         editor.apply();
     }
 
+    private void getMessage() {
+        addToolbarNav();
+        MaterialTextView outputMes = binding.outputSpeed;
+        MaterialTextView outputNull = binding.outputAcc;
+        outputMes.setText(R.string.outputMes);
+        outputNull.setText("");
+    }
+
     //Output Data
     @SuppressLint("SetTextI18n")
     public void outputData() {
@@ -244,8 +256,8 @@ public class L1Fragment extends Fragment {
         addToolbarNav();
         MaterialTextView outputSpeed = binding.outputSpeed;
         MaterialTextView outputAcc = binding.outputAcc;
-        String string = "Вы ввели значение скорости тела - " + PhysicsData.getSpeed() + "[м/с]";
-        String string2 = "Вы ввели значение ускорения тела - " + PhysicsData.getAcc() + "[м/с^2]";
+        String string = getString(R.string.outputSpeed) + "\n" + PhysicsData.getSpeed() + " [м/с]";
+        String string2 = getString(R.string.outputAcc) + "\n" + PhysicsData.getAcc() + " [м/с^2]";
         outputSpeed.setText(string);
         outputAcc.setText(string2);
     }
@@ -306,6 +318,7 @@ public class L1Fragment extends Fragment {
         play.setImageResource(R.drawable.play_arrow);
         count += count % 2;
         gameView.restartClick(0);
+        getMessage();
     }
 
 

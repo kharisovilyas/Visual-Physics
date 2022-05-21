@@ -77,8 +77,12 @@ public class L2Fragment extends Fragment {
         FloatingActionButton startInput = binding.startInput;
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
+        getMessage();
         play.setOnClickListener(v -> {
-            if (count % 2 == 0) playClick();
+            if (count % 2 == 0) {
+                playClick();
+                outputData();
+            }
             else pauseClick();
             count++;
         });
@@ -97,6 +101,16 @@ public class L2Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
+    }
+
+    private void getMessage() {
+        addToolbarNav();
+        MaterialTextView outputMes = binding.outputSpeed;
+        MaterialTextView outputNull = binding.outputRad;
+        MaterialTextView outputNull2 = binding.outputFrequency;
+        outputMes.setText(R.string.outputMes);
+        outputNull.setText("");
+        outputNull2.setText("");
     }
 
     private void waitingForSV() {
@@ -119,9 +133,9 @@ public class L2Fragment extends Fragment {
         MaterialTextView outputSpeed = binding.outputSpeed;
         MaterialTextView outputAcc = binding.outputRad;
         MaterialTextView outputSpeedEnd = binding.outputFrequency;
-        String string = "Вы ввели значение скорости тела - " + PhysicsData.getSpeed() + "[м/с]";
-        String string2 = "Вы ввели значение ускорения тела - " + PhysicsData.getRadius() + "[м/с^2]";
-        String string3 = "Значение частоты вращения тела - " + MathPart.getFrequency() + "[c^-1]";
+        String string = getString(R.string.outputSpeed) + "\n" + PhysicsData.getSpeed() + " [м/с]";
+        String string2 = getString(R.string.outputAcc) + "\n" + PhysicsData.getRadius() + " [м/с^2]";
+        String string3 = getString(R.string.outputFrequency) + "\n" + MathPart.getFrequency() + " [c^-1]";
         outputSpeed.setText(string);
         outputAcc.setText(string2);
         outputSpeedEnd.setText(string3);
@@ -214,7 +228,7 @@ public class L2Fragment extends Fragment {
         play.setImageResource(R.drawable.play_arrow);
         count += count % 2;
         gameView.restartClick(0);
-
+        getMessage();
     }
 
     @Override

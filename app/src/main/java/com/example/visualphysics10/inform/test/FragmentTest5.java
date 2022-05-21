@@ -75,8 +75,8 @@ public class FragmentTest5 extends Fragment {
     private void setAnswer() {
         TextInputEditText answer = binding.answer;
         try {
-            right = RightAnswer.task1FromL1(Double.parseDouble(Objects.requireNonNull(answer.getText()).toString()));
-            right2 = RightAnswer.task2FromL1(Double.parseDouble(Objects.requireNonNull(answer.getText()).toString()));
+            right = RightAnswer.task1FromL5(Double.parseDouble(Objects.requireNonNull(answer.getText()).toString()));
+            right2 = RightAnswer.task2FromL5(Double.parseDouble(Objects.requireNonNull(answer.getText()).toString()));
             outputMark();
         } catch (Exception e) {
             e.printStackTrace();

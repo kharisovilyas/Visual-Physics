@@ -64,7 +64,7 @@
     <string name="input_angle">Введите значение в [°]</string>
     <string name="input_height">Введите значение в [м]</string>
     <string name="answer">Ответ</string>
-    <string name="answerHelper">Введите ответ в [c]</string>
+    <string name="answerHelper">Введите ответ и нажмите сохранить</string>
     <!-- -->
     <!-- String res for FragmentTest - task -->
     <!-- -->
@@ -145,14 +145,24 @@
     <string name="saveSettings">\Сохранить настройки\</string>
     <string name="repeat_education">\Нажмите для прохождения обучения\</string>
     <string name="aboutUs">\ VisualPhysics - это образовательная платформа, в которой пользователь может улучшить свое понимание физики при помощи визуализации или просмотра специально отобранных лекций, а также попрактиковаться в решении задач базового уровня сложности для отработки полученных навыков."\</string>
-    <string name="aboutCreated">\"Информация о создателях"\</string>
-    <string name="toEnd"> \"Поздравляем !"</string>
-    <string name="toEndDescription">\"Вы прошли основное обучение. Вы готовы изучать Физику вместе с нами! Чтобы получить больше возможностей: на главной странице нажмите на"\</string>
-    <string name="outputSpeed">\"Вы ввели значение скорости тела - \"</string>
-    <string name="outputSpeed1">\"Вы ввели значение скорости первого тела - \"</string>
-    <string name="outputSpeed2">\"Вы ввели значение скорости второго тела - \"</string>
-    <string name="outputAcc">\"Вы ввели значение ускорения тела - \"</string>
-    <string name="outputAngle">\"Вы ввели значение угла под которым бросили тело - \"</string>
-    <string name="outputHeight">\"Высота падения тела  - 500 м \"</string>
+    <string name="aboutCreated">Информация о создателях</string>
+    <string name="toEnd"> Поздравляем !</string>
+    <string name="toEndDescription">Вы прошли основное обучение. Вы готовы изучать Физику вместе с нами! Чтобы получить больше возможностей: на главной странице нажмите на</string>
+    <string name="outputSpeed">Вы ввели значение скорости тела - </string>
+    <string name="outputSpeed1">Вы ввели значение скорости первого тела - </string>
+    <string name="outputSpeed2">Вы ввели значение скорости второго тела - </string>
+    <string name="outputMass1">Вы ввели значение массы первого тела - </string>
+    <string name="outputMass2">Вы ввели значение массы второго тела - </string>
+    <string name="outputImp1">Значение импульса первого тела - </string>
+    <string name="outputImp2">Значение импульса второго тела - </string>
+    <string name="outputAcc">Вы ввели значение ускорения тела - </string>
+    <string name="outputAngle">Вы ввели значение угла под которым бросили тело - </string>
+    <string name="outputHeight">Высота падения тела - </string>
     <string name="about">О нас</string>
+    <string name="outputMes">Пожалуйста дождитесь завершения визуализации и вернитесь, чтобы посмотреть введенные данные!</string>
+    <string name="outputFrequency">Значение частоты вращения тела - </string>
+    <string name="outputForce">Вы ввели значение силы под действием которой тело движется - </string>
+    <string name="outputAcc2">Значение ускорения тела - </string>
+    <string name="outputTime">Время падения тела</string>
+    <string name="markForAns">РЕШЕНО ЗАДАЧ:</string>
 </resources>

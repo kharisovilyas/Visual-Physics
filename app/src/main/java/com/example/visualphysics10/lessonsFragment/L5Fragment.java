@@ -31,6 +31,7 @@ import com.example.visualphysics10.inform.input.FullScreenDialog5;
 import com.example.visualphysics10.inform.output.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest5;
 import com.example.visualphysics10.objects.PhysicsModel;
+import com.example.visualphysics10.physics.MathPart;
 import com.example.visualphysics10.physics.PhysicView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -71,8 +72,12 @@ public class L5Fragment extends Fragment {
         FloatingActionButton startInput = binding.startInput;
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
+        getMessage();
         play.setOnClickListener(v -> {
-            if (count % 2 == 0) playClick();
+            if (count % 2 == 0) {
+                playClick();
+                outputData();
+            }
             else pauseClick();
             count++;
         });
@@ -106,6 +111,22 @@ public class L5Fragment extends Fragment {
         }, 100);
     }
 
+    private void getMessage() {
+        addToolbarNav();
+        MaterialTextView outputMes = binding.outputSpeed;
+        MaterialTextView outputNull = binding.outputMass1;
+        MaterialTextView outputNull2 = binding.outputSpeed2;
+        MaterialTextView outputNull3 = binding.outputMass2;
+        MaterialTextView outputNull4 = binding.outputImpulse1;
+        MaterialTextView outputNull5 = binding.outputImpulse2;
+        outputMes.setText(R.string.outputMes);
+        outputNull.setText("");
+        outputNull2.setText("");
+        outputNull3.setText("");
+        outputNull4.setText("");
+        outputNull5.setText("");
+    }
+
     public void outputData() {
         drawerLayout = binding.drawerLayout;
         navigation = binding.navigationView;
@@ -116,14 +137,18 @@ public class L5Fragment extends Fragment {
         MaterialTextView outputMass2 = binding.outputMass2;
         MaterialTextView outputImpulse1 = binding.outputImpulse1;
         MaterialTextView outputImpulse2 = binding.outputImpulse2;
-        String string = getString(R.string.outputSpeed) + PhysicsData.getSpeed() + "[м/с]";
-        String string2 = getString(R.string.outputAcc) + PhysicsData.getAcc() + "[м/с^2]";
-        String string3 = getString(R.string.outputAngle) + PhysicsData.getAngle() + "[°]";
-        String string4 = getString(R.string.outputSpeed);
+        String string = getString(R.string.outputSpeed1) + "\n" + PhysicsData.getSpeed() + " [м/с]";
+        String s1 = getString(R.string.outputSpeed2) + "\n" + PhysicsData.getSpeed2() + " [м/с]";
+        String s2 = getString(R.string.outputMass1) + "\n" + PhysicsData.getMass1() + " [кг]";
+        String s3 = getString(R.string.outputMass2) + "\n" + PhysicsData.getMass2() + " [кг]";
+        String s4 = getString(R.string.outputImp1) + "\n" + MathPart.getImp1(PhysicsData.getSpeed(), PhysicsData.getMass1()) + " [кг * м/с]";
+        String s5 = getString(R.string.outputImp2) + "\n" + MathPart.getImp2(PhysicsData.getSpeed2(), PhysicsData.getMass2()) + " [кг * м/с]";
         outputSpeed.setText(string);
-        outputMass1.setText(string2);
-        outputSpeed2.setText(string3);
-        outputMass2.setText(string4);
+        outputSpeed2.setText(s1);
+        outputMass1.setText(s2);
+        outputMass2.setText(s3);
+        outputImpulse1.setText(s4);
+        outputImpulse2.setText(s5);
     }
 
     private void addToolbarNav() {
@@ -189,6 +214,7 @@ public class L5Fragment extends Fragment {
         count += count % 2;
         gameView.restartClick(0);
         gameView.restartClick(1);
+        getMessage();
     }
 
     @Override

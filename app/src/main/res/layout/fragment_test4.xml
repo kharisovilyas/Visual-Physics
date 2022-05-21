@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/materialTextView"
         app:layout_constraintVertical_bias="0.1"
         app:placeholderTextColor="@color/primary"
-        app:startIconDrawable="@drawable/speed_et"
+        app:startIconDrawable="@drawable/output"
         app:startIconTint="@color/icon_color">
 
         <com.google.android.material.textfield.TextInputEditText

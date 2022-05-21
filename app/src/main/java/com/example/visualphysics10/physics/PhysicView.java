@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -28,7 +27,6 @@ import java.util.LinkedList;
 public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
     private final LinkedList<PhysicsModel> sprites = new LinkedList<>();
     private Thread drawThread;
-    float time;
     private boolean drawOk;
 
     public PhysicView(Context context, AttributeSet attrs) {
@@ -40,26 +38,21 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
     public PhysicView(Context context) {
         this(context, null);
-        Log.d(" thooooo1", " " + PhysicsData.getY0());
     }
     //размер surfaceView
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        Log.d(" thooooo2", " " + PhysicsData.getY0());
         super.onSizeChanged(w, h, oldw, oldh);
         if (!PhysicsModel.L2start) {
             PhysicsData.setX0(w);
             PhysicsData.setY0(h);
         }
-        Log.d(" thooooo3", " " + PhysicsData.getY0());
     }
     //создание сущности модели
     public void addModelGV() {
-        Log.d(" ЗАПРЕЩЕНО ВЫЗЫВАТЬ 4 метод", " " + PhysicsData.getY0());
         synchronized (sprites) {
             sprites.add(new PhysicsModel(getContext(), 0, PhysicsData.getY0() - PhysicsModel.l - 5, 0, 0, 0));
         }
-
     }
     //создание сущности модели в четвертом уроке
     public void addModelGV4(){
@@ -82,8 +75,6 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
     //начало потока
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        //TODO: HERE Y ЕСТЬ
-        Log.d(" thooooo6", " " + PhysicsData.getY0());
         drawOk = true;
         drawThread = new MoveThread();
         drawThread.start();
@@ -169,6 +160,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
         stopThreadFlags();
     }
 
+
     private void stopThreadFlags() {
         L1Fragment.isMoving = false;
         L2Fragment.isMoving = false;
@@ -179,7 +171,7 @@ public class PhysicView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void restartClick(int index) {
         synchronized (sprites){
-            sprites.get(index).onRestartClick();
+            sprites.get(index).onRestartClick(index);
         }
         stopThreadFlags();
     }

@@ -50,7 +50,7 @@ public class TaskListFragment extends Fragment implements RecyclerViewAdapter.On
         toolbar.setNavigationIcon(R.drawable.arrow_back);
         toolbar.setTitle(R.string.test);
         toolbar.setNavigationOnClickListener(v -> {
-
+            getActivity().onBackPressed();
         });
     }
 

@@ -2,7 +2,38 @@ package com.example.visualphysics10.physics;
 
 public class MathPart {
     public static double frequency;
+    public static double imp1;
+    public static double imp2;
+    public static double time;
     public static int count1;
+    public static int count2;
+    public static int count3;
+    public static int count4;
+    public static int count5;
+
+    public static double getTime(double speed, double angle) {
+        return (2 * Math.sin((angle * 180) / Math.PI) * speed) / 10;
+    }
+
+    public static void setTime(double time) {
+        MathPart.time = time;
+    }
+
+    public static double getImp1(double speed, double mass) {
+        return speed * mass;
+    }
+
+    public static void setImp1(double imp1) {
+        MathPart.imp1 = imp1;
+    }
+
+    public static double getImp2(double speed, double mass) {
+        return speed * mass;
+    }
+
+    public static void setImp2(double imp2) {
+        MathPart.imp2 = imp2;
+    }
 
     public static int getCount2() {
         return count2;
@@ -36,10 +67,6 @@ public class MathPart {
         MathPart.count5 = count5;
     }
 
-    public static int count2;
-    public static int count3;
-    public static int count4;
-    public static int count5;
 
     public static int getCount1() {
         return count1;

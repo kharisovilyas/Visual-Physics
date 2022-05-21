@@ -1,5 +1,6 @@
 package com.example.visualphysics10.ui;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,16 @@ public class EndEducationDialog extends DialogFragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        assert dialog != null;
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setLayout(width, height);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.Base_Theme_AppCompat_Light_Dialog_Alert);
@@ -40,6 +51,9 @@ public class EndEducationDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         //methods initialize data depending on the lesson (fragment)
+        if(MainFlag.notLesson){
+            binding.text.setText("Вы решили все задачи по теме Ускорение !");
+        }
         addToolbar();
     }
 
@@ -49,6 +63,7 @@ public class EndEducationDialog extends DialogFragment {
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.drawable.close);
         toolbar.setNavigationOnClickListener(v -> {
+            if(MainFlag.notLesson) getActivity().onBackPressed();
             dismiss();
         });
     }

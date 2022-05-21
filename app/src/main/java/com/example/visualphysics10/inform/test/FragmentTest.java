@@ -1,5 +1,7 @@
 package com.example.visualphysics10.inform.test;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.visualphysics10.MainActivity;
@@ -16,7 +19,9 @@ import com.example.visualphysics10.net.AppForNet;
 import com.example.visualphysics10.net.InternetConnection;
 import com.example.visualphysics10.net.TestingList;
 import com.example.visualphysics10.net.Testings;
+import com.example.visualphysics10.ui.EndEducationDialog;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -56,18 +61,69 @@ public class FragmentTest extends Fragment {
         addToolbar();
         getDataFromNetwork(0);
         binding.saveAnswer.setOnClickListener(v -> {
+            binding.answer.setEnabled(false);
             setAnswer();
         });
         binding.toNext.setOnClickListener(v -> {
             if (right)
             {
+                binding.answer.setEnabled(false);
                 taskTextView.setText("");
                 binding.progressBar.setVisibility(View.VISIBLE);
                 getDataFromNetwork(1);
+                binding.answer.setEnabled(true);
+            }else if(right2){
+                createdEnd();
+            }
+            else{
+                createdNegative();
             }
             right = false;
-            binding.containerAnswer.setBackgroundResource(R.color.white);
         });
+    }
+
+    private void createdNullAnswer() {
+        Snackbar snackbar = Snackbar
+                .make(binding.containerAnswer, "Вы не дали ответа!", Snackbar.LENGTH_LONG)
+                .setAction("Повторить", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+        snackbar.setActionTextColor(Color.RED);
+        snackbar.show();
+    }
+
+    private void createdPositive() {
+        Snackbar snackbar = Snackbar
+                .make(binding.containerAnswer, "Поздравляем !", Snackbar.LENGTH_LONG)
+                .setAction("Ответ верный", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(right2) createdEnd();
+                    }
+                });
+        snackbar.setActionTextColor(Color.GREEN);
+        snackbar.show();
+    }
+
+    private void createdEnd() {
+        DialogFragment dialogFragment = EndEducationDialog.newInstance();
+        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "test is ok");
+    }
+
+    private void createdNegative() {
+        Snackbar snackbar = Snackbar
+                .make(binding.containerAnswer, "Ответ неверный !", Snackbar.LENGTH_LONG)
+                .setAction("Поробовать еще раз", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        binding.answer.setEnabled(true);
+                    }
+                });
+        snackbar.setActionTextColor(Color.RED);
+        snackbar.show();
     }
 
 
@@ -83,8 +139,18 @@ public class FragmentTest extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void outputMark() {
-        if (right || right2) binding.containerAnswer.setBackgroundResource(R.color.blue);
+        if (right) {
+            createdPositive();
+            binding.mark1.setVisibility(View.VISIBLE);
+        }else if (!binding.toNext.callOnClick()){
+            createdNegative();
+        }
+        if (right2) {
+            createdPositive();
+            binding.mark2.setVisibility(View.VISIBLE);
+        }
     }
 
 

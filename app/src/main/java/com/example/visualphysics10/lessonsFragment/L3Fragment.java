@@ -44,8 +44,6 @@ public class L3Fragment extends Fragment {
     public static boolean isMoving = false;
     private FloatingActionButton info;
     private FloatingActionButton play;
-    //AppDataBase db = AppRepository.getInstance().getDatabase();
-    LessonData lessonData = FullScreenDialog.getInstance();
     private L3FragmentBinding binding;
     private int count = 0;
     private LessonViewModel viewModel;
@@ -71,8 +69,12 @@ public class L3Fragment extends Fragment {
         FloatingActionButton startInput = binding.startInput;
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
+        getMessage();
         play.setOnClickListener(v -> {
-            if (count % 2 == 0) playClick();
+            if (count % 2 == 0) {
+                playClick();
+                outputData();
+            }
             else pauseClick();
             count++;
         });
@@ -91,6 +93,18 @@ public class L3Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
+    }
+
+    private void getMessage() {
+        addToolbarNav();
+        MaterialTextView outputMes = binding.outputSpeed;
+        MaterialTextView outputNull = binding.outputAcc;
+        MaterialTextView outputNull2 = binding.outputForce;
+        MaterialTextView outputNull3 = binding.outputMass;
+        outputMes.setText(R.string.outputMes);
+        outputNull.setText("");
+        outputNull2.setText("");
+        outputNull3.setText("");
     }
 
     private void waitingForSV() {
@@ -112,11 +126,11 @@ public class L3Fragment extends Fragment {
         MaterialTextView outputSpeed = binding.outputSpeed;
         MaterialTextView outputMass = binding.outputMass;
         MaterialTextView outputForce = binding.outputForce;
-        MaterialTextView outputAcc = binding.outputForce;
-        String string = "Вы ввели значение скорости тела - " + PhysicsData.getSpeed() + "[м/с]";
-        String string2 = "Вы ввели значение массы тела - " + PhysicsData.getMass1() + "[кг]";
-        String string3 = "Вы ввели значение силы под действием которой тело движется - " + PhysicsData.getForce() + "[Н]";
-        String string4 = "Значение ускорения тела - " + PhysicsData.getAcc() + "[м/с^2]";
+        MaterialTextView outputAcc = binding.outputAcc;
+        String string = getString(R.string.outputSpeed) + "\n" + PhysicsData.getSpeed() + " [м/с]";
+        String string2 = getString(R.string.outputAcc) + "\n" + PhysicsData.getMass1() + " [кг]";
+        String string3 = getString(R.string.outputForce) + "\n" + PhysicsData.getForce() + " [Н]";
+        String string4 = getString(R.string.outputAcc2) + "\n" + PhysicsData.getAcc() + " [м/с^2]";
         outputSpeed.setText(string);
         outputMass.setText(string2);
         outputForce.setText(string3);
@@ -135,6 +149,7 @@ public class L3Fragment extends Fragment {
     }
 
     private void playClick() {
+        play.setImageResource(R.drawable.pause_circle);
         info.setVisibility(View.VISIBLE);
         isMoving = true;
         viewModel = ViewModelProviders.of(requireActivity()).get(LessonViewModel.class);
@@ -142,10 +157,13 @@ public class L3Fragment extends Fragment {
             @Override
             public void onChanged(List<LessonData> lessonData) {
                 PhysicsData.setSpeed(lessonData.get(0).speed);
+                PhysicsData.setMass1(lessonData.get(0).mass1);
+                PhysicsData.setForce(lessonData.get(0).strength);
                 PhysicsData.setAcc(lessonData.get(0).strength / lessonData.get(0).mass1);
             }
         });
         gameView.updateMoving(PhysicsData.getSpeed(), 0, 0);
+
     }
 
     private void startTesting() {
@@ -176,6 +194,7 @@ public class L3Fragment extends Fragment {
         play.setImageResource(R.drawable.play_arrow);
         count += count % 2;
         gameView.restartClick(0);
+        getMessage();
     }
 
     @Override

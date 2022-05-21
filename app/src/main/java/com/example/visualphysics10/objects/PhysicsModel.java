@@ -8,62 +8,62 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
-
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.engine.PhysicsSprite;
 import com.example.visualphysics10.engine.Vector2;
 
-
+//TODO: класс сущности физ. моделек наследуется от PhysicsSprite где у нас описаны основные параметры моделек наследуемые от класса Sprites
+// в этом классе у нас так же описивается изменение координаты моделек (движение) и их взаимодействие
+// класс можно назвать Физическим Движком с нуля написанный нами
 public class PhysicsModel extends PhysicsSprite {
+    //координаты моделек
     double x;
-    public static boolean beginning = false;
     double y;
+    public static boolean beginning = false;
     public static boolean firstDraw = true;
     public static double x0;
     public static double y0;
+    //размеры моделек
     public static int l = 150;
     public static int h = 150;
     int index;
-    double mokV = 0;
-    double[] vectorXs = new double[2];
+    //переменные задающие движение
     double vectorX;
     double vectorY;
-    double ax;
-    double ay;
-    double vectorI;
-    double p;
-    double m;
     double vectorXR;
     double vectorYR;
     public static boolean L2start = false;
     public static boolean isTouchedNEP = false;
     public static boolean isL2Ended = false;
     public static boolean isTouchedI = false;
+    //флаги-слушатели для остановки моделек чтобы они не вылетали за пределы экрана (при ускорении {в потоке выполнятся})
     public static boolean onEarth = false;
     public static boolean onBoard = false;
-    public static boolean onStopClick2 = false;
-    public static boolean onStopClick = false;
-    public static boolean onRestartClick = false;
+    //флаги необходимые для корректной работы движка под разные уроки и разные модели
     public static boolean L1 = false;
     public static boolean L2 = false;
     public static boolean L3 = false;
     public static boolean L4 = false;
     public static boolean L5 = false;
+    //
+    //угол броска
     int angle = 0;
+    //число оборотов
     int n = 1;
-    final static double g = 9.8;
     double F;
+    //переменные необходимые для задания параметров моделек(цвет)
     private final Paint paint = new Paint();
     private final Paint paint2 = new Paint();
     private final Paint paint4 = new Paint();
     private final Paint paint3 = new Paint();
+    //звук в уроках
     public static MediaPlayer end;
     public static MediaPlayer collision;
     public static MediaPlayer rotation;
     public static MediaPlayer landing;
 
 
+    //конструктор вызваемый в addModelGV добавляет модельки в SurfaceView отображает их
     public PhysicsModel(Context context, double x, double y, double vectorX, double vectorY, int index) {
         super(context);
         paint.setStyle(Paint.Style.STROKE);
@@ -84,23 +84,12 @@ public class PhysicsModel extends PhysicsSprite {
         this.index = index;
     }
 
+    //работа со звуком
     public static void addSound(MediaPlayer end, MediaPlayer rotation, MediaPlayer landing, MediaPlayer collision) {
         PhysicsModel.end = end;
         PhysicsModel.rotation = rotation;
         PhysicsModel.landing = landing;
         PhysicsModel.collision = collision;
-    }
-
-    private DrawerArrowDrawable getResources() {
-        return null;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
     }
 
     @Override
@@ -136,6 +125,7 @@ public class PhysicsModel extends PhysicsSprite {
 
     @Override
     public void update(Canvas canvas) {
+        //задание цвета
         if (L1) {
             paint3.setColor(Color.argb(255, 255, 240, 0));
             paint.setColor(Color.argb(255, 255, 200, 0));
@@ -163,6 +153,7 @@ public class PhysicsModel extends PhysicsSprite {
             }
         }
         Rect rect = new Rect();
+        //задание движения и координат
         updateVector(vectorX, vectorY);
         if (L1 || L3 || L4) {
             x = x + vectorX;
@@ -200,7 +191,7 @@ public class PhysicsModel extends PhysicsSprite {
         vectorX = vX;
         vectorY = vY;
     }
-
+    //для 2 урока - движение по окружности
     public void updateAC(double radius, double angleV) {
         vectorXR = radius * Math.cos((Math.PI / 180) * angle);
         vectorYR = radius * Math.sin((Math.PI / 180) * angle);
@@ -224,6 +215,7 @@ public class PhysicsModel extends PhysicsSprite {
         angle += angleV;
     }
 
+    //проверка чтобы модельки не выходили за пределы экрана для 5 урока
     private void checkBoardForL5(int width, int height) {
         if ((x < 0 && vectorX - l < 0) || (x > width - l && vectorX > 0)) {
             onBoard = true;
@@ -236,7 +228,7 @@ public class PhysicsModel extends PhysicsSprite {
             vectorY = 0;
         }
     }
-
+    //проверка чтобы модельки не выходили за пределы экрана для остальных кроме 2ч
     private void checkBoard(int width, int height) {
         if ((x < 0 && vectorX - l < 0) || (x > width - l && vectorX > 0)) {
             onBoard = true;
@@ -259,6 +251,7 @@ public class PhysicsModel extends PhysicsSprite {
         }
     }
 
+    //логика прорисовки движения под углом к горизонту для 4 урока
     public void updateGravity(double vel, double ang) {
         vectorX = vel * Math.cos((Math.PI / 180) * ang);
         vectorY = -vel * Math.sin((Math.PI / 180) * ang);
@@ -268,6 +261,7 @@ public class PhysicsModel extends PhysicsSprite {
         return vectorX;
     }
 
+    //логика взаимодействия двух моделек при столкновении - имульс 5 урок
     public void updateEP(double m1, double m2, double vectorX1, double vectorX2) {
         if (isTouchedI) {
             isTouchedI = false;
@@ -281,6 +275,7 @@ public class PhysicsModel extends PhysicsSprite {
         }
     }
 
+    //логика работы ускорения тел в 1, 3 уроках
     public void updateA(double ax, double ay) {
         if (!L5) {
             if (onEarth) {
@@ -303,6 +298,7 @@ public class PhysicsModel extends PhysicsSprite {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
     }
 
+    //логика остановки визуализации
     public void onStopClick() {
         updateVector(0, 0);
         onBoard = false;
@@ -316,9 +312,14 @@ public class PhysicsModel extends PhysicsSprite {
         else updateA(0, 0);
     }
 
-    public void onRestartClick() {
+    //логика перезапуска визуализации
+    public void onRestartClick(int index) {
+        if(L5) {
+            isTouchedI = false;
+            isTouchedNEP = false;
+        }
         if(index == 0) x = 0;
-        else x = PhysicsData.getX0();
+        else x = PhysicsData.getX0() - h;
         if(L2) updateAC(PhysicsData.getRadius(), 0);
         else updateVector(0, 0);
         if (L4) y = (PhysicsData.getY0() - h) / 2;

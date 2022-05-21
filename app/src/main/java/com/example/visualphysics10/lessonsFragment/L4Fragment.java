@@ -30,6 +30,7 @@ import com.example.visualphysics10.inform.input.FullScreenDialog;
 import com.example.visualphysics10.inform.output.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest4;
 import com.example.visualphysics10.objects.PhysicsModel;
+import com.example.visualphysics10.physics.MathPart;
 import com.example.visualphysics10.physics.PhysicView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -71,8 +72,12 @@ public class L4Fragment extends Fragment {
         FloatingActionButton startInput = binding.startInput;
         FloatingActionButton startTest = binding.startTest;
         info = binding.info;
+        getMessage();
         play.setOnClickListener(v -> {
-            if (count % 2 == 0) playClick();
+            if (count % 2 == 0) {
+                playClick();
+                outputData();
+            }
             else pauseClick();
             count++;
         });
@@ -94,6 +99,18 @@ public class L4Fragment extends Fragment {
         });
     }
 
+    private void getMessage() {
+        addToolbarNav();
+        MaterialTextView outputMes = binding.outputSpeed;
+        MaterialTextView outputNull = binding.outputAcc;
+        MaterialTextView outputNull2 = binding.outputAngle;
+        MaterialTextView outputNull3 = binding.outputTime;
+        outputMes.setText(R.string.outputMes);
+        outputNull.setText("");
+        outputNull2.setText("");
+        outputNull3.setText("");
+    }
+
     private void waitingForSV() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -112,15 +129,18 @@ public class L4Fragment extends Fragment {
         MaterialTextView outputSpeed = binding.outputSpeed;
         MaterialTextView outputAcc = binding.outputAcc;
         MaterialTextView outputAngle = binding.outputAngle;
+        MaterialTextView outputHeight = binding.outputHeight;
         MaterialTextView outputTime = binding.outputTime;
-        String string = getString(R.string.outputSpeed) + PhysicsData.getSpeed() + "[м/с]";
-        String string2 = getString(R.string.outputAcc) + PhysicsData.getAcc() + "[м/с^2]";
-        String string3 = getString(R.string.outputAngle) + PhysicsData.getAngle() + "[°]";
-        String string4 = getString(R.string.outputHeight);
+        String string = getString(R.string.outputSpeed) + "\n" + PhysicsData.getSpeed() + " [м/с]";
+        String string2 = getString(R.string.outputAcc) + "\n" + PhysicsData.getAcc() + " [м/с^2]";
+        String string3 = getString(R.string.outputAngle) + "\n" + PhysicsData.getAngle() + " [°]";
+        String string4 = getString(R.string.outputHeight) + "\n" + PhysicsData.getY0() / 2  + " [м]";
+        String string5 = getString(R.string.outputTime) + "\n" +  MathPart.getTime(PhysicsData.getSpeed(), PhysicsData.getAngle()) + " [c]";
         outputSpeed.setText(string);
         outputAcc.setText(string2);
         outputAngle.setText(string3);
-        outputTime.setText(string4);
+        outputHeight.setText(string4);
+        outputTime.setText(string5);
     }
 
     private void addToolbarNav() {
@@ -181,6 +201,7 @@ public class L4Fragment extends Fragment {
         play.setImageResource(R.drawable.play_arrow);
         count += count % 2;
         gameView.restartClick(0);
+        getMessage();
     }
 
     @Override
