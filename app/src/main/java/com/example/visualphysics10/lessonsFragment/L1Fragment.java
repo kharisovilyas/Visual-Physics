@@ -210,7 +210,7 @@ public class L1Fragment extends Fragment {
             @Override
             public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
                 targetCount++;
-                if (targetCount == 5) {
+                if (targetCount == 4) {
                     createEndEducationDialog();
                     educationEnd();
                 }
