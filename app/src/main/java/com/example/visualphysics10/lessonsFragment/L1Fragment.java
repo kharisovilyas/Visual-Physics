@@ -190,6 +190,22 @@ public class L1Fragment extends Fragment {
                         .tintTarget(true)
                         .transparentTarget(true)
                         .targetRadius(100),
+                TapTarget.forView(binding.outputHere,
+                        "Нажмите на иконку или свапните", "Чтобы посмотреть введенные и найденные данные")
+                        .outerCircleColor(R.color.primary)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(24)
+                        .descriptionTextSize(18)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextColor(R.color.black)
+                        .textTypeface(Typeface.SANS_SERIF)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(100),
                 TapTarget.forView(binding.startTest,
                         "Нажмите и пройдите тест", "Чтобы закрепить усвоенный материал")
                         .outerCircleColor(R.color.primary)
@@ -214,7 +230,7 @@ public class L1Fragment extends Fragment {
             @Override
             public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
                 targetCount++;
-                if (targetCount == 4) {
+                if (targetCount == 5) {
                     createEndEducationDialog();
                     educationEnd();
                 }
