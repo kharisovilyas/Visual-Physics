@@ -1,6 +1,7 @@
 package com.example.visualphysics10.lessonsFragment;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -52,6 +53,7 @@ public class L4Fragment extends Fragment {
     private LessonViewModel viewModel;
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
+    private MediaPlayer landing;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class L4Fragment extends Fragment {
         gameView = binding.physicsView;
         count = 0;
         waitingForSV();
+        addMediaPlayer();
         play = binding.play;
         FloatingActionButton restart = binding.restart;
         FloatingActionButton startInput = binding.startInput;
@@ -97,6 +100,11 @@ public class L4Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
+    }
+
+    private void addMediaPlayer() {
+        landing = MediaPlayer.create(getContext(), R.raw.landling);
+        PhysicsModel.addSound4(landing);
     }
 
     private void getMessage() {

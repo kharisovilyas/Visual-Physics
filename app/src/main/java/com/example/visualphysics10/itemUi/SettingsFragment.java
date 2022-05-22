@@ -1,5 +1,6 @@
 package com.example.visualphysics10.itemUi;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,9 +30,9 @@ public class SettingsFragment extends Fragment {
     public static boolean isFABClicked = false;
     private LessonViewModel viewModel;
     public LessonData lessonDataList = new LessonData();
-    SharedPreferences education;
-    private String EDUCATION_PREFERENCES = "educationEnd";
-    private boolean educationEnd;
+    SharedPreferences noSound;
+    private final String SOUND_PREFERENCES = "educationEnd";
+    private boolean removeSound;
 
     public void setStr(String hint) {
         this.nameHint = hint;
@@ -52,6 +53,7 @@ public class SettingsFragment extends Fragment {
             changeProfile();
         });
         addToolbar();
+        addPreferences();
         //add to SharedPreferences settings of sound
         binding.switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
@@ -59,6 +61,13 @@ public class SettingsFragment extends Fragment {
         binding.startAboutUs.setOnClickListener(v->{
             startAboutUs();
         });
+    }
+
+    private void addPreferences() {
+        noSound = getContext().getSharedPreferences(SOUND_PREFERENCES, Context.MODE_PRIVATE);
+        if (noSound.contains(SOUND_PREFERENCES)) {
+            removeSound = noSound.getBoolean(SOUND_PREFERENCES, false);
+        }
     }
 
 

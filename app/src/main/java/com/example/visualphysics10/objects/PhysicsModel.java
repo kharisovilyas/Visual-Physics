@@ -85,10 +85,19 @@ public class PhysicsModel extends PhysicsSprite {
     }
 
     //работа со звуком
-    public static void addSound(MediaPlayer end, MediaPlayer rotation, MediaPlayer landing, MediaPlayer collision) {
+    public static void addSound1(MediaPlayer end) {
         PhysicsModel.end = end;
+    }
+
+    public static void addSound2(MediaPlayer rotation) {
         PhysicsModel.rotation = rotation;
+    }
+
+    public static void addSound4(MediaPlayer landing) {
         PhysicsModel.landing = landing;
+    }
+
+    public static void addSound5(MediaPlayer collision) {
         PhysicsModel.collision = collision;
     }
 
@@ -220,8 +229,6 @@ public class PhysicsModel extends PhysicsSprite {
         if ((x < 0 && vectorX - l < 0) || (x > width - l && vectorX > 0)) {
             onBoard = true;
             vectorX = 0;
-            if (x < 0 && vectorX - l < 0)
-                end.start();
         }
         if (y < 0 && vectorY - h < 0 || (y > height - h && vectorY > 0)) {
             onEarth = true;
@@ -234,7 +241,7 @@ public class PhysicsModel extends PhysicsSprite {
             onBoard = true;
             PhysicsData.setSpeedEnd(vectorX);
             if (x > width - l && vectorX > 0)
-                end.start();
+                if(!L4) end.start();
             x = PhysicsData.getX0() - h;
             vectorX = 0;
             vectorY = 0;
@@ -304,12 +311,18 @@ public class PhysicsModel extends PhysicsSprite {
         onBoard = false;
         PhysicsData.setSpeedEnd(vectorX);
         onEarth = false;
-        end.stop();
-        landing.stop();
-        rotation.stop();
-        collision.stop();
-        if(L2) updateAC(PhysicsData.getRadius(), 0);
-        else updateA(0, 0);
+        stopSound();
+    }
+    //остановка звука в каждом отдельном уроке (фрагменте)
+    private void stopSound() {
+        if(L1 || L3) end.stop();
+        if(L4) landing.stop();
+        if(L2 && !rotation.isPlaying()) {
+            rotation.stop();
+        }
+        if(L5) collision.stop();
+        if(L2 && !rotation.isPlaying()) updateAC(PhysicsData.getRadius(), 0);
+        else if(!L2) updateA(0, 0);
     }
 
     //логика перезапуска визуализации

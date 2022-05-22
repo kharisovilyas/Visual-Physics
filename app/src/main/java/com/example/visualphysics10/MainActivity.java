@@ -1,7 +1,6 @@
 package com.example.visualphysics10;
 
 import android.content.DialogInterface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -11,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.visualphysics10.adapter.ItemFragment;
 import com.example.visualphysics10.databinding.ActivityMainBinding;
-import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.ui.MainFlag;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -21,10 +19,6 @@ public class MainActivity extends AppCompatActivity{
     ItemFragment itemFragment = new ItemFragment();
     private ActivityMainBinding binding;
     private int count;
-    private MediaPlayer collision;
-    private MediaPlayer end;
-    private MediaPlayer landing;
-    private MediaPlayer rotation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +28,6 @@ public class MainActivity extends AppCompatActivity{
         if (itemFragment != null) {
             fragmentTransaction.add(R.id.container, itemFragment).commit();
         }
-        addMediaPlayer();
-    }
-
-    private void addMediaPlayer() {
-        end = MediaPlayer.create(this, R.raw.end);
-        rotation = MediaPlayer.create(this, R.raw.rotation);
-        landing = MediaPlayer.create(this, R.raw.end);
-        collision = MediaPlayer.create(this, R.raw.end);
-        PhysicsModel.addSound(end, rotation, landing, collision);
     }
 
     //redefine the method...

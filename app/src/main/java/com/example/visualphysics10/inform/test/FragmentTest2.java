@@ -1,5 +1,7 @@
 package com.example.visualphysics10.inform.test;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,8 @@ import com.example.visualphysics10.net.InternetConnection;
 import com.example.visualphysics10.net.TestingList;
 import com.example.visualphysics10.net.Testings;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -56,17 +60,64 @@ public class FragmentTest2 extends Fragment {
         addToolbar();
         getDataFromNetwork(0);
         binding.saveAnswer.setOnClickListener(v -> {
+            binding.answer.setEnabled(false);
             setAnswer();
         });
         binding.toNext.setOnClickListener(v -> {
-            if (right) {
+            if (right)
+            {
+                binding.answer.setEnabled(false);
                 taskTextView.setText("");
                 binding.progressBar.setVisibility(View.VISIBLE);
                 getDataFromNetwork(1);
+                binding.answer.setEnabled(true);
+            }else if(right2){
+                createdEnd();
+            }
+            else{
+                createdNegative();
             }
             right = false;
-            binding.containerAnswer.setBackgroundResource(R.color.white);
         });
+    }
+
+    private void createdPositive() {
+        Snackbar snackbar = Snackbar
+                .make(binding.containerAnswer, "Поздравляем !", Snackbar.LENGTH_LONG)
+                .setAction("Ответ верный", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(right2) createdEnd();
+                    }
+                });
+        snackbar.setActionTextColor(Color.GREEN);
+        snackbar.show();
+    }
+
+    private void createdEnd() {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Вы решили все задачи!")
+                .setCancelable(false)
+                .setPositiveButton("Выйти ", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        getActivity().onBackPressed();
+                    }
+                })
+                .show();
+    }
+
+    private void createdNegative() {
+        Snackbar snackbar = Snackbar
+                .make(binding.containerAnswer, "Ответ неверный !", Snackbar.LENGTH_LONG)
+                .setAction("Поробовать еще раз", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        binding.answer.setEnabled(true);
+                    }
+                });
+        snackbar.setActionTextColor(Color.RED);
+        snackbar.show();
     }
 
 
@@ -83,7 +134,16 @@ public class FragmentTest2 extends Fragment {
     }
 
     private void outputMark() {
-        if (right || right2) binding.containerAnswer.setBackgroundResource(R.color.blue);
+        if (right) {
+            createdPositive();
+            binding.mark1.setVisibility(View.VISIBLE);
+        }else if (!binding.toNext.callOnClick()){
+            createdNegative();
+        }
+        if (right2) {
+            createdPositive();
+            binding.mark2.setVisibility(View.VISIBLE);
+        }
     }
 
 

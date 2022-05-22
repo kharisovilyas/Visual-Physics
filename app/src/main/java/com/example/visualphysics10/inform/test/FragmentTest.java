@@ -1,6 +1,6 @@
 package com.example.visualphysics10.inform.test;
 
-import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.visualphysics10.MainActivity;
@@ -19,8 +18,8 @@ import com.example.visualphysics10.net.AppForNet;
 import com.example.visualphysics10.net.InternetConnection;
 import com.example.visualphysics10.net.TestingList;
 import com.example.visualphysics10.net.Testings;
-import com.example.visualphysics10.ui.EndEducationDialog;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
@@ -82,18 +81,6 @@ public class FragmentTest extends Fragment {
         });
     }
 
-    private void createdNullAnswer() {
-        Snackbar snackbar = Snackbar
-                .make(binding.containerAnswer, "Вы не дали ответа!", Snackbar.LENGTH_LONG)
-                .setAction("Повторить", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
-        snackbar.setActionTextColor(Color.RED);
-        snackbar.show();
-    }
 
     private void createdPositive() {
         Snackbar snackbar = Snackbar
@@ -109,8 +96,16 @@ public class FragmentTest extends Fragment {
     }
 
     private void createdEnd() {
-        DialogFragment dialogFragment = EndEducationDialog.newInstance();
-        dialogFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "test is ok");
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Вы решили все задачи!")
+                .setCancelable(false)
+                .setPositiveButton("Выйти ", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        getActivity().onBackPressed();
+                    }
+                })
+                .show();
     }
 
     private void createdNegative() {
@@ -139,7 +134,6 @@ public class FragmentTest extends Fragment {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private void outputMark() {
         if (right) {
             createdPositive();

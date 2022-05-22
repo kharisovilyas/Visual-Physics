@@ -1,6 +1,7 @@
 package com.example.visualphysics10.lessonsFragment;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ public class L2Fragment extends Fragment {
     private LessonViewModel viewModel;
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
+    private MediaPlayer rotation;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +74,8 @@ public class L2Fragment extends Fragment {
         PhysicsModel.firstDraw = true;
         MainFlag.setThreadStop(false);
         waitingForSV();
+        //sound
+        addMediaPlayer();
         play = binding.play;
         FloatingActionButton restart = binding.restart;
         FloatingActionButton startInput = binding.startInput;
@@ -101,6 +105,12 @@ public class L2Fragment extends Fragment {
             gameView.stopThread();
             createdFullScreenInfo();
         });
+    }
+
+    //подумать ... звук противный но он не играет после того как нажали стоп и потом старт
+    private void addMediaPlayer() {
+        rotation = MediaPlayer.create(getContext(), R.raw.rotation);
+        PhysicsModel.addSound2(rotation);
     }
 
     private void getMessage() {

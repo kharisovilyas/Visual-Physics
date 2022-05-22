@@ -95,12 +95,22 @@
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <FrameLayout
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/typeImpulse"
+            android:textSize="18sp"
             android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/toolbar_color"/>
+            android:layout_height="wrap_content"
+            android:text="@string/selectFlag"
+            android:textOn="@string/noElastic"
+            app:thumbTextPadding="10dp"
+            android:textColor="@color/black"
+            app:showText="true"
+            android:buttonTint="@color/black"
+            android:textOff="@string/elastic"
+            android:layout_gravity="center"
+            android:gravity="center"
+            app:thumbTint="@color/primary"
+            app:trackTint="#245D8A" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
@@ -108,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
-            android:hint="Скорость второго тела"
+            android:hint="@string/speed2in"
             android:padding="6dp"
             android:textColorHint="@color/primary"
             app:boxStrokeColor="@color/primary"
@@ -139,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
-            android:hint="Масса второго тела"
+            android:hint="@string/mass2in"
             android:padding="6dp"
             android:textColorHint="@color/primary"
             app:boxStrokeColor="@color/primary"
@@ -164,22 +174,6 @@
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/typeImpulse"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/selectFlag"
-            android:textOn="@string/noElastic"
-            android:textColor="@color/black"
-            app:showText="true"
-            android:buttonTint="@color/black"
-            android:textOff="@string/elastic"
-            android:layout_gravity="center"
-            android:gravity="center"
-            app:thumbTint="@color/primary"
-            app:trackTint="#245D8A" />
     </LinearLayout>
 
 

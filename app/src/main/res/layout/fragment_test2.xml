@@ -29,9 +29,44 @@
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar">
+        app:layout_constraintTop_toBottomOf="@+id/appbar"/>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        <com.google.android.material.textview.MaterialTextView
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+            android:text="@string/markForAns"
+            android:textSize="18sp"
+            android:id="@+id/textTest"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:minLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    </ProgressBar>
+        <ImageView
+            android:id="@+id/mark1"
+            android:visibility="gone"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/check_24" />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/mark2"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/check_24" />
+    </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView"

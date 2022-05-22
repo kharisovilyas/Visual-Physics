@@ -20,7 +20,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public List<PlaceholderContent.PlaceHolderItem> mValues;
     public List<PlaceHolderContent2.PlaceHolderItem2> valForTask;
-    private boolean mainList;
+    public boolean mainList;
     private final OnLessonListener onLessonListener;
     View view;
 
@@ -42,7 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from
-                                (parent.getContext()), parent, false), onLessonListener);
+                                (parent.getContext()), parent, false), onLessonListener, mainList);
 
     }
 
@@ -79,12 +79,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public int position;
         OnLessonListener onLessonListener;
         public final ImageView imageView;
+        public boolean mainList;
 
         //fields initialization
-        public ViewHolder(FragmentItemBinding binding, OnLessonListener onLessonListener) {
+        public ViewHolder(FragmentItemBinding binding, OnLessonListener onLessonListener, boolean mainList) {
             super(binding.getRoot());
             mIdView = binding.title;
             this.onLessonListener = onLessonListener;
+            this.mainList = mainList;
             imageView = binding.imageOfLessons;
             itemView.setOnClickListener(this);
         }
@@ -94,7 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View v) {
             position = getLayoutPosition();
             onLessonListener.onLessonClick(getLayoutPosition());
-            MainFlag.setPosition(getLayoutPosition());
+            if(mainList) MainFlag.setPosition(getLayoutPosition());
         }
     }
 

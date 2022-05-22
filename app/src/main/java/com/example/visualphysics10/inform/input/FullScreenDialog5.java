@@ -35,6 +35,7 @@ public class FullScreenDialog5 extends DialogFragment {
     private SwitchMaterial typeImpulse;
     public static LessonData lessonDataList = new LessonData();
     private LessonViewModel viewModel;
+    private boolean type = false;
 
 
     public static FullScreenDialog5 newInstance() {
@@ -79,6 +80,9 @@ public class FullScreenDialog5 extends DialogFragment {
         input_speed2 = binding.inputSpeed2;
         input_mass2 = binding.inputMass2;
         typeImpulse = binding.typeImpulse;
+        typeImpulse.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            type = isChecked;
+        });
         FloatingActionButton saveInput = binding.save;
         saveInput.setOnClickListener(v -> {
             try {
@@ -111,9 +115,7 @@ public class FullScreenDialog5 extends DialogFragment {
         lessonDataList.mass1 = toDouble(input_mass1);
         lessonDataList.speed2 = toDouble(input_speed2);
         lessonDataList.mass2 = toDouble(input_mass2);
-        typeImpulse.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            lessonDataList.elasticImpulse = isChecked;
-        });
+        lessonDataList.elasticImpulse = !type;
     }
 
     private double toDouble(TextInputEditText input) {

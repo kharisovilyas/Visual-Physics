@@ -1,5 +1,6 @@
 package com.example.visualphysics10.itemUi;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,6 +45,7 @@ public class TaskListFragment extends Fragment implements RecyclerViewAdapter.On
         addToolbar();
     }
 
+    @SuppressLint("ResourceAsColor")
     private void addToolbar() {
         Toolbar toolbar = binding.toolbar;
         ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);

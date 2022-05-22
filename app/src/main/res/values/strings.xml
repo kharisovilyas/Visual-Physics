@@ -140,7 +140,7 @@
         однако сумма проекций импульсов на горизонтальное направление может оставаться неизменной (при отсутствии трения), т. к. в этом направлении сила тяжести не действует.
     </string>
     <string name="elastic">\Упругое\</string>
-    <string name="noElastic">\Неупругое\</string>
+    <string name="noElastic"> Неупругое  </string>
     <string name="selectFlag">\Тип соударения\</string>
     <string name="saveSettings">\Сохранить настройки\</string>
     <string name="repeat_education">\Нажмите для прохождения обучения\</string>
@@ -165,4 +165,6 @@
     <string name="outputAcc2">Значение ускорения тела - </string>
     <string name="outputTime">Время падения тела</string>
     <string name="markForAns">РЕШЕНО ЗАДАЧ:</string>
+    <string name="speed2in">Скорость второго тела</string>
+    <string name="mass2in">Масса второго тела</string>
 </resources>

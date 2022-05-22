@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -64,6 +65,7 @@ public class L1Fragment extends Fragment {
     private String EDUCATION_PREFERENCES = "educationEnd";
     private boolean educationEnd;
     private int targetCount = 0;
+    private MediaPlayer end;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +83,8 @@ public class L1Fragment extends Fragment {
         MainFlag.setThreadStop(false);
         // in this method we wait for SurfaceView until she gets her size. And let's start!
         waitingForSV();
+        //sound
+        addMediaPlayer();
         //
         play = binding.play;
         FloatingActionButton restart = binding.restart;
@@ -125,6 +129,11 @@ public class L1Fragment extends Fragment {
         if (!educationEnd) {
             startEducation();
         }
+    }
+
+    private void addMediaPlayer() {
+        end = MediaPlayer.create(getContext(), R.raw.end);
+        PhysicsModel.addSound1(end);
     }
 
     private void waitingForSV() {

@@ -2,6 +2,7 @@ package com.example.visualphysics10.lessonsFragment;
 
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -51,6 +52,8 @@ public class L5Fragment extends Fragment {
     private LessonViewModel viewModel;
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
+    private MediaPlayer collision;
+    private MediaPlayer end;
 
 
     @Override
@@ -65,6 +68,7 @@ public class L5Fragment extends Fragment {
         PhysicsModel.L5 = true;
         gameView = binding.physicsView;
         waitingForSV();
+        addMediaPlayer();
         addToolbar();
         count = 0;
         play = binding.play;
@@ -82,6 +86,7 @@ public class L5Fragment extends Fragment {
             count++;
         });
         restart.setOnClickListener(v -> {
+            addMediaPlayer();
             createDialog();
         });
         startInput.setOnClickListener(v -> {
@@ -109,6 +114,12 @@ public class L5Fragment extends Fragment {
             }
             //minimal latency for users
         }, 100);
+    }
+
+    private void addMediaPlayer() {
+        //подумать ...
+        collision = MediaPlayer.create(getContext(), R.raw.collision);
+        PhysicsModel.addSound5(collision);
     }
 
     private void getMessage() {
