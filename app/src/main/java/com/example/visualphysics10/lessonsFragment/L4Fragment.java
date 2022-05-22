@@ -28,7 +28,7 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L4FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.youtube.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest4;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.MathPart;
@@ -46,8 +46,6 @@ public class L4Fragment extends Fragment {
     public static boolean isMoving = false;
     private FloatingActionButton info;
     private FloatingActionButton play;
-    //AppDataBase db = AppRepository.getInstance().getDatabase();
-    LessonData lessonData = FullScreenDialog.getInstance();
     private int count = 0;
     private L4FragmentBinding binding;
     private LessonViewModel viewModel;
@@ -112,11 +110,13 @@ public class L4Fragment extends Fragment {
         MaterialTextView outputMes = binding.outputSpeed;
         MaterialTextView outputNull = binding.outputAcc;
         MaterialTextView outputNull2 = binding.outputAngle;
+        MaterialTextView outputNull4 = binding.outputHeight;
         MaterialTextView outputNull3 = binding.outputTime;
         outputMes.setText(R.string.outputMes);
         outputNull.setText("");
         outputNull2.setText("");
         outputNull3.setText("");
+        outputNull4.setText("");
     }
 
     private void waitingForSV() {

@@ -1,4 +1,4 @@
-package com.example.visualphysics10.inform.output;
+package com.example.visualphysics10.inform.youtube;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

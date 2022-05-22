@@ -93,26 +93,6 @@
         </LinearLayout>
 
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchSound"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:checked="true"
-            android:drawableStart="@drawable/sound"
-            android:drawableTint="@color/primary"
-            android:gravity="center"
-            android:padding="18dp"
-            android:text="Отключить звук"
-            android:textColor="@color/primary"
-            android:textOff="ОТКЛ"
-            android:textOn="ВКЛ"
-            android:textSize="24sp"
-            app:showText="true"
-            app:thumbTint="@color/primary"
-            app:trackTint="#245D8A" />
-
-
         <Button
             android:id="@+id/startAboutUs"
             android:layout_width="match_parent"

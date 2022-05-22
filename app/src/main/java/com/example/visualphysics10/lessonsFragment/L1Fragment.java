@@ -32,7 +32,7 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L1FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog;
-import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.youtube.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.PhysicView;
@@ -62,7 +62,7 @@ public class L1Fragment extends Fragment {
     private LessonViewModel viewModel;
     private int count = 0;
     SharedPreferences education;
-    private String EDUCATION_PREFERENCES = "educationEnd";
+    private final String EDUCATION_PREFERENCES = "educationEnd";
     private boolean educationEnd;
     private int targetCount = 0;
     private MediaPlayer end;

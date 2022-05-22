@@ -29,7 +29,7 @@ import com.example.visualphysics10.database.LessonViewModel;
 import com.example.visualphysics10.database.PhysicsData;
 import com.example.visualphysics10.databinding.L5FragmentBinding;
 import com.example.visualphysics10.inform.input.FullScreenDialog5;
-import com.example.visualphysics10.inform.output.FragmentInfo;
+import com.example.visualphysics10.inform.youtube.FragmentInfo;
 import com.example.visualphysics10.inform.test.FragmentTest5;
 import com.example.visualphysics10.objects.PhysicsModel;
 import com.example.visualphysics10.physics.MathPart;
@@ -53,7 +53,6 @@ public class L5Fragment extends Fragment {
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
     private MediaPlayer collision;
-    private MediaPlayer end;
 
 
     @Override

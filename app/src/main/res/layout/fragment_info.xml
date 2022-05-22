@@ -32,13 +32,15 @@
 
 
     <com.google.android.material.textview.MaterialTextView
+        android:scrollbars = "vertical"
         android:id="@+id/info"
         android:isScrollContainer="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="10sp"
         android:padding="22dp"
-        android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+        android:layout_margin="8dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
